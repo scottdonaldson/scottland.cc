@@ -1,0 +1,21 @@
+<%- partial('_partial/head') %>
+<body>
+
+
+    <%- partial('_partial/header', null, {cache: true}) %>
+    <div class="outer">
+    <section id="main"><%- body %></section>
+    <% if (theme.sidebar && theme.sidebar !== 'bottom'){ %>
+    <%- partial('_partial/sidebar', null, {cache: true}) %>
+    <% } %>
+    </div>
+    <%- partial('_partial/footer', null, {cache: true}) %>
+
+    <%- partial('_partial/mobile-nav', null, {cache: true}) %>
+    <%- partial('_partial/after-footer') %>
+
+
+    <%- js('js/snap-0.3.0.min.js') %>
+    <%- js('js/script.js') %>
+</body>
+</html>

@@ -1,0 +1,30 @@
+$default: #333;
+
+$neutral_light: #f2f2f2;
+.neutral-light { color: $neutral_light; }
+.bg-neutral-light { background-color: $neutral_light; }
+
+$neutral_lightish: #aaa;
+.neutral-lightish { color: $neutral_lightish; }
+.bg-neutral-lightish { background-color: $neutral_lightish; }
+
+$neutral_medium: #999;
+.neutral-medium { color: $neutral_medium; }
+.bg-neutral-medium { background-color: $neutral_medium; }
+
+$neutral_mediumdark: #666;
+.neutral-mediumdark { color: $neutral_mediumdark; }
+.bg-neutral-mediumdark { background-color: $neutral_mediumdark; }
+
+$neutral_dark: #0F2446;
+.neutral-dark { color: $neutral_dark; }
+.bg-neutral-dark { background-color: $neutral_dark; }
+
+$accent: #0045ad;
+$accent_highlight: #00aff3;
+
+$secondary: #fd0;
+$secondary_highlight: #fec119;
+
+.white { color: #fff; }
+.bg-white { background: #fff; }

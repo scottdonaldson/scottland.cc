@@ -1,0 +1,16 @@
+{
+  "name": "hexo-site",
+  "version": "2.7.1",
+  "private": true,
+  "dependencies": {
+    "hexo-renderer-ejs": "*",
+    "hexo-renderer-stylus": "*",
+    "hexo-renderer-marked": "*",
+    "hexo-deployer-s3": "0.0.2",
+    "grunt": "^0.4.5",
+    "grunt-shell": "^0.7.0",
+    "grunt-s3": "^0.2.0-alpha.3",
+    "hexo-renderer-sass": "0.0.3",
+    "hexo-generator-minify": "^0.1.0"
+  }
+}
