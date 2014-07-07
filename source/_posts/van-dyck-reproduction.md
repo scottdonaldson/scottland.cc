@@ -1,4 +1,4 @@
-title: Painting Final Project
+title: Van Dyck Reproduction
 date: 2008/11/24
 categories:
 - Art
