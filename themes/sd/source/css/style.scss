@@ -4,3 +4,33 @@
 @import "type";
 @import "fonts";
 @import "layout";
+
+// ----- Home page
+
+#avatar {
+	background-image: url(/images/Scott-Donaldson-400x400.jpg);
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: 240px 240px;
+	border-radius: 120px;
+	height: 240px;
+	left: 50%;
+	overflow: hidden;
+	position: absolute;
+	top: 50%;
+	transition: 0.2s ease-in-out;
+	transform: translateX(-50%) translateY(-50%);
+		-ms-transform: translateX(-50%) translateY(-50%);
+		-webkit-transform: translateX(-50%) translateY(-50%);
+	width: 240px;
+	z-index: 1;
+
+	&:active, &:hover {
+		background-size: 260px 260px;
+	}
+}
+
+.panel {
+	background: #aaa;
+	height: 400px;
+}

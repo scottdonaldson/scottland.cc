@@ -1,21 +1,29 @@
 <%- partial('_partial/head') %>
 <body>
-
+	<%
+	// home: make html, body 100% height
+	if ( path === '' ) { %>
+		<script>
+		document.documentElement.style.height = '100%';
+		document.body.style.height = '100%';
+		</script>
+	<% } %>
 
     <%- partial('_partial/header', null, {cache: true}) %>
+    
     <div class="outer">
-    <section id="main"><%- body %></section>
-    <% if (theme.sidebar && theme.sidebar !== 'bottom'){ %>
-    <%- partial('_partial/sidebar', null, {cache: true}) %>
-    <% } %>
+        
+        <section id="main">
+
+            <%- body %>
+
+        </section>
+
     </div>
+
     <%- partial('_partial/footer', null, {cache: true}) %>
 
-    <%- partial('_partial/mobile-nav', null, {cache: true}) %>
     <%- partial('_partial/after-footer') %>
 
-
-    <%- js('js/snap-0.3.0.min.js') %>
-    <%- js('js/script.js') %>
 </body>
 </html>
