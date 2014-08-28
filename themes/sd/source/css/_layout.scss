@@ -1,3 +1,11 @@
+/*
+ * 	Notes:
+ *	- calc(100%( )-( )40px) is because minification tries to strip out
+ *	  the necessary whitespace in the calc() function
+ *
+ *
+ */
+
 // ----- Breakpoints for responsive styles
 $break_large: 1200px;
 $break_medium: 1000px;
@@ -36,13 +44,13 @@ $full_width: 1060px;
 .row {
 	@include clearfix;
 	@include normalize;
-	margin-bottom: 2em;
+	margin-bottom: 20px;
 	
 	@media screen and (max-width: $break_medium) {
-		margin-bottom: 1.5em;
+		margin-bottom: 15px;
 	}
 	@media screen and (max-width: $break_small) {
-		margin-bottom: 1em;
+		margin-bottom: 10px;
 	}
 }
 
@@ -112,7 +120,7 @@ $full_width: 1060px;
 .half {
 	width: 47.5%;
 	.csscalc & {
-		width: calc(50% - 10px);
+		width: calc(50%( )-( )10px);
 	}
 
 	@media screen and (max-width: $break_small) {
@@ -127,13 +135,13 @@ $full_width: 1060px;
 .third {
 	width: 30%;
 	.csscalc & {
-		width: calc(33.333% - 13.333px);
+		width: calc(33.333%( )-( )13.333px);
 	}
 
 	&.two-thirds {
 		width: 65%;
 		.csscalc & {
-			width: calc(66.667% - 6.667px);
+			width: calc(66.667%( )-( )6.667px);
 		}
 	}
 
@@ -151,13 +159,13 @@ $full_width: 1060px;
 .fourth {
 	width: 21.25%;
 	.csscalc & {
-		width: calc(25% - 15px);
+		width: calc(25%( )-( )15px);
 	}
 
 	&.three-fourths {
 		width: 65%;
 		.csscalc & {
-			width: calc(75% - 5px);
+			width: calc(75%( )-( )5px);
 		}
 	}
 
@@ -170,4 +178,22 @@ $full_width: 1060px;
 			width: 100%;
 		}
 	}
+}
+
+.tight {
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+.sticky {
+	position: fixed;
+
+	&.sticky-top { top: 0; }
+	&.sticky-bottom { bottom: 0; }
+	&.sticky-left { left: 0; }
+	&.sticky-right { right: 0; }
+}
+
+.w100 {
+	width: 100% !important;
 }

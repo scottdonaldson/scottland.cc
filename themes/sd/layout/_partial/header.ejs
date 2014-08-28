@@ -1,5 +1,38 @@
-<% 
-// home page only
-if ( path === '' ) { %>
-	<a href="/about/" id="avatar"></a>
-<% } %>
+<nav class="offcanvas-nav">
+	<ul>
+	<% 
+	nav = {
+		'': {
+			'rel': 'home',
+			'text': 'Main'
+		},
+		'about': {
+			'text': 'About'
+		},
+		'visual': {
+			'text': 'Visual'
+		},
+		'code': {
+			'text': 'Code'
+		},
+		'blog': {
+			'text': 'Blog'
+		},
+		'misc': {
+			'text': 'Misc'
+		}
+	}
+	for ( slug in nav ) { 
+		linkRel = nav[slug]['rel'] ? nav[slug]['rel'] : ''
+		if ( path === '' ) {
+			linkClass = slug === '' ? 'active' : ''
+		} else {
+			linkClass = path === slug + '/index.html' ? 'active' : ''
+		}
+		%>
+		<li>
+			<a href="/<%= slug %>" rel="<%= linkRel %>" class="<%= linkClass %>"><%= nav[slug]['text'] %></a>
+		</li>
+	<% } %>
+	</ul>
+</nav>

@@ -1,65 +1,63 @@
 (function() {
 
-	var winWidth = window.outerWidth,
-		bannerHeight = 50,
-		banner;
+	var win = $(window),
+		body = $('body');
 
-	var colors = ['#234', '#245', '#356'];
+	// Lazy loading for large background images
+	var backgrounds = $('[data-background]');
+	backgrounds.each(function(){
+		var $this = $(this),
+			background = $this.attr('data-background');
 
-	var prevA = 0,
-		prevB = 0,
-		a, b;
+		$('<img>').attr('src', background).load(function(){
+			$this.css({ 'background-image': 'url(' + background + ')' });
+		});
+	});
 
-	var i = 0;
-
-	a = randomize();
-	b = randomize();
-
-	function randomize() {
-		return Math.ceil(Math.random() * 30) + 8;
+	// Elements that are not links but have data-go-to attrs should act like links
+	function goTo() {
+		location.assign(this.getAttribute('data-go-to'));
 	}
+	$('[data-go-to]').click(goTo);
 
-	function createBar() {
+	// Off-canvas nav
+	var canvas = $('.offcanvas'),
+		nav = $('.offcanvas-nav'),
+		show = $('.show-offcanvas-nav'),
+		exit = $('.exit-offcanvas');
 
-		banner.path('M' + (prevA - 2) + ',0H' + a + 'L' + b + ',' + bannerHeight + 'H' + (prevB - 2) + 'Z').attr({
-				'class': 'bar',
-				fill: colors[i % colors.length]
-			});
-
-		prevA = a;
-		prevB = b;
-
-		a += randomize();
-		b += randomize();
-
-		i++;
-	}
-
-	function createBanner() {
-		while ( a < winWidth || b < winWidth || prevA < winWidth || prevB < winWidth ) {
-
-			createBar();
-
-		}
-	}
-
-	function setupBanner() {
+	function enterOffCanvas() {
 		
-		if ( typeof Snap !== 'undefined' ) {
-			banner = Snap('#banner');
+		canvas.addClass('offcanvas-active').animate({
+			left: nav.outerWidth()
+		});
 
-			banner.attr({
-				height: bannerHeight,
-				width: winWidth,
-				fill: '#999'
+		show.parent().animate({
+			left: '+=' + nav.outerWidth()
+		});
+
+	}
+
+	function exitOffCanvas(e) {
+		
+		// Allow escape key to be pressed to close canvas
+		if ( e.type !== 'keydown' || e.keyCode === 27 ) {
+			
+			canvas.removeClass('offcanvas-active').animate({ 
+				left: 0
 			});
 
-			createBanner();
-		} else {
-			setTimeout(setupBanner, 10);
+			show.parent().animate({
+				left: '-=' + nav.outerWidth()
+			});
+
 		}
 	}
 
-	setupBanner();
+	show.click( enterOffCanvas );
+
+	exit.click( exitOffCanvas );
+
+	win.keydown( exitOffCanvas );
 
 })();

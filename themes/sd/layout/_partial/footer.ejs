@@ -1,1 +1,11 @@
-<footer id="footer">&copy; <%= date(new Date(), 'YYYY') %> <%= config.author || config.title %></footer>
+<footer id="footer" class="bg-white">
+
+	<div class="full-width">
+		<div class="aligncenter">
+			&copy; 2008-<script>document.write(new Date().getFullYear());</script> <%= config.author || config.title %>
+		</div>
+	</div>
+
+</footer>
+
+<a class="exit-offcanvas"></a>

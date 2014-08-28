@@ -1,7 +1,7 @@
 .alignleft {
 	display: block;
 	float: left !important;
-	margin: 0 1em 1em 0;
+	margin-right: 10px;
 	margin-left: 0 !important;
 	text-align: left;
 }
@@ -9,7 +9,7 @@
 .alignright {
 	display: block;
 	float: right !important;
-	margin: 0 0 1em 1em;
+	margin-left: 10px;
 	margin-right: 0 !important;
 	text-align: right;
 }
@@ -17,10 +17,8 @@
 .aligncenter {
 	display: block;
 	float: none !important;
-	margin-top: 0; 
 	margin-left: auto !important;
 	margin-right: auto !important;
-	margin-bottom: 1em;
 	text-align: center;
 }
 
@@ -32,9 +30,4 @@
 img {
 	height: auto;
 	max-width: 100%;
-}
-
-// ----- Weirdness when admin bar is at small screen size
-#wpadminbar {
-	position: fixed !important;
 }

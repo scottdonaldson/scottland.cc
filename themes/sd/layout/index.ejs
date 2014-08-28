@@ -1,2 +1,13 @@
-<div class="panel"></div>
-<div class="panel"></div>
+<% 
+// home page only
+if ( path === '' ) { %>
+	<h1 class="below-avatar shadow" data-go-to="/about/">Scott Donaldson</h1>
+	<a href="/about/" class="avatar"></a>
+
+	<a href="/code/" class="panel" data-background="/images/panel-code.jpg">
+		<span class="hide-bottom caps heading shadow">Code</span>
+	</a>
+	<a href="/visual/" class="panel" data-background="/images/panel-visual.jpg">
+		<span class="hide-bottom caps heading shadow">Visual</span>
+	</a>
+<% } %>
