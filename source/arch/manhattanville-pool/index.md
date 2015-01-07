@@ -10,7 +10,7 @@ title: Manhattanville Pool & Community Center
 
     <div class="two columns spacer"></div>
     <div class="eight columns">
-        <p class="lead">Sandwiched between the Manhattanville Housing Projects and an expansion of Columbia University's campus, this project aims to preserve and enhance the entire site surface as usable, public space, with interior spaces that take advantage of the unique formal characteristics that arise as a result of the urban strategy.</p>
+        <p class="lead">On the border between the Manhattanville Housing Projects and an expansion of Columbia University's campus, this project aims to preserve and enhance the entire site surface as usable, public space, with interior spaces that take advantage of the unique formal characteristics that arise as a result of the urban strategy.</p>
     </div>
 
 </div>
@@ -52,4 +52,17 @@ title: Manhattanville Pool & Community Center
 <div class="row">
     <div class="eight columns"><img src="images/sectional-persp.jpg"></div>
     <div class="four columns"><p class="lead">At pool level, the facade glass pattern acts as a screen, separating the changing area while allowing natural light to enter.</p></div>
+</div>
+
+<div class="row">
+    <div class="two columns spacer"></div>
+    <div class="eight columns"><img src="images/pool-render-deep-interior.jpg"></div>
+</div>
+<div class="row">
+    <div class="two columns spacer"></div>
+    <div class="eight columns"><img src="images/pool-render-interior.jpg"></div>
+</div>
+<div class="row">
+    <div class="two columns spacer"></div>
+    <div class="eight columns"><img src="images/pool-render-exterior.jpg"></div>
 </div>

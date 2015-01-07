@@ -15,9 +15,9 @@
                 <% last = year; %>
                 <p class="alignright bold italic"><%= year %></p>
             </div>
-            <div class="eight columns">
+            <div class="eight columns no-underline">
     <% } %>
-    <div><%- post.title %></div>
+    <a href="<%- '/' + post.path %>"><%- post.title %></a><br>
 <% }) %>
 
 </div>

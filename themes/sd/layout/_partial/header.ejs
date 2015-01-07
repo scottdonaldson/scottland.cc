@@ -1,4 +1,4 @@
-<% bodyClass = path == '' ? 'home' : '' %>
+<% bodyClass = path == '' || path == '/' ? 'home' : '' %>
 
 <body class="<%- bodyClass %>">
 
@@ -11,8 +11,8 @@
         <div class="full-width">
             <nav class="no-underline">
                 <ul>
-                    <li><a href="<?= home_url(); ?>/writing">Writing</a></li>
-                    <li><a href="<?= home_url(); ?>/works-in-progress">Works in Progress</a></li>
+                    <li><a href="/archives">Writing</a></li>
+                    <li><a href="/works-in-progress">Works in Progress</a></li>
                     <li>
                         <script>document.write('<a href="mailto:' + 'scott.p.' + 'dona' + 'ldson@gmai' + 'l.com' + '">Email</a>');</script>
                     </li>
