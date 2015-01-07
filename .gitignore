@@ -3,6 +3,7 @@ aws.json
 Thumbs.db
 db.json
 debug.log
+npm-debug.log
 node_modules/
 public/
 .deploy/

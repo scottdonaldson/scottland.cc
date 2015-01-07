@@ -1,165 +1,158 @@
+// Imports
+@import "vars";
 @import "normalize";
 @import "reset";
-@import "vars";
-@import "type";
-@import "fonts";
 @import "layout";
+@import "fonts";
+@import "forms";
+
+// General styles
+* {
+	box-sizing: border-box;
+	position: relative;
+}
 
 body {
+	color: $default;
+	font-family: 'Franklin Gothic', Helvetica, Arial, sans-serif;
 	overflow-x: hidden;
 }
 
-// ----- Home page
-
-.below-avatar {
-	color: #fff;
-	cursor: pointer;
-	line-height: 1.1;
-	position: absolute;
-	margin-top: 90px;
-	padding: 0 20px;
-	text-align: center;
-	top: 50%;
-	width: 100%;
-	z-index: 1;
-
-	&:active, &:hover {
-		+ .avatar {
-			background-size: 260px 260px;
-		}
-	}
+.caps {
+	text-transform: uppercase;
 }
 
-.avatar {
-	background-image: url(/images/Scott-Donaldson-400x400.jpg);
-	background-position: center center;
-	background-repeat: no-repeat;
-	background-size: 240px 240px;
-	border-radius: 120px;
-	height: 240px;
+.bold {
+	font-weight: bold;
+}
+
+.italic {
+	font-style: italic;
+}
+
+.lead {
+	font-size: 1.4em;
+}
+
+.noteworthy {
+	color: $secondary;
+	cursor: pointer;
+	border-bottom: 1px solid;
+	font-weight: bold;
+}
+
+$tooltip_width: 120px;
+.tooltip {
+	border: 3px solid $primary;
+	border-radius: 3px;
+	bottom: 50%;
+	display: inline-block;
+	margin-left: -$tooltip_width/2;
 	left: 50%;
-	margin: -150px 0 0 -120px;
-	overflow: hidden;
+	opacity: 0;
 	position: absolute;
-	top: 50%;
-	transition: 0.2s ease-in-out;
-	width: 240px;
-	z-index: 1;
+	margin-bottom: 20px;
+	transition: 0.5s;
+	width: $tooltip_width;
+	z-index: -1;
 
-	&:active, &:hover {
-		background-size: 260px 260px;
-	}
-}
-
-.panel {
-	background-color: #aaa;
-	background-position: center center;
-	background-size: 100% auto;
-	float: left;
-	height: 100%;
-	overflow: hidden;
-	transition: 0.2s ease-in-out;
-	text-decoration: none;
-	width: 50%;
-
-	&:active, &:hover {
-		background-size: 110% auto;
-
-		.hide-bottom {
-			bottom: 0.8em;
-			font-size: 2.4em;
-		}
-	}
-
-	.hide-bottom {
-		bottom: -0.5em;
-		color: #fff;
+	&:before {
+		background: $primary;
+		content: "";
 		display: block;
-		font-weight: bold;
-		font-size: 2em;
-		line-height: 1;
+		height: 40px;
+		margin-left: -20px;
 		position: absolute;
-		text-align: center;
-		transition: 0.2s ease-in-out;
-		width: 100%;
+		bottom: -5px;
+		left: 50%;
+		width: 40px;
+		transform: rotate(45deg);
+	}
+
+	.noteworthy:hover & {
+		bottom: 100%;
+		margin-top: 0;
+		opacity: 1;
+		z-index: 999;
 	}
 }
 
-.home {
-	main {
-		padding-top: 0;
+// Links
+
+a, a:visited {
+	border-bottom: 1px solid;
+	color: $default;
+	text-decoration: none;
+	transition: 0.1s color;
+
+	&:active, &:focus, &:hover {
+		color: $primary;
 	}
 
-	footer {
-		display: none;
-	}
-}
-
-// ----- Nav
-
-.show-offcanvas-nav {
-	background: rgba(0, 0, 0, 0.25);
-	cursor: pointer;
-	padding: 10px;
-	width: 50px;
-
-	hr {
-		background: #fff;
+	.no-underline &,
+	&.no-underline {
 		border: 0;
-		height: 2px;
-		margin: 0 0 10px;
-		width: 100%;
-
-		&:last-child {
-			margin-bottom: 0;
-		}
 	}
 }
 
-.offcanvas-nav {
-	background: $neutral_mediumdark;
-	bottom: 0;
-	left: 0;
-	overflow-y: auto;
-	padding: 20px;
-	position: fixed;
-	top: 0;
-	width: 280px;
+// Header
 
-	ul { list-style-type: none; }
-	ul, li { margin: 0; padding: 0; }
+$home_header_height: 22vw;
+$home_header_title_font_size: 5vw;
 
-	a, a:visited {
-		color: #fff;
-		display: block;
-		text-decoration: none;
-		text-transform: uppercase;
+#header {
+	.home & {
+		height: $home_header_height;
+	}
 
-		&.active, &:active, &:hover, &:focus {
-			&:after {
-				content: " \00BB";
+	height: 0.5 * $home_header_height;
+	margin-bottom: 5%;
+
+	nav {
+		float: right;
+
+		li {
+			display: inline-block;
+			font-size: 1.2em;
+
+			a, a:visited {
+				color: #fff;
+				padding: 1em;
+				text-decoration: none;
 			}
 		}
 	}
 }
 
-.exit-offcanvas {
-	display: none;
+#header-img {
+	opacity: 0.5;
+	width: 45%;
 
-	.offcanvas-active & {
-		bottom: 0;
-		cursor: pointer;
-		display: block;
-		left: 0;
-		position: absolute;
-		right: 0;
-		top: 0;
-		z-index: 1000;
+	.home & {
+		bottom: -45%;
+		left: auto;
+		right: 3em;
+		top: auto;
+	}
+
+	left: -18%;
+	top: - $home_header_height;
+}
+
+#header-title {
+	.home & {
+		font-size: $home_header_title_font_size;
+	}
+	margin-bottom: 0;
+
+	a {
+		color: $default;
 	}
 }
 
-// ----- Article-type pages
+// Main
 
-main {
-	padding-top: 84px;
+#intro {
+	margin-top: 5em;
+	margin-bottom: 5em;
 }

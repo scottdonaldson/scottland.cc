@@ -1,9 +1,9 @@
 <!doctype html>
-<!--[if lte IE 8]>     <html class="no-js oldie" lang="<%= config.language %>"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="<%= config.language %>"> <!--<![endif]-->
+<html lang="en">
+
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="viewport" content="width=device-width">
     <%
     var title = page.title;
 
@@ -15,38 +15,30 @@
             title += ': ' + page.year + '/' + page.month;
 
         } else if (is_year()){
-            
+
             title += ': ' + page.year;
-        
+
         }
     } else if (is_category()){
 
         title = 'Category: ' + page.category;
-    
+
     } else if (is_tag()){
-        
+
         title = 'Tag: ' + page.tag;
-    
+
     }
     %>
 
     <title><% if (title) { %><%= title %> | <% } %><%= config.title %></title>
-    
-    <%- open_graph({
-        twitter_id: theme.twitter,
-        google_plus: theme.google_plus,
-        fb_admins: theme.fb_admins,
-        fb_app_id: theme.fb_app_id
-    }) %>
 
     <% if (theme.favicon){ %>
         <link rel="icon" href="<%- theme.favicon %>">
     <% } %>
-    
-    <link href="//fonts.googleapis.com/css?family=Asap:400,700,400italic|Montserrat" rel="stylesheet">
+
     <%- css('css/style') %>
-    
+
     <%- partial('google-analytics') %>
 
-    <%- js('js/modernizr-2.8.1.min.js') %>
+    <%- js('js/lib/modernizr-2.8.3.js') %>
 </head>

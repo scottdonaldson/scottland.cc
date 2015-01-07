@@ -1,53 +1,7 @@
 <%- partial('_partial/head') %>
 
-<body class="<%= path === '' ? 'home' : page.layout %>">
-	<div id="page" class="offcanvas">
-	<%
-	// home: make html, body 100% height
-	if ( path === '' ) { %>
-		<script>
-		function makeTall(els) {
-			els.forEach(function(el) {
-				el.style.height = '100%';
-			});
-		}
-		makeTall([ 
-			document.documentElement,
-			document.body,
-			document.getElementById('page')
-		]);
-		</script>
-	<% } %>
+<%- partial('_partial/header', null, {cache: true}) %>
 
-    <%- partial('_partial/header', null, {cache: true}) %>
-        
-    <main class="bg-white">
-    	<%
-		// home: make <main> 100% height
-		if ( path === '' ) { %>
-			<script>
-			makeTall([ document.getElementsByTagName('main')[0] ]);
-			</script>
-		<% } %>
-		
-        <%- body %>
+<%- body %>
 
-    	<div class="sticky sticky-top sticky-left module module-tight <%= path === '' ? '' : 'bg-white w100' %>">
-			<div class="show-offcanvas-nav alignleft" style="margin-bottom: 0;">
-				<hr><hr><hr>
-			</div>
-			<% if ( path !== '' ) { %>
-				<h3 class="tight alignleft"><a href="/" rel="home">Scott Donaldson</a></h3>
-			<% } %>
-		</div>
-
-    </main>
-
-    <%- partial('_partial/footer', null, {cache: true}) %>
-
-    </div><!-- #page -->
-
-    <%- partial('_partial/after-footer') %>
-
-</body>
-</html>
+<%- partial('_partial/footer', null, {cache: true}) %>

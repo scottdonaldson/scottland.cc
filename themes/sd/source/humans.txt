@@ -1,0 +1,12 @@
+/* TEAM */
+
+Designer: Lisa Otto
+Twitter: @lisa_otto
+
+Developer: Scott Donaldson
+Site: http://www.scottdonaldson.net
+Twitter: @scottpdonaldson
+
+/* SITE */
+
+Last update: 2014/12/31

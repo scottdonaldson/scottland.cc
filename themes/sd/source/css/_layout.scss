@@ -1,11 +1,3 @@
-/*
- * 	Notes:
- *	- calc(100%( )-( )40px) is because minification tries to strip out
- *	  the necessary whitespace in the calc() function
- *
- *
- */
-
 // ----- Breakpoints for responsive styles
 $break_large: 1200px;
 $break_medium: 1000px;
@@ -13,187 +5,141 @@ $break_small: 800px;
 $break_small_very: 600px;
 $break_tiny: 480px;
 
-$full_width: 1060px;
+$full_width: 1400px;
 
 .full-width {
-	margin: 0 auto;
-	max-width: $full_width;
-	padding-left: 5%;
-	padding-right: 5%;
-
-	.lt-ie9 & {
-		max-width: none;
-		width: $break_medium;
-	}
+    margin: 0 auto;
+    max-width: $full_width;
+    padding-left: 5%;
+    padding-right: 5%;
 }
+
+// Utilities
+.abs {
+    position: absolute;
+}
+
+.t0 { top: 0; }
+.b0 { bottom: 0; }
+.l0 { left: 0; }
+.r0 { right: 0; }
+.w100 { width: 100%; }
 
 // Cribbed from Chris Coyier/CSS-Tricks: http://css-tricks.com/spacing-the-bottom-of-modules/
 @mixin normalize {
-	& > *:first-child,
-	& > *:first-child > *:first-child,
-	& > *:first-child > *:first-child > *:first-child {
-		margin-top: 0 !important;
-	}
-	& > *:last-child,
-	& > *:last-child > *:last-child,
-	& > *:last-child > *:last-child > *:last-child {
-		margin-bottom: 0 !important;
-	}
+    & > *:first-child,
+    & > *:first-child > *:first-child,
+    & > *:first-child > *:first-child > *:first-child {
+        margin-top: 0 !important;
+    }
+    & > *:last-child,
+    & > *:last-child > *:last-child,
+    & > *:last-child > *:last-child > *:last-child {
+        margin-bottom: 0 !important;
+    }
 }
+.normalize { @include normalize; }
 
 .row {
-	@include clearfix;
-	@include normalize;
-	margin-bottom: 20px;
-	
-	@media screen and (max-width: $break_medium) {
-		margin-bottom: 15px;
-	}
-	@media screen and (max-width: $break_small) {
-		margin-bottom: 10px;
-	}
+    @include clearfix;
+    @include normalize;
+    margin-bottom: 2em;
+
+    @media screen and (max-width: $break_medium) {
+        margin-bottom: 1.5em;
+    }
+    @media screen and (max-width: $break_small) {
+        margin-bottom: 1em;
+    }
 }
 
 .module {
-	padding: 2em;
-	@include normalize;
+    padding: 1em 2.5em;
+    @include normalize;
 
-	@media screen and (max-width: $break_medium) {
-		padding: 1.5em;
-	}
-	@media screen and (max-width: $break_small) {
-		padding: 1em;
-	}
+    @media screen and (max-width: $break_medium) {
+        padding: 0.75em 2em;
+    }
+    @media screen and (max-width: $break_small) {
+        padding: 0.5em 1em;
+    }
 
-	&.module-tight {
-		padding: 1.2em;
+    &.module-tight {
+        padding: 1.2em;
 
-		@media screen and (max-width: $break_medium) {
-			padding: 0.8em;
-		}
-		@media screen and (max-width: $break_small) {
-			padding: 0.6em;
-		}
-	}
+        @media screen and (max-width: $break_medium) {
+            padding: 0.8em;
+        }
+        @media screen and (max-width: $break_small) {
+            padding: 0.6em;
+        }
+    }
 }
 
 .section {
-	padding-top: 2em;
-	padding-bottom: 2em;
+    @include clearfix;
+    padding-top: 2em;
+    padding-bottom: 2em;
 
-	@media screen and (max-width: $break_medium) {
-		padding-top: 1.5em;
-		padding-bottom: 1.5em;
-	}
-	@media screen and (max-width: $break_small) {
-		padding-top: 1em;
-		padding-bottom: 1em;
-	}
+    @media screen and (max-width: $break_medium) {
+        padding-top: 1.5em;
+        padding-bottom: 1.5em;
+    }
+    @media screen and (max-width: $break_small) {
+        padding-top: 1em;
+        padding-bottom: 1em;
+    }
 }
 
-.half,
-.third,
-.fourth {
-	float: left;
-	margin-right: 5%;
-	.csscalc & {
-		margin-right: 20px;
-	}
+$column: 8.333%;
+$gutter: 30px;
 
-	&.first {
-		margin-left: 0;
-	}
+.column,
+.columns {
+    float: left;
+    margin-right: $gutter;
 
-	&.last {
-		margin-right: 0; 
-	}
+    &.first {
+        margin-left: 0;
+    }
 
-	// for floating media only
-	&.alignright,
-	&.alignleft {
-		img {
-			width: 100%;
-		}
-	}
+    &.last {
+        margin-right: 0;
+    }
+
+    // for floating media only
+    &.alignright,
+    &.alignleft {
+        img {
+            width: 100%;
+        }
+    }
+
+    &.spacer {
+        height: 1px;
+    }
 }
 
-.half {
-	width: 47.5%;
-	.csscalc & {
-		width: calc(50%( )-( )10px);
-	}
-
-	@media screen and (max-width: $break_small) {
-		&,
-		.csscalc & {
-			margin: 0 0 1em;
-			width: 100%;
-		}
-	}
+// Hexo tries to strip out all spaces, thus the weird parentheses
+.one.column {
+    width: calc(#{$column} ( )-( )#{$gutter});
 }
 
-.third {
-	width: 30%;
-	.csscalc & {
-		width: calc(33.333%( )-( )13.333px);
-	}
+.columns {
+    &.two { width: calc(#{2* $column} ( )-( )#{$gutter}); }
+    &.three { width: calc(#{3* $column} ( )-( )#{$gutter}); }
+    &.four { width: calc(#{4* $column} ( )-( )#{$gutter}); }
+    &.five { width: calc(#{5* $column} ( )-( )#{$gutter}); }
+    &.six { width: calc(#{6* $column} ( )-( )#{$gutter}); }
+    &.seven { width: calc(#{7* $column} ( )-( )#{$gutter}); }
+    &.eight { width: calc(#{8* $column} ( )-( )#{$gutter}); }
+    &.nine { width: calc(#{9* $column} ( )-( )#{$gutter}); }
+    &.ten { width: calc(#{10* $column} ( )-( )#{$gutter}); }
+    &.eleven { width: calc(#{11* $column} ( )-( )#{$gutter}); }
+    &.twelve { width: calc(#{12* $column} ( )-( )#{$gutter}); }
 
-	&.two-thirds {
-		width: 65%;
-		.csscalc & {
-			width: calc(66.667%( )-( )6.667px);
-		}
-	}
-
-	@media screen and (max-width: $break_small) {
-		&,
-		&.two-thirds,
-		.csscalc &,
-		.csscalc &.two-thirds {
-			margin: 0 0 1em;
-			width: 100%;
-		}
-	}
-}
-
-.fourth {
-	width: 21.25%;
-	.csscalc & {
-		width: calc(25%( )-( )15px);
-	}
-
-	&.three-fourths {
-		width: 65%;
-		.csscalc & {
-			width: calc(75%( )-( )5px);
-		}
-	}
-
-	@media screen and (max-width: $break_small) {
-		&,
-		&.three-fourths,
-		.csscalc &,
-		.csscalc &.three-fourths {
-			margin: 0 0 1em;
-			width: 100%;
-		}
-	}
-}
-
-.tight {
-	margin: 0 !important;
-	padding: 0 !important;
-}
-
-.sticky {
-	position: fixed;
-
-	&.sticky-top { top: 0; }
-	&.sticky-bottom { bottom: 0; }
-	&.sticky-left { left: 0; }
-	&.sticky-right { right: 0; }
-}
-
-.w100 {
-	width: 100% !important;
+    @media screen and (max-width: $break_small) {
+        margin: 0 !important;
+        width: 100% !important;
+    }
 }

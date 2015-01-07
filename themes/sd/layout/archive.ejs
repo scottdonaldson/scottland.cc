@@ -1,1 +1,23 @@
-<%- partial('_partial/archive', {pagination: config.archive, index: true}) %>
+<div class="full-width">
+
+<% var last; var first = true; %>
+<% page.posts.each(function(post, i) { %>
+    <% var year = post.date.year(); %>
+    <% if ( last != year && post.title ) { %>
+        <% if ( !first ) { %>
+            </div><!-- .eight -->
+            </div><!-- .row -->
+        <% }
+            first = false;
+        %>
+        <div class="row">
+            <div class="four columns">
+                <% last = year; %>
+                <p class="alignright bold italic"><%= year %></p>
+            </div>
+            <div class="eight columns">
+    <% } %>
+    <div><%- post.title %></div>
+<% }) %>
+
+</div>

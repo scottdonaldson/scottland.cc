@@ -1,11 +1,19 @@
-<footer id="footer" class="bg-white">
+	</main>
 
-	<div class="full-width">
-		<div class="aligncenter">
-			&copy; 2008-<script>document.write(new Date().getFullYear());</script> <%= config.author || config.title %>
+	<footer id="footer">
+
+		<div class="section">
+
+			<div class="full-width">
+				&copy; 2008-<script>document.write(new Date().getFullYear());</script> <%= config.author || config.title %>
+			</div>
+
 		</div>
-	</div>
 
-</footer>
+	</footer>
 
-<a class="exit-offcanvas"></a>
+	<%- js('js/lib/jquery-2.1.2.js') %>
+	<%- js('js/src/script.js') %>
+
+</body>
+</html>

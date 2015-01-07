@@ -1,7 +1,7 @@
 // ----- Buttons
 
 @mixin button {
-	background-color: $accent;
+	background-color: $primary;
 	border: 1px solid transparent;
 	border-radius: 4px;
 	color: #fff;
@@ -17,7 +17,7 @@
 
 	&:active, &:focus, &:hover,
 	&:visited:active, &:visited:focus, &:visited:hover {
-		background-color: $accent_highlight;
+		background-color: $primary_highlight;
 		color: #fff;
 	}
 }
@@ -29,48 +29,16 @@ input[type="submit"] {
 
 	@include button;
 
-	&.button-alternative {
-		background-color: $secondary;
-		color: $neutral_dark;
-
-		&:active, &:hover {
-			background-color: $secondary_highlight;
-			color: $neutral_dark;
-		}
-	}
-
-	&.button-subtle {
-		background-color: #fff;
-		border: 1px solid $neutral_light;
-		color: $neutral_lightish;
-
-		&:active, &:hover {
-			background-color: $neutral_light;
-			color: $neutral_medium;
-		}
-	}
-
-	&.button-unstyled {
-		background: transparent;
-		color: $neutral_dark;
-		padding-left: 0.25em;
-		padding-right: 0.25em;
-
-		&:active, &:hover {
-			color: $neutral_mediumdark;
-		}
-	}
-
 	&[disabled],
 	&.button-disabled {
-		background: $neutral_light;
-		color: $neutral_medium;
+		background: $secondary;
+		color: $primary;
 		cursor: not-allowed;
 	}
 
 	&.button-progress {
-		background: $neutral_light;
-		color: $neutral_medium;
+		background: $secondary;
+		color: $primary;
 		padding-right: 3em;
 	}
 }
@@ -90,7 +58,7 @@ input[type="submit"] {
 input,
 select,
 textarea {
-	border: 1px solid $neutral_light;
+	border: 1px solid $secondary;
 	border-radius: 4px;
 	box-sizing: border-box;
 	display: inline-block;
@@ -101,13 +69,13 @@ textarea {
 	vertical-align: middle;
 
 	&:active, &:focus {
-		border-color: $neutral_medium;
+		border-color: $primary;
 		outline: 0;
 	}
 
 	&[disabled] {
-		background: $neutral_light;
-		border-color: $neutral_medium;
+		background: $secondary;
+		border-color: $primary;
 		cursor: not-allowed;
 		&[type="submit"], &[type="button"] { border-color: transparent; }
 	}
@@ -130,7 +98,6 @@ select {
 // ----- Labels
 
 label {
-	color: $neutral_mediumdark;
 	cursor: pointer;
 	display: block;
 	font-size: 0.9em;
