@@ -1,3 +1,5 @@
+var win = $(window);
+
 var groups = [];
 
 // Create an array -- groups -- with the number of distinct .same-height groups
@@ -8,20 +10,16 @@ $('.same-height[data-group]').each(function(){
     }
 });
 function makeSameHeight() {
-    var targetHeight = 0,
-        sameHeight;
+    var sameHeight, targetHeight;
     for (var i = 0; i < groups.length; i++) {
+
         sameHeight = $('.same-height[data-group="' + groups[i] + '"]');
+        targetHeight = 0;
 
         sameHeight.height('auto').each(function() {
             var $this = $(this);
             targetHeight = $this.height() > targetHeight ? $this.height() : targetHeight;
-        });
-        sameHeight.height(targetHeight).find('.text').each(function(){
-            var $this = $(this);
-            if ($this.closest('.bar').length > 0) {
-                $this.css('padding-top', 0.5 * ($this.parent().height() - $this.height()));
-            }
+            $this.height(targetHeight);
         });
     }
 }
