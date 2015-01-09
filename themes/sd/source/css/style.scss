@@ -40,6 +40,24 @@ body {
 	font-size: 0.9em;
 }
 
+pre, code, kbd, samp {
+	background: $default;
+	color: $secondary;
+	font-size: 14px;
+	overflow-x: auto;
+	padding: 20px;
+}
+	figure.highlight {
+		background: $default;
+		max-width: 100%; overflow-x: scroll;
+		td { vertical-align: top; }
+	}
+
+	.gutter { border-right: 1px solid $secondary; }
+	// TODO: style code snippets
+	// .property { color: #f00; }
+	.type { }
+
 .noteworthy {
 	color: $secondary;
 	cursor: pointer;

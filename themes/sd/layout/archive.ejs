@@ -1,18 +1,18 @@
 <div class="full-width">
 
-<% var last; var first = true; %>
+<% var lastYear; var firstPost = true; %>
 <% page.posts.each(function(post, i) { %>
     <% var year = post.date.year(); %>
-    <% if ( last != year && post.title ) { %>
-        <% if ( !first ) { %>
+    <% if ( lastYear != year && post.title ) { %>
+        <% if ( !firstPost ) { %>
             </div><!-- .eight -->
             </div><!-- .row -->
         <% }
-            first = false;
+            firstPost = false;
         %>
         <div class="row">
             <div class="four columns">
-                <% last = year; %>
+                <% lastYear = year; %>
                 <p class="alignright bold italic"><%= year %></p>
             </div>
             <div class="eight columns no-underline">
