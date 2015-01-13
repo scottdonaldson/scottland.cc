@@ -31,12 +31,11 @@ body {
 }
 
 .lead {
-	font-size: 1.4em;
+	font-size: 1.1em;
 }
 
 .caption {
 	color: $secondary;
-	font-weight: bold;
 	font-size: 0.9em;
 }
 
@@ -111,6 +110,10 @@ a {
 
 	&:active, &:focus, &:hover {
 		color: $primary;
+
+		&.hover-white {
+			color: #fff;
+		}
 	}
 
 	.no-underline &,
@@ -163,16 +166,29 @@ a {
 
 // Header
 
-$home_header_height: 22vw;
+$header_height: 11vw;
 $home_header_title_font_size: 5vw;
 
+@mixin active_nav($style: dashed) {
+	span:after {
+		border: 1px $style #fff;
+		left: 0;
+		width: 100%;
+	}
+}
+
 #header {
+	height: $header_height;
+	margin-bottom: 5%;
+
 	.home & {
-		height: $home_header_height;
+		height: 2 * $header_height;
 	}
 
-	height: 0.5 * $home_header_height;
-	margin-bottom: 5%;
+	.arch & {
+		height: 1.75 * $header_height;
+		margin-bottom: -5vw;
+	}
 
 	nav {
 		float: right;
@@ -180,15 +196,36 @@ $home_header_title_font_size: 5vw;
 		li {
 			display: inline-block;
 			font-size: 1.2em;
+		}
 
-			a, a:visited {
-				color: #fff;
-				padding: 1em;
-				text-decoration: none;
+		a, a:visited {
+			color: #fff;
+			padding: 1em;
+			text-decoration: none;
+
+			span {
+
+				&:after {
+					border-bottom: 1px dashed #fff;
+					content: "";
+					display: block;
+					left: 50%;
+					position: absolute;
+					transition: 0.25s left, 0.25s width;
+					width: 0%;
+				}
+			}
+
+			&.active, &:active, &:hover, &:focus {
+				@include active_nav;
 			}
 		}
 	}
 }
+	.archives #header nav .nav-writing a {
+		span:after { transition: 0 !important; }
+		@include active_nav(solid);
+	}
 
 #header-img {
 	opacity: 0.5;
@@ -202,10 +239,11 @@ $home_header_title_font_size: 5vw;
 	}
 
 	left: -18%;
-	top: - $home_header_height;
+	top: - 2 * $header_height;
 }
 
 #header-title {
+	font-size: 2.5em;
 	.home & {
 		font-size: $home_header_title_font_size;
 	}
@@ -213,6 +251,10 @@ $home_header_title_font_size: 5vw;
 
 	a {
 		color: $default;
+	}
+
+	.arch & {
+		top: -6vw;
 	}
 }
 
@@ -222,3 +264,11 @@ $home_header_title_font_size: 5vw;
 	margin-top: 5em;
 	margin-bottom: 5em;
 }
+
+#in-progress {
+	margin-top: 10em;
+}
+
+	#in-progress-images {
+		margin-top: -5em;
+	}

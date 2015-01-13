@@ -1,15 +1,17 @@
 title: Manhattanville Pool & Community Center
+date: 2014/12/02
 ---
 
 <div class="row">
-    <div class="eight columns"><img src="images/pool-render-exterior-crop.jpg"></div>
-    <div class="four columns"><img src="images/pool-render-interior-crop.jpg"></div>
+    <img src="images/banner.jpg">
 </div>
 
 <div class="row">
 
     <div class="two columns spacer"></div>
     <div class="eight columns">
+        <h1 class="bold">{{ title }}</h1>
+        <p data-date="{{ date }}" data-show-year="1" class="caption"></p>
         <p class="lead">On the border between the Manhattanville Housing Projects and an expansion of Columbia University's campus, this project aims to preserve and enhance the entire site surface as usable, public space, with interior spaces that take advantage of the unique formal characteristics that arise as a result of the urban strategy.</p>
     </div>
 
@@ -17,11 +19,9 @@ title: Manhattanville Pool & Community Center
 
 <div class="row">
 
-    <div class="one column spacer"></div>
-    <div class="four columns"><img src="images/nolli-bldgs.jpg"><p class="aligncenter"><span class="caps">Neighborhood: Open Space</span> <span>(light gray)</span></p></div>
     <div class="two columns spacer"></div>
+    <div class="four columns"><img src="images/nolli-bldgs.jpg"><p class="aligncenter"><span class="caps">Neighborhood: Open Space</span> <span>(light gray)</span></p></div>
     <div class="four columns"><img src="images/nolli-usable.jpg"><p class="aligncenter"><span class="caps">Neighborhood: Public &amp; Usable Space</span> <span>(light gray)</span></p></div>
-    <div class="one column spacer"></div>
 
 </div>
 
@@ -33,25 +33,46 @@ title: Manhattanville Pool & Community Center
 </div>
 
 <div class="row">
-    <div class="three columns"><img src="images/site-diagram1.jpg"><small class="aligncenter caps">1. Retain site</small></div>
-    <div class="three columns"><img src="images/site-diagram2.jpg"><small class="aligncenter caps">2. Place entire building program below grade</small></div>
-    <div class="three columns"><img src="images/site-diagram3.jpg"><small class="aligncenter caps">3. Raise platforms above program to provide access and views</small></div>
-    <div class="three columns"><img src="images/site-diagram4.jpg"><small class="aligncenter caps">4. Connect platforms with wide circulation paths and stairs</small></div>
-</div>
-
-<div class="row">
-    <img src="images/plan-elev.jpg">
+    <div class="two columns spacer"></div>
+    <div class="four columns">
+        <div class="row">
+            <img src="images/site-diagram1.jpg"><small class="aligncenter caps">1. Retain site</small>
+        </div>
+        <div class="row">
+            <img src="images/site-diagram3.jpg"><small class="aligncenter caps">3. Raise platforms above program to provide access and views</small>
+        </div>
+    </div>
+    <div class="four columns">
+        <div class="row">
+            <img src="images/site-diagram2.jpg"><small class="aligncenter caps">2. Place entire building program below grade</small>
+        </div>
+        <div class="row">
+            <img src="images/site-diagram4.jpg"><small class="aligncenter caps">4. Connect platforms with wide circulation paths and stairs</small>
+        </div>
+    </div>
 </div>
 
 <div class="row">
     <div class="one column spacer"></div>
-    <div class="three columns"><p class="lead">Roof, mezzanine, and at-grade circulation path may be used for neighborhood gatherings, farmers’ markets, and family reunions.</p></div>
-    <div class="eight columns"><img src="images/axon.jpg"></div>
+    <div class="ten columns">
+        <img src="images/plan-elev.jpg">
+    </div>
 </div>
 
 <div class="row">
-    <div class="eight columns"><img src="images/sectional-persp.jpg"></div>
-    <div class="four columns"><p class="lead">At pool level, the facade glass pattern acts as a screen, separating the changing area while allowing natural light to enter.</p></div>
+    <div class="two columns spacer"></div>
+    <div class="eight columns">
+        <p class="caption aligncenter">Roof, mezzanine, and at-grade circulation path may be used for neighborhood gatherings, farmers’ markets, and family reunions.</p>
+        <img src="images/axon.jpg">
+    </div>
+</div>
+
+<div class="row">
+    <div class="two columns spacer"></div>
+    <div class="eight columns">
+        <img src="images/sectional-persp.jpg">
+        <p class="caption aligncenter">At pool level, the facade glass pattern acts as a screen, separating the changing area while allowing natural light to&nbsp;enter.</p>
+    </div>
 </div>
 
 <div class="row">

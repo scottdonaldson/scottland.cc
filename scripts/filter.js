@@ -6,6 +6,8 @@ hexo.extend.filter.register('after_post_render', function(data, callback){
 	data.content = data.content.replace(/<br>/g, '');
 	// replace empty <p> tags
 	data.content = data.content.replace(/<p><\/p>/g, '');
+	// replace $$ with single quote '
+	data.content = data.content.replace(/\$\$/g, "'");
 	callback(null, data);
 
 });

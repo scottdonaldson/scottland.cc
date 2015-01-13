@@ -7,7 +7,12 @@ $primary: #A9E7E5;
 $primary_highlight: lighten($primary, 10%);
 
 $default: #5C5C5C;
-$secondary: #D4D4D4;
+.default { color: $default; }
+.bg-default { background-color: $default; }
+
+$secondary: #C5C5C5;
+.secondary { color: $secondary; }
+.bg-secondary { background-color: $secondary; }
 
 .white { color: #fff; }
 .bg-white { background-color: #fff; }
