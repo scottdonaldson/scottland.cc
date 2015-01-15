@@ -1,4 +1,4 @@
-<div class="full-width">
+<div class="container stack full-width">
 
 <% var lastYear; var firstPost = true; %>
 <% page.posts.each(function(post, i) { %>
@@ -10,14 +10,18 @@
         <% }
             firstPost = false;
         %>
-        <div class="row">
-            <div class="four columns">
+        <div class="row container">
+            <div class="two columns normalize">
                 <% lastYear = year; %>
-                <p class="alignright bold italic"><%= year %></p>
+                <p class="bold caption"><%= year %></p>
             </div>
-            <div class="eight columns no-underline">
+            <div class="ten columns no-underline normalize">
     <% } %>
-    <a href="<%- '/' + post.path %>"><%- post.title %></a><br>
+    <p>
+        <a href="<%- '/' + post.path %>"><%- post.title %></a><br>
+        <span class="caption" data-date="<%- post.date %>"></span>
+    </p>
+
 <% }) %>
 
 </div>

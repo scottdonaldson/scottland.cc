@@ -282,6 +282,7 @@ $home_header_title_font_size: 5vw;
 	}
 
 .in-progress {
+	align-content: stretch;
 	align-items: stretch;
 	display: flex;
 	overflow: hidden;
@@ -292,24 +293,29 @@ $home_header_title_font_size: 5vw;
 		color: #fff;
 		display: flex;
 		text-shadow: 0 0 1em $default;
+		width: 100%;
 
 		& + a {
 			margin-top: 30px;
+		}
+
+		&:hover .cover {
+			opacity: 1;
+		}
+
+		img {
+			width: 100%;
 		}
 	}
 
 	.cover {
 		background: transparentize($primary, 0.2);
-		height: 101%; // at 100% there's a strip of pixels at the bottom it doesn't cover?
+		height: 100%; // at 100% there's a strip of pixels at the bottom it doesn't cover?
 		opacity: 0;
 		padding: 1em;
 		text-align: center;
 		transition: 0.2s;
 		width: 100%;
-	}
-
-	&:hover .cover {
-		opacity: 1;
 	}
 
 	p {

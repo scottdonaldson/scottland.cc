@@ -7,12 +7,13 @@ $break_tiny: 480px;
 
 $full_width: 1400px;
 
-.full-width {
+@mixin full-width {
     margin: 0 auto;
     max-width: $full_width;
     padding-left: 10%;
     padding-right: 10%;
 }
+.full-width { @include full-width; }
 
 // Utilities
 .abs {
@@ -40,9 +41,18 @@ $full_width: 1400px;
 }
 .normalize { @include normalize; }
 
+.container {
+    display: flex;
+    &.stack {
+        flex-direction: column;
+    }
+}
+    .same-height {
+        align-self: stretch;
+    }
+
 .row {
     @include clearfix;
-    @include normalize;
     margin-bottom: 2em;
 
     @media screen and (max-width: $break_medium) {
@@ -50,29 +60,6 @@ $full_width: 1400px;
     }
     @media screen and (max-width: $break_small) {
         margin-bottom: 1em;
-    }
-}
-
-.module {
-    padding: 1em 2.5em;
-    @include normalize;
-
-    @media screen and (max-width: $break_medium) {
-        padding: 0.75em 2em;
-    }
-    @media screen and (max-width: $break_small) {
-        padding: 0.5em 1em;
-    }
-
-    &.module-tight {
-        padding: 1.2em;
-
-        @media screen and (max-width: $break_medium) {
-            padding: 0.8em;
-        }
-        @media screen and (max-width: $break_small) {
-            padding: 0.6em;
-        }
     }
 }
 
@@ -91,19 +78,18 @@ $full_width: 1400px;
     }
 }
 
-$column: 8.333%;
+$columns: 12;
 $gutter: 30px;
+@mixin column($num) {
+    // AWW FUCK YEAH
+    flex: 0 1 calc((#{$num * 100% / $columns} ( )-( )#{ ( $num * ( $columns - 1 ) * $gutter - $columns * ( $num - 1 ) * $gutter ) / $columns }));
+}
 
 .column,
 .columns {
-    float: left;
     margin-right: $gutter;
 
-    &.first {
-        margin-left: 0;
-    }
-
-    &.last {
+    &:last-child {
         margin-right: 0;
     }
 
@@ -114,29 +100,25 @@ $gutter: 30px;
             width: 100%;
         }
     }
-
-    &.spacer {
-        height: 1px;
-    }
 }
 
 // Hexo tries to strip out all spaces, thus the weird parentheses
 .one.column {
-    width: calc(#{$column} ( )-( )#{$gutter});
+    @include column(1);
 }
 
 .columns {
-    &.two { width: calc(#{2* $column} ( )-( )#{$gutter}); }
-    &.three { width: calc(#{3* $column} ( )-( )#{$gutter}); }
-    &.four { width: calc(#{4* $column} ( )-( )#{$gutter}); }
-    &.five { width: calc(#{5* $column} ( )-( )#{$gutter}); }
-    &.six { width: calc(#{6* $column} ( )-( )#{$gutter}); }
-    &.seven { width: calc(#{7* $column} ( )-( )#{$gutter}); }
-    &.eight { width: calc(#{8* $column} ( )-( )#{$gutter}); }
-    &.nine { width: calc(#{9* $column} ( )-( )#{$gutter}); }
-    &.ten { width: calc(#{10* $column} ( )-( )#{$gutter}); }
-    &.eleven { width: calc(#{11* $column} ( )-( )#{$gutter}); }
-    &.twelve { width: calc(#{12* $column} ( )-( )#{$gutter}); }
+    &.two { @include column(2); }
+    &.three { @include column(3); }
+    &.four { @include column(4); }
+    &.five { @include column(5); }
+    &.six { @include column(6); }
+    &.seven { @include column(7); }
+    &.eight { @include column(8); }
+    &.nine { @include column(9); }
+    &.ten { @include column(10); }
+    &.eleven { @include column(11); }
+    &.twelve { @include column(12); }
 
     @media screen and (max-width: $break_small) {
         margin: 0 !important;

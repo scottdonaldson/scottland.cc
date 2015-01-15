@@ -1,32 +1,5 @@
 var win = $(window);
 
-var groups = [];
-
-// Create an array -- groups -- with the number of distinct .same-height groups
-$('.same-height[data-group]').each(function(){
-    var $this = $(this);
-    if ($.inArray($this.attr('data-group'), groups) === -1) {
-        groups.push($this.attr('data-group'));
-    }
-});
-function makeSameHeight() {
-    var sameHeight, targetHeight;
-    for (var i = 0; i < groups.length; i++) {
-
-        sameHeight = $('.same-height[data-group="' + groups[i] + '"]');
-        targetHeight = 0;
-
-        sameHeight.height('auto').each(function() {
-            var $this = $(this);
-            targetHeight = $this.height() > targetHeight ? $this.height() : targetHeight;
-            $this.height(targetHeight);
-        });
-    }
-}
-// Call this a bunch of times -- there's some weird cross-browser issues
-$(document).ready(makeSameHeight);
-win.on('load resize', makeSameHeight);
-
 var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 function compareDates(a, b) {
@@ -84,8 +57,6 @@ var utils = {
     }
 };
 
-var layouts = {};
-
 var conditions = [
     // three horizontal and one vertical image:
     // one six col image, two stacked in three, one in three by itself
@@ -94,7 +65,23 @@ var conditions = [
             h: 3,
             v: 1
         },
-        layout: [6, 3, 0, 3]
+        layout: [
+            {
+                type: 'h',
+                cols: 6
+            },
+            {
+                type: 'h',
+                cols: 3
+            },
+            {
+                type: 'h',
+                cols: 0
+            },
+            {
+                type: 'v',
+                cols: 3
+            }]
     },
     // four horizontal:
     // just put 'em in three columns each
@@ -103,22 +90,112 @@ var conditions = [
             h: 4,
             v: 0
         },
-        layout: [6, 3, 0, 3]
+        layout: [
+            { cols: 3 },
+            { cols: 3 },
+            { cols: 3 },
+            { cols: 3 }
+        ]
+    },
+    // four vertical: same as above
+    {
+        want: {
+            h: 0,
+            v: 4
+        },
+        layout: [
+            { cols: 3 },
+            { cols: 3 },
+            { cols: 3 },
+            { cols: 3 }
+        ]
+    },
+    // two and two:
+    // two stacked in six, one in three, one in three
+    {
+        want: {
+            h: 2,
+            v: 2
+        },
+        layout: [
+            {
+                type: 'h',
+                cols: 6
+            },
+            {
+                type: 'h',
+                cols: 0
+            },
+            {
+                type: 'v',
+                cols: 3
+            },
+            {
+                type: 'v',
+                cols: 3
+            }
+        ]
+    },
+    // three vertical, one horizontal:
+    // all side by side but staggered a little
+    {
+        want: {
+            h: 1,
+            v: 3
+        },
+        layout: [
+            {
+                type: 'v',
+                cols: 2
+            },
+            {
+                type: 'h',
+                cols: 5
+            },
+            {
+                type: 'v',
+                cols: 2
+            },
+            {
+                type: 'v',
+                cols: 3
+            }
+        ]
     }
-]
+];
 
 function makeLayout(images, layout) {
 
     var progressTemplate = '';
 
+    var sortedImages = [];
+
     images.forEach(function(image, i) {
 
-        var numColumns = layout[i],
-            columns = utils.numberToLetter(layout[i]),
-            nextImageColumns = images[i + 1] ? utils.numberToLetter(layout[i + 1]) : false;
+        var aspect = image.width / image.height > 1 ? 'h' : 'v';
+
+        for ( var i = 0; i < layout.length; i++ ) {
+            if ( layout[i].type ) {
+                if ( layout[i].type === aspect && !sortedImages[i] ) {
+                    sortedImages[i] = image;
+                    break;
+                }
+            } else {
+                sortedImages[i] = image;
+                break;
+            }
+        }
+    });
+
+    sortedImages.forEach(function(image, i) {
+
+        var numColumns = layout[i].cols,
+            columns = utils.numberToLetter(layout[i].cols),
+            nextImageColumns = sortedImages[i + 1] ? utils.numberToLetter(layout[i + 1].cols) : false;
 
         // classes to add to the div
-        var classes = '';
+        var classes = '',
+            innerClasses = '';
         if ( image.tags.length > 0 ) {
             image.tags.forEach(function(tag) {
                 classes += ' ' + tag;
@@ -141,8 +218,10 @@ function makeLayout(images, layout) {
 
             if ( nextImageColumns === 'zero' ) {
                 // make 'em stack in a column
-                style = 'flex-direction: column;';
-                // we also do not want a background class now
+                style = 'flex-direction: column; justify-content: space-between;';
+                // we also do not want a background class now,
+                // but we do want it on the inner stuff
+                innerClasses = classes;
                 classes = '';
             }
 
@@ -155,10 +234,12 @@ function makeLayout(images, layout) {
         }
 
         progressTemplate += openDiv +
-            '<a href="' + image.permalink + '" target="_blank">' +
+            '<a href="' + image.permalink + '" target="_blank" class="' + innerClasses + '">' +
             '<img src="' + image.url + '">' +
             '<div class="cover abs t0 l0"><div class="vcenter">#' + image.id + '<br>' + image.caption + '</div></div></a>' + closeDiv;
+
     });
+
     progress.append(progressTemplate);
 }
 
