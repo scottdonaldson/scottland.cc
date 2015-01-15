@@ -100,6 +100,11 @@ $tooltip_width: 120px;
 	}
 }
 
+.vcenter {
+	top: 50%;
+	transform: translateY(-50%);
+}
+
 // Links
 
 a {
@@ -270,5 +275,44 @@ $home_header_title_font_size: 5vw;
 }
 
 	#in-progress-images {
+		align-items: stretch;
+		display: flex;
+		margin-bottom: 5em;
 		margin-top: -5em;
 	}
+
+.in-progress {
+	align-items: stretch;
+	display: flex;
+	overflow: hidden;
+
+	a {
+		align-items: center;
+		border-bottom: 0;
+		color: #fff;
+		display: flex;
+		text-shadow: 0 0 1em $default;
+
+		& + a {
+			margin-top: 30px;
+		}
+	}
+
+	.cover {
+		background: transparentize($primary, 0.2);
+		height: 101%; // at 100% there's a strip of pixels at the bottom it doesn't cover?
+		opacity: 0;
+		padding: 1em;
+		text-align: center;
+		transition: 0.2s;
+		width: 100%;
+	}
+
+	&:hover .cover {
+		opacity: 1;
+	}
+
+	p {
+		margin: 0; // <p> tags embedded from Tumblr... ignore 'em
+	}
+}

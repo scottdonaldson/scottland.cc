@@ -76,12 +76,122 @@ $('[data-date]').each(parseDate);
 
 // Tumblr
 var progress = $('#in-progress-images'),
-    progressImages = [],
-    progressAspects = [];
+    progressImages = [];
 
-function progressTemplate(image, permalink) {
-    return '<div class="three columns progress-square"><a href="' + permalink + '" target="_blank"><img src="' + image + '"></a></div>';
+var utils = {
+    numberToLetter: function(num) {
+        return ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve'][num];
+    }
+};
+
+var layouts = {};
+
+var conditions = [
+    // three horizontal and one vertical image:
+    // one six col image, two stacked in three, one in three by itself
+    {
+        want: {
+            h: 3,
+            v: 1
+        },
+        layout: [6, 3, 0, 3]
+    },
+    // four horizontal:
+    // just put 'em in three columns each
+    {
+        want: {
+            h: 4,
+            v: 0
+        },
+        layout: [6, 3, 0, 3]
+    }
+]
+
+function makeLayout(images, layout) {
+
+    var progressTemplate = '';
+
+    images.forEach(function(image, i) {
+
+        var numColumns = layout[i],
+            columns = utils.numberToLetter(layout[i]),
+            nextImageColumns = images[i + 1] ? utils.numberToLetter(layout[i + 1]) : false;
+
+        // classes to add to the div
+        var classes = '';
+        if ( image.tags.length > 0 ) {
+            image.tags.forEach(function(tag) {
+                classes += ' ' + tag;
+            });
+            // if there are no tags (classes), give it a white background
+        } else {
+            classes = ' bg-white';
+        }
+
+        var style = '';
+
+        var colClass = 'column';
+        colClass += (columns === 'one') ? '' : 's';
+
+        var openDiv = '',
+        closeDiv = '';
+
+        // zero columns means that we're remaining within the last div
+        if ( columns !== 'zero' ) {
+
+            if ( nextImageColumns === 'zero' ) {
+                // make 'em stack in a column
+                style = 'flex-direction: column;';
+                // we also do not want a background class now
+                classes = '';
+            }
+
+            openDiv = '<!-- opening --><div class="' + columns + ' ' + colClass + ' in-progress' + classes + '" style="' + style + '">';
+        }
+
+        if ( nextImageColumns !== 'zero' ) {
+
+            closeDiv = '</div><!-- closing -->';
+        }
+
+        progressTemplate += openDiv +
+            '<a href="' + image.permalink + '" target="_blank">' +
+            '<img src="' + image.url + '">' +
+            '<div class="cover abs t0 l0"><div class="vcenter">#' + image.id + '<br>' + image.caption + '</div></div></a>' + closeDiv;
+    });
+    progress.append(progressTemplate);
 }
+
+function testLayouts(images) {
+    var masterLayout;
+
+    for ( var i = 0; i < conditions.length; i++ ) {
+        var c = conditions[i];
+        var want = c.want,
+            have = {
+                h: 0,
+                v: 0,
+            },
+            layout = c.layout;
+
+        images.forEach(function(image) {
+            var aspect = image.width / image.height;
+            if ( aspect > 1 ) {
+                have.h++;
+            } else {
+                have.v++;
+            }
+        });
+
+        if (want.h === have.h && want.v === have.v) {
+            masterLayout = layout;
+            break;
+        }
+    }
+
+    return makeLayout(images, masterLayout);
+
+};
 
 if ( progress ) {
 
@@ -96,32 +206,36 @@ if ( progress ) {
         success: function(data) {
             var totalPosts = data.response.total_posts;
 
-            if ( iter < max ) {
-                data.response.posts.forEach(function(post) {
 
-                    var url = post.photos[0].alt_sizes[1].url,
-                        height = post.photos[0].alt_sizes[1].height,
-                        width = post.photos[0].alt_sizes[1].width,
-                        permalink = post.image_permalink;
+            data.response.posts.forEach(function(post) {
 
-                    progressImages.push({
-                        url: url,
-                        height: height,
-                        width: width,
-                        id: totalPosts - iter,
-                        permalink: permalink
-                    });
-                    progressAspects.push(width / height);
+                if ( iter < max ) {
 
-                    iter++;
+                var url = post.photos[0].alt_sizes[1].url,
+                    height = post.photos[0].alt_sizes[1].height,
+                    width = post.photos[0].alt_sizes[1].width,
+                    caption = post.caption,
+                    permalink = post.image_permalink,
+                    tags = post.tags;
+
+                progressImages.push({
+                    url: url,
+                    height: height,
+                    width: width,
+                    id: totalPosts - iter,
+                    caption: caption,
+                    permalink: permalink,
+                    tags: tags
                 });
-            }
+
+                iter++;
+
+                }
+            });
 
             // only use 1st four images
-            for ( iter = 0; iter < max; iter++ ) {
-                // console.log(progressAspects[iter]);
-                progress.append(progressTemplate(progressImages[iter].url, progressImages[iter].permalink))
-            }
+            testLayouts(progressImages)
+            // progress.append(progressTemplate(progressImages[iter]))
 
         }
     });
