@@ -240,12 +240,12 @@ function makeLayout(images, layout) {
                 classes = '';
             }
 
-            openDiv = '<!-- opening --><div class="' + columns + ' ' + colClass + ' in-progress' + classes + '" style="' + style + '">';
+            openDiv = '<div class="' + columns + ' ' + columns + '-s ' + colClass + ' in-progress' + classes + '" style="' + style + '">';
         }
 
         if ( nextImageColumns !== 'zero' ) {
 
-            closeDiv = '</div><!-- closing -->';
+            closeDiv = '</div>';
         }
 
         progressTemplate += openDiv +

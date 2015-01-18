@@ -133,7 +133,7 @@ a {
 }
 
 .ext { // arrow for external links on hover
-	margin-right: 1em;
+	margin-right: 5px;
 	transition: 0.1s;
 
 	&:active, &:focus, &:hover {
@@ -157,16 +157,16 @@ a {
 	&:before {
 		border-top: 1px solid;
 		border-right: 1px solid;
-		height: 0.5em;
+		height: 5px;
 		left: 100%;
-		top: 0.15em;
-		transform: translateX(0.75em);
-		width: 0.5em;
+		top: 5px;
+		transform: translateX(9px);
+		width: 5px;
 	}
 	&:after {
 		border-bottom: 1px solid;
-		width: 0.75em;
-		height: 0.75em;
+		width: 9px;
+		height: 9px;
 		left: 100%;
 		top: 0.4em;
 		transform: rotate(-45deg);
@@ -191,6 +191,16 @@ $home_header_title_font_size: 5vw;
 	height: $header_height;
 	margin-bottom: 5%;
 
+	@media screen and (max-width: $break_small) {
+		min-height: 150px;
+	}
+
+	@media screen and (max-width: $break_small_very) {
+		height: 80px !important;
+		min-height: 80px !important;
+		margin-bottom: 2em !important;
+	}
+
 	.home & {
 		height: 2 * $header_height;
 	}
@@ -206,6 +216,14 @@ $home_header_title_font_size: 5vw;
 		li {
 			display: inline-block;
 			font-size: 1.2em;
+		}
+
+		@media screen and (max-width: $break_small) {
+			float: none;
+			width: 100%;
+
+			ul { @include tight; text-align: center; }
+			li { font-size: 1em; padding-top: 1em; }
 		}
 
 		a, a:visited {
@@ -250,14 +268,19 @@ $home_header_title_font_size: 5vw;
 		background-position: calc(100% ( )-( )3em) 100%;
 		background-size: 45% auto;
 	}
+
+	@media screen and (max-width: $break_small_very) {
+		background-image: none !important;
+	}
 }
 
 #header-title {
 	font-size: 2.5em;
+	margin-bottom: 0;
+
 	.home & {
 		font-size: $home_header_title_font_size;
 	}
-	margin-bottom: 0;
 
 	a {
 		color: $default;
@@ -266,13 +289,24 @@ $home_header_title_font_size: 5vw;
 	.arch & {
 		top: -6vw;
 	}
+
+	@media screen and (max-width: $break_small_very) {
+		font-size: 1.6em !important;
+		margin-top: 0;
+		text-align: center;
+	}
 }
 
 // Main
 
 #intro {
 	margin-top: 5em;
-	margin-bottom: 5em;
+	margin-bottom: 2em;
+
+	@media screen and (max-width: $break_small) {
+		margin-top: 4em;
+		margin-bottom: 1em;
+	}
 }
 
 #headshot {
@@ -289,7 +323,6 @@ $home_header_title_font_size: 5vw;
 
 	#in-progress-images {
 		align-items: stretch;
-		display: flex;
 		margin-bottom: 5em;
 		margin-top: -5em;
 	}
