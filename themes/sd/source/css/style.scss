@@ -125,6 +125,11 @@ a {
 	&.no-underline {
 		border: 0;
 	}
+
+	.primary-underline &,
+	&.primary-underline {
+		border-color: $primary;
+	}
 }
 
 .ext { // arrow for external links on hover
@@ -233,18 +238,18 @@ $home_header_title_font_size: 5vw;
 	}
 
 #header-img {
+	background-image: url(/images/22.png);
+	background-repeat: no-repeat;
+	background-size: 28% auto;
+	height: 150%;
 	opacity: 0.5;
-	width: 45%;
+	width: 100%;
 
 	.home & {
-		bottom: -45%;
-		left: auto;
-		right: 3em;
-		top: auto;
+		background-image: url(/images/header-bg.png);
+		background-position: calc(100% ( )-( )3em) 100%;
+		background-size: 45% auto;
 	}
-
-	left: -18%;
-	top: - 2 * $header_height;
 }
 
 #header-title {
@@ -268,6 +273,14 @@ $home_header_title_font_size: 5vw;
 #intro {
 	margin-top: 5em;
 	margin-bottom: 5em;
+}
+
+#headshot {
+	left: 50%;
+	max-width: 300px;
+	top: 50%;
+	transform: translateX(-50%) translateY(-50%);
+	width: 120%;
 }
 
 #in-progress {
@@ -321,4 +334,16 @@ $home_header_title_font_size: 5vw;
 	p {
 		margin: 0; // <p> tags embedded from Tumblr... ignore 'em
 	}
+}
+
+#in-progress-bg {
+	bottom: -19%;
+	left: -17%;
+	width: 50%;
+}
+
+// Footer
+
+#footer-img {
+	width: 30%;
 }

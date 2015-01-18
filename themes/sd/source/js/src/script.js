@@ -1,5 +1,21 @@
 var win = $(window);
 
+function show() {
+    var el = $(this.getAttribute('data-show'));
+    el.stop().fadeIn();
+
+    // add an event listener in case
+    el.mouseover(function(){
+        $(this).stop().fadeIn();
+    }).on('mouseout click', function() {
+        $(this).stop().fadeOut().off('mouseover mouseout click');
+    });
+}
+function hide() {
+    $(this.getAttribute('data-show')).stop().fadeOut();
+}
+$('[data-show]').mouseover(show).mouseout(hide);
+
 var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 function compareDates(a, b) {
@@ -9,7 +25,6 @@ function compareDates(a, b) {
 
 function parseDate() {
     var date = this.getAttribute('data-date'),
-        showYear = this.getAttribute('data-show-year'),
         now = new Date(),
         text,
         relative = false;
@@ -35,7 +50,7 @@ function parseDate() {
             text = 'Last week';
             relative = true;
         } else {
-            text = months[date.getMonth()] + ' ' + date.getDay() + ( !!+showYear ? ', ' + date.getFullYear() : '' );
+            text = months[date.getMonth()] + ' ' + date.getDate();
         }
     }
 
@@ -120,7 +135,7 @@ var conditions = [
         layout: [
             {
                 type: 'h',
-                cols: 6
+                cols: 5
             },
             {
                 type: 'h',
@@ -128,7 +143,7 @@ var conditions = [
             },
             {
                 type: 'v',
-                cols: 3
+                cols: 4
             },
             {
                 type: 'v',
@@ -236,7 +251,7 @@ function makeLayout(images, layout) {
         progressTemplate += openDiv +
             '<a href="' + image.permalink + '" target="_blank" class="' + innerClasses + '">' +
             '<img src="' + image.url + '">' +
-            '<div class="cover abs t0 l0"><div class="vcenter">#' + image.id + '<br>' + image.caption + '</div></div></a>' + closeDiv;
+            '<div class="cover abs t0 l0"><div class="vcenter">Works in Progress:&nbsp;#' + image.id + '<br>' + image.caption + '</div></div></a>' + closeDiv;
 
     });
 

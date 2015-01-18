@@ -6,7 +6,7 @@ date: 2014/12/02
     <img src="images/banner.jpg">
 </div>
 
-<div class="row">
+<div class="row container">
 
     <div class="two columns spacer"></div>
     <div class="eight columns">
@@ -17,7 +17,7 @@ date: 2014/12/02
 
 </div>
 
-<div class="row">
+<div class="row container">
 
     <div class="two columns spacer"></div>
     <div class="four columns"><img src="images/nolli-bldgs.jpg"><p class="aligncenter"><span class="caps">Neighborhood: Open Space</span> <span>(light gray)</span></p></div>
@@ -25,14 +25,14 @@ date: 2014/12/02
 
 </div>
 
-<div class="row">
+<div class="row container">
     <div class="two columns spacer"></div>
     <div class="eight columns">
         <p class="lead">As of late 2014, the site was a parking lot. With four formal moves, we can reclaim this space for the neighborhood and Columbia communities:</p>
     </div>
 </div>
 
-<div class="row">
+<div class="row container">
     <div class="two columns spacer"></div>
     <div class="four columns">
         <div class="row">
@@ -52,14 +52,14 @@ date: 2014/12/02
     </div>
 </div>
 
-<div class="row">
+<div class="row container">
     <div class="one column spacer"></div>
     <div class="ten columns">
         <img src="images/plan-elev.jpg">
     </div>
 </div>
 
-<div class="row">
+<div class="row container">
     <div class="two columns spacer"></div>
     <div class="eight columns">
         <p class="caption aligncenter">Roof, mezzanine, and at-grade circulation path may be used for neighborhood gatherings, farmers’ markets, and family reunions.</p>
@@ -67,7 +67,7 @@ date: 2014/12/02
     </div>
 </div>
 
-<div class="row">
+<div class="row container">
     <div class="two columns spacer"></div>
     <div class="eight columns">
         <img src="images/sectional-persp.jpg">
@@ -75,15 +75,15 @@ date: 2014/12/02
     </div>
 </div>
 
-<div class="row">
+<div class="row container">
     <div class="two columns spacer"></div>
     <div class="eight columns"><img src="images/pool-render-deep-interior.jpg"></div>
 </div>
-<div class="row">
+<div class="row container">
     <div class="two columns spacer"></div>
     <div class="eight columns"><img src="images/pool-render-interior.jpg"></div>
 </div>
-<div class="row">
+<div class="row container">
     <div class="two columns spacer"></div>
     <div class="eight columns"><img src="images/pool-render-exterior.jpg"></div>
 </div>
