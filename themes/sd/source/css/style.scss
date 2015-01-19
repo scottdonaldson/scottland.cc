@@ -205,7 +205,8 @@ $home_header_title_font_size: 5vw;
 		height: 2 * $header_height;
 	}
 
-	.arch & {
+	.arch &,
+	.post & {
 		height: 1.75 * $header_height;
 		margin-bottom: -5vw;
 	}
@@ -286,7 +287,8 @@ $home_header_title_font_size: 5vw;
 		color: $default;
 	}
 
-	.arch & {
+	.arch &,
+	.post & {
 		top: -6vw;
 	}
 
@@ -294,6 +296,7 @@ $home_header_title_font_size: 5vw;
 		font-size: 1.6em !important;
 		margin-top: 0;
 		text-align: center;
+		top: 0 !important;
 	}
 }
 

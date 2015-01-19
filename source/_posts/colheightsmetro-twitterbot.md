@@ -3,8 +3,14 @@ date: 2014/03/24
 ---
 
 <div class="row">
+    <img src="## assets ##/2014/03/colheights-banner.png" style="margin-bottom: -5%;">
+</div>
+
+<div class="row container">
     <div class="two columns spacer"></div>
     <div class="eight columns">
+        <h1 class="bold">{{ title }}</h1>
+        <p data-date="{{ date }}" class="caption"></p>
         <p>Inspired lately by <a href="http://tinysubversions.com/" target="_blank">Darius Kazemi</a>'s (veritable army of) Twitterbots, I decided to take on the project of building one for myself. I had already played around with Washington Metropolitan Area Transit Authority (WMATA)'s API a few months ago, and thought it could provide excellent fodder for a regularly updating bot. I live closest to the Columbia Heights Metro station, so I set out to write a script that would find the trains that would be arriving soonest at the station and tweet their destinations and times to arrival &mdash; the two main things travelers are looking for in a schedule, and fortunately two things that the API returns quite handily.</p>
         <h2>Part I: WMATA API</h2>
         <p>WMATA has an <a href="http://developer.wmata.com/API_Get_Started" target="_blank">impressively open API</a> and seems to encourage developers to make the most of it. After registering a key, I was ready to get started.</p>
