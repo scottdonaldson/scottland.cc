@@ -12,6 +12,11 @@ $full_width: 1400px;
     max-width: $full_width;
     padding-left: 10%;
     padding-right: 10%;
+
+    @media screen and (max-width: $break_small) {
+        padding-left: 6%;
+        padding-right: 6%;
+    }
 }
 .full-width { @include full-width; }
 
@@ -88,6 +93,10 @@ $full_width: 1400px;
     @media screen and (max-width: $break_small) {
         flex-wrap: wrap;
     }
+
+    &.maintain {
+        flex-wrap: nowrap;
+    }
 }
     .same-height {
         align-self: stretch;
@@ -134,8 +143,8 @@ $gutter: 30px;
 
 @mixin column-small($num) {
     @media screen and (max-width: $break_small) {
-        flex: 0 1 calc((#{$num * 100% / $columns} ( )-( )#{ ( $num * ( $columns - 1 ) * $gutter - $columns * ( $num - 1 ) * $gutter ) / $columns })) !important;
-        margin-right: $gutter !important;
+        flex: 0 1 calc((#{$num * 100% / $columns} ( )-( )#{ ( $num * ( $columns - 1 ) * 0.333 * $gutter - $columns * ( $num - 1 ) * 0.333 * $gutter ) / $columns })) !important;
+        margin-right: 0.333 * $gutter !important;
 
         &:last-child {
             margin-right: 0 !important;
