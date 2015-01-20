@@ -3,7 +3,7 @@ date: 2014/02/11
 ---
 
 <div class="row">
-    <img src="## assets ##/2014/02/banner.jpg">
+    <img class="padded bg-white" src="## assets ##/2014/02/banner.jpg">
 </div>
 
 <div class="row container">

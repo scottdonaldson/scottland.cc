@@ -3,7 +3,7 @@ date: 2014/03/24
 ---
 
 <div class="row">
-    <img src="## assets ##/2014/03/colheights-banner.png" style="margin-bottom: -5%;">
+    <img class="padded bg-white" src="## assets ##/2014/03/colheights-banner.png">
 </div>
 
 <div class="row container">

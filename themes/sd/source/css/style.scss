@@ -31,7 +31,7 @@ body {
 }
 
 .lead {
-	font-size: 1.1em;
+	font-size: 1.3em;
 }
 
 .caption {
@@ -58,9 +58,9 @@ pre, code, kbd, samp {
 	.type { }
 
 .noteworthy {
-	color: $secondary;
+	color: $primary;
 	cursor: pointer;
-	border-bottom: 1px solid;
+	border-bottom: 2px solid;
 	font-weight: bold;
 }
 
@@ -108,7 +108,7 @@ $tooltip_width: 120px;
 // Links
 
 a {
-	border-bottom: 1px solid;
+	border-bottom: 2px solid;
 	color: $default;
 	text-decoration: none;
 	transition: 0.1s color;
@@ -155,8 +155,8 @@ a {
 	}
 
 	&:before {
-		border-top: 1px solid;
-		border-right: 1px solid;
+		border-top: 2px solid;
+		border-right: 2px solid;
 		height: 5px;
 		left: 100%;
 		top: 5px;
@@ -164,7 +164,7 @@ a {
 		width: 5px;
 	}
 	&:after {
-		border-bottom: 1px solid;
+		border-bottom: 2px solid;
 		width: 9px;
 		height: 9px;
 		left: 100%;
@@ -179,9 +179,9 @@ a {
 $header_height: 11vw;
 $home_header_title_font_size: 5vw;
 
-@mixin active_nav($style: dashed) {
+@mixin active_nav() {
 	span:after {
-		border: 1px $style #fff;
+		border: 1px solid #fff;
 		left: 0;
 		width: 100%;
 	}
@@ -235,7 +235,7 @@ $home_header_title_font_size: 5vw;
 			span {
 
 				&:after {
-					border-bottom: 1px dashed #fff;
+					border-bottom: 2px solid #fff;
 					content: "";
 					display: block;
 					left: 50%;
@@ -245,29 +245,29 @@ $home_header_title_font_size: 5vw;
 				}
 			}
 
-			&.active, &:active, &:hover, &:focus {
+			&:active, &:hover, &:focus {
 				@include active_nav;
 			}
 		}
 	}
 }
-	.archives #header nav .nav-writing a {
-		span:after { transition: 0 !important; }
-		@include active_nav(solid);
-	}
 
 #header-img {
 	background-image: url(/images/22.png);
 	background-repeat: no-repeat;
 	background-size: 28% auto;
-	height: 150%;
+	height: 180%;
 	opacity: 0.5;
 	width: 100%;
 
 	.home & {
 		background-image: url(/images/header-bg.png);
 		background-position: calc(100% ( )-( )3em) 100%;
-		background-size: 45% auto;
+		background-size: 55% auto;
+
+		@media screen and (max-width: $break_small) {
+			background-position: calc(100% ( )-( )3em) -20%;
+		}
 	}
 
 	@media screen and (max-width: $break_small_very) {
@@ -341,19 +341,37 @@ $home_header_title_font_size: 5vw;
 		border-bottom: 0;
 		color: #fff;
 		display: flex;
-		text-shadow: 0 0 1em $default;
 		width: 100%;
 
 		& + a {
 			margin-top: 30px;
 		}
 
-		&:hover .cover {
-			opacity: 1;
+		.image {
+			background-size: cover;
+			background-position: center center;
+			bottom: 0;
+			left: 0;
+			position: absolute;
+			right: 0;
+			top: 0;
+		}
+
+		&:hover {
+			.image {
+				filter: grayscale(1);
+				-webkit-filter: grayscale(1);
+			}
+
+			.cover {
+				opacity: 1;
+				filter: none;
+				-webkit-filter: none;
+			}
 		}
 
 		img {
-			width: 100%;
+			opacity: 0;
 		}
 	}
 
@@ -379,6 +397,14 @@ $home_header_title_font_size: 5vw;
 }
 
 // Footer
+
+#footer {
+	margin-top: 6em;
+
+	@media screen and (max-width: $break_small) {
+		margin-top: 3em;
+	}
+}
 
 #footer-img {
 	width: 30%;

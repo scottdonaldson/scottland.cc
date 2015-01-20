@@ -2,7 +2,7 @@ title: Data Visualization with the Wikipedia API and Snap.svg
 date: 2014/05/28
 ---
 
-<img src="## assets ##/2014/05/invisibles-banner.gif">
+<img class="padded bg-white" src="## assets ##/2014/05/invisibles-banner.gif">
 
 <div class="row container">
     <div class="two columns spacer"></div>

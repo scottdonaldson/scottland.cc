@@ -1,23 +1,19 @@
 title: Spinning the Needle with JavaScript and Inline Styles
 date: 2013/02/21
 ---
-<div class="row">
 
-    <div class="two columns spacer"></div>
+<img class="padded bg-white" src="## assets ##/2013/08/abide-banner.jpg">
+
+<div class="container">
+
+    <div class="two columns"></div>
     <div class="eight columns">
         <p><strong>Updated August 2013: This article was originally titled “Spinning the Needle with jQuery and CSS Transforms.” While those are still in play here, the title has been updated to reflect the shift from setting data attributes with jQuery and styling with CSS, to directly using inline styles — cutting the size of the stylesheet in half.</strong></p>
         <p>Parsley &amp; Sprouts recently redesigned the website for the <a href="http://www.abide-idea.com" target="_blank">Abide Idea Company</a>, an idea generation/strategic development consultant. The headline for the site reads, “A trusted guide on your journey to develop&nbsp;new&nbsp;ideas,” and we pushed this metaphor with a graphic of a compass that stays fixed on the page as you scroll down.</p>
         <p>One interactive element that I was really happy with was making the needle of the compass spin so that it’s always pointing at your cursor as you browse the site.</p>
-    </div>
-</div>
 
-<div class="row">
     <img src="## assets ##/2013/02/abide1.png" class="aligncenter">
-</div>
 
-<div class="row">
-    <div class="two columns spacer"></div>
-    <div class="eight columns">
     <h3>HTML</h3>
     {% code  %}
     <section id="masthead" class="full-width" role="masthead">
@@ -66,19 +62,8 @@ date: 2013/02/21
     {% endcode %}
                 <p>First I set some variables — the x and y positions of both the cursor and the needle, and the angle between them. The &#8216;needle&#8217; variable is, of course, the needle. Whenever the mouse is moved, these variables are recalculated. For the y position of both the cursor and the needle, the amount the window has scrolled from the absolute top of the page also needs to be recalculated — otherwise the jQuery .offset() method gives us the position relative to the page, <i>not</i> the window. For the needle, both the x and y values have got 1/2 of the width and height (respectively) of the image added, so that the position is calculated from the center of it, not the top left corner.</p>
                 <p>Once we&#8217;ve got those four variables, we can calculate the angle formed between the center of the needle and the cursor. <del>Thinking back to high school trigonometry</del> Googling brought me to the <a href="http://en.wikipedia.org/wiki/Inverse_trigonometric_functions#Application:_finding_the_angle_of_a_right_triangle" target="_blank">arctangent function</a>. Imagine a right triangle drawn with two points at the center of the needle and the cursor, and the third formed where orthogonal lines from those points intersect:</p>
-    </div>
-</div>
 
-<div class="row">
-    <div class="two columns spacer"></div>
-    <div class="eight columns">
-        <img src="## assets ##/2013/02/abide2.png" class="aligncenter">
-    </div>
-</div>
-
-<div class="row">
-    <div class="two columns spacer"></div>
-    <div class="eight columns">
+    <img src="## assets ##/2013/02/abide2.png" class="aligncenter">
     <p>Subtracting the needle's y position from the mouse's y position (and needle x from mouse x) gives us the lengths of the triangle's two legs, which is what we need for our arctan function. One thing to note is that the output of arctan changes depending on if the horizontal component is positive or negative (if the cursor is to the left or the right of the needle). Obviously we don't want this to happen, so I separated the angle output into two different cases to compensate for this. Then we calculate the angle in each by taking the arctangent, converting to degrees (arctan outputs radians by default &mdash; degrees are just easier on the eyes), and adding either 90 or 270, depending on if we're to the right or left. This value comes from the fact that 0 degrees is actually straight out to the right, and we want the needle's resting state to be straight up.</p>
     <p>The last if statement checks to make sure the user is not hovering over the needle. Without it in place, as you get closer to the needle, the needle will start acting really volatile, spinning all over the place wildly depending on where exactly the cursor is. This statement locks it in its current place (where it was when the cursor entered its space) until the cursor moves out again. If the mouse is anywhere else on the page, we set an inline CSS style (with vendor prefixes for IE9 and Webkit browsers) that transform rotates the needle to that angle. Voilà!</p>
     <p>And all of this is re-done every time you move the mouse.</p>

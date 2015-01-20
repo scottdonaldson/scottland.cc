@@ -3,7 +3,7 @@ date: 2013/03/01
 ---
 
 <div class="row">
-<img src="images/banner.jpg">
+    <img class="padded bg-white" src="images/banner.jpg">
 </div>
 
 <div class="row container">

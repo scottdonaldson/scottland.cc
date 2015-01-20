@@ -240,7 +240,7 @@ function makeLayout(images, layout) {
                 classes = '';
             }
 
-            openDiv = '<div class="' + columns + ' ' + columns + '-s ' + colClass + ' in-progress' + classes + '" style="' + style + '">';
+            openDiv = '<div class="' + columns + ' ' + columns + '-s ' + colClass + ' in-progress" style="' + style + '">';
         }
 
         if ( nextImageColumns !== 'zero' ) {
@@ -249,9 +249,10 @@ function makeLayout(images, layout) {
         }
 
         progressTemplate += openDiv +
-            '<a href="' + image.permalink + '" target="_blank" class="' + innerClasses + '">' +
+            '<a href="' + image.permalink + '" target="_blank">' +
+            '<div class="image" style="background-image:url(' + image.url + ');"></div>' +
             '<img src="' + image.url + '">' +
-            '<div class="cover abs t0 l0"><div class="vcenter">Works in Progress:&nbsp;#' + image.id + '<br>' + image.caption + '</div></div></a>' + closeDiv;
+            '<div class="cover abs t0 l0"><div class="vcenter"><p class="bold lead">#' + image.id + '</p><p>Works in Progress</p></div></div></a>' + closeDiv;
 
     });
 
