@@ -30,6 +30,7 @@ date: 2014/05/28
         </ol>
         <p>I took as my inspiration for these graphs Runkeeper's method of displaying user activities over time:</p>
         <img class="section aligncenter" src="## assets ##/2014/05/runkeeper-graph.gif">
-        <p>While this project was mostly successful, there's definitely ways of better organizing the data while looping through and parsing timestamps, and I wonder if <a href="http://d3js.org/" target="_blank">d3.js</a> might have been a better choice than Snap, given its focus on data.</p>
+        <p>While this project was mostly successful, there's definitely ways of better organizing the data while looping through and parsing timestamps, and I wonder if <a href="http://d3js.org/" target="_blank">d3.js</a> might have been a better choice than Snap, given its focus on data. On the other hand, Snap is able to take over a lot of DOM manipulation from jQuery (fading, animating, displaying modals) that d3 might not be able to.</p>
+        <p>Again, this post isn't meant to describe in detail every line of code used, rather to explain the technical process and modes of thinking required to process data and dynamically visualize it. Hope you've enjoyed.</p>
     </div>
 </div>
