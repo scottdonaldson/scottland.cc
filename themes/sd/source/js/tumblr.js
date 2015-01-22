@@ -6,7 +6,8 @@ var progress = $('#in-progress-images'),
     showAll = false, // by default, assume we are not showing all (rather just 4)
     max = 20, // the most posts we can get at one time
     gottenPosts = 0, // the # of posts we have retrieved
-    totalPosts; // the total # of posts we could possibly retrieve
+    totalPosts,
+    haveTried = []; // the URLs we've already queried (so we don't double hit)
 
 // we might be looking at a single post
 if ( location.hash.length > 0 ) {
@@ -64,6 +65,7 @@ function showPosts(data) {
     });
 
     gottenPosts += postsHere;
+
 }
 
 function makeLayout(images, layout) {
@@ -149,13 +151,15 @@ function makeLayout(images, layout) {
 
         progressTemplate += openDiv +
             '<a href="/in-progress#' + image.postID + '">' +
-            '<div class="image" style="background-image:url(' + image.url + ');"></div>' +
+            '<div class="image anim-fade lazy-load" style="background-image:url(' + image.url + ');"></div>' +
             '<img src="' + image.url + '">' +
             '<div class="cover abs t0 l0"><div class="vcenter"><p class="bold lead">#' + image.id + '</p><p>Works in Progress</p></div></div></a>' + closeDiv;
 
     });
 
     progress.append(progressTemplate);
+
+    utils.lazyLoad();
 }
 
 function testLayouts(images) {
@@ -190,6 +194,7 @@ function testLayouts(images) {
 };
 
 function getPost(id) {
+
     $.ajax({
         url: url + '?api_key=' + api_key + '&id=' + postID,
         dataType: 'jsonp',
@@ -199,11 +204,17 @@ function getPost(id) {
 
 function getPosts(limit) {
 
-    $.ajax({
-        url: url + '?api_key=' + api_key + '&limit=' + limit + '&offset=' + gottenPosts,
-        dataType: 'jsonp',
-        success: showPosts
-    });
+    var toTry = url + '?api_key=' + api_key + '&limit=' + limit + '&offset=' + gottenPosts;
+
+    if ( haveTried.indexOf(toTry) === -1 ) {
+        $.ajax({
+            url: url + '?api_key=' + api_key + '&limit=' + limit + '&offset=' + gottenPosts,
+            dataType: 'jsonp',
+            success: showPosts
+        });
+
+        haveTried.push(toTry);
+    }
 }
 
 function tryToGetMorePosts() {
@@ -211,11 +222,7 @@ function tryToGetMorePosts() {
     // only try if we're going to show all
     if ( showAll ) {
         if ( doc.height() - win.scrollTop() - 100 < win.height() ) {
-            console.log('trying to get more posts');
             getPosts(20);
-        }
-        if ( gottenPosts === totalPosts ) {
-            win.off('scroll');
         }
     } else {
         win.off('scroll');

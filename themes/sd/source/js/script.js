@@ -18,8 +18,26 @@ var utils = {
     },
     hide: function() {
         $(this.getAttribute('data-show')).stop().fadeOut();
+    },
+    lazyLoad: function() {
+        $('.lazy-load').each(function(){
+            var $this = $(this);
+            if ( $this.is('img') ) {
+                imagesLoaded($this).on('done', function() {
+                    $this.removeClass('lazy-load');
+                });
+            } else if ( $this.css('background-image').slice(0, 3) === 'url' ) {
+                var url = $this.css('background-image').replace('url(', '').replace(')', ''),
+                    img = $('<img src="' + url + '">');
+                imagesLoaded(img).on('done', function() {
+                    $this.removeClass('lazy-load');
+                });
+            }
+        });
     }
 };
+
+doc.ready(utils.lazyLoad);
 
 $('[data-show]').mouseover(utils.show).mouseout(utils.hide);
 

@@ -10,14 +10,14 @@
         <% }
             firstPost = false;
         %>
-        <div class="row container">
+        <div class="section container">
             <div class="two two-s columns normalize">
                 <% lastYear = year; %>
                 <p class="bold caption"><%= year %></p>
             </div>
-            <div class="ten nine-s columns no-underline normalize">
+            <div class="ten nine-s columns normalize no-underline">
     <% } %>
-    <p>
+    <p class="row">
         <a href="<%- '/' + post.path %>"><%- post.title %></a><br>
         <span class="caption" data-date="<%- post.date %>"></span>
     </p>

@@ -2,8 +2,8 @@ title: "@ColHeightsMetro, or 'My First Twitterbot'"
 date: 2014/03/24
 ---
 
-<div class="row">
-    <img class="padded bg-white" src="## assets ##/2014/03/colheights-banner.png">
+<div class="row padded bg-white">
+    <img class="anim-fade lazy-load" src="## assets ##/2014/03/colheights-banner.png">
 </div>
 
 <div class="row container">

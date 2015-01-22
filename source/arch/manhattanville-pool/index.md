@@ -2,8 +2,8 @@ title: Manhattanville Pool & Community Center
 date: 2014/12/02
 ---
 
-<div class="row">
-    <img class="padded bg-white" src="images/banner.jpg">
+<div class="row padded bg-white">
+    <img class="anim-fade lazy-load" src="images/banner.jpg">
 </div>
 
 <div class="row container">

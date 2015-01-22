@@ -39,6 +39,9 @@ body {
 	font-size: 0.9em;
 }
 
+.anim-fade { transition: 0.333s opacity; }
+.faded, .lazy-load { opacity: 0; }
+
 pre, code, kbd, samp {
 	background: $default;
 	color: $secondary;
@@ -105,6 +108,31 @@ $tooltip_width: 120px;
 	transform: translateY(-50%);
 }
 
+@mixin underline_animate($dir, $timing: 0.25s) {
+	&:after {
+		border-bottom: 2px solid;
+		content: "";
+		display: block;
+		@if $dir == "center" {
+			left: 50%;
+		} @else if $dir == "left" {
+			left: 0;
+		} @else {
+			left: 100%;
+		}
+		position: absolute;
+		transition: #{$timing} left, #{$timing} width;
+		width: 0%;
+	}
+
+	&:active, &:hover, &:focus {
+		&:after {
+			left: 0;
+			width: 100%;
+		}
+	}
+}
+
 // Links
 
 a {
@@ -129,6 +157,12 @@ a {
 	.primary-underline &,
 	&.primary-underline {
 		border-color: $primary;
+	}
+
+	.animate-underline,
+	&.animate-underline {
+		border: 0;
+		@include underline_animate("left", 0.5s);
 	}
 }
 
@@ -160,7 +194,7 @@ a {
 		height: 5px;
 		left: 100%;
 		top: 5px;
-		transform: translateX(9px);
+		transform: translateX(8px);
 		width: 5px;
 	}
 	&:after {
@@ -178,14 +212,6 @@ a {
 
 $header_height: 11vw;
 $home_header_title_font_size: 5vw;
-
-@mixin active_nav() {
-	span:after {
-		border: 1px solid #fff;
-		left: 0;
-		width: 100%;
-	}
-}
 
 #header {
 	height: $header_height;
@@ -233,20 +259,7 @@ $home_header_title_font_size: 5vw;
 			text-decoration: none;
 
 			span {
-
-				&:after {
-					border-bottom: 2px solid #fff;
-					content: "";
-					display: block;
-					left: 50%;
-					position: absolute;
-					transition: 0.25s left, 0.25s width;
-					width: 0%;
-				}
-			}
-
-			&:active, &:hover, &:focus {
-				@include active_nav;
+				@include underline_animate("center");
 			}
 		}
 	}
@@ -257,7 +270,6 @@ $home_header_title_font_size: 5vw;
 	background-repeat: no-repeat;
 	background-size: 28% auto;
 	height: 180%;
-	opacity: 0.5;
 	width: 100%;
 
 	.home & {

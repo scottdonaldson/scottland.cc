@@ -2,8 +2,8 @@ title: Build Your Own House & Atelier Bow-Wow
 date: 2014/10/17
 ---
 
-<div class="row">
-    <img class="padded bg-white" src="images/banner.gif">
+<div class="row padded bg-white">
+    <img class="anim-fade lazy-load" src="images/banner.gif">
 </div>
 
 <div class="row container">
