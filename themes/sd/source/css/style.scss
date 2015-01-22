@@ -42,7 +42,7 @@ body {
 .anim-fade { transition: 0.333s opacity; }
 .faded, .lazy-load { opacity: 0; }
 
-pre, code, kbd, samp {
+pre, kbd, samp {
 	background: $default;
 	color: $secondary;
 	font-size: 14px;
@@ -356,7 +356,11 @@ $home_header_title_font_size: 5vw;
 		width: 100%;
 
 		& + a {
-			margin-top: 30px;
+			margin-top: $gutter;
+
+			@media screen and (max-width: $break_small) {
+				margin-top: 0.333 * $gutter;
+			}
 		}
 
 		.image {

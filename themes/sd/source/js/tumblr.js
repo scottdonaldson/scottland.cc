@@ -22,11 +22,13 @@ function showPost(data) {
     var post = data.response.posts[0];
     var layout = '<div class="container row"><div class="two columns hide-s"></div>' +
         '<div class="eight columns aligncenter">' +
-        '<img src="' + post.photos[0].alt_sizes[0].url + '">' +
+        '<img class="anim-fade lazy-load" src="' + post.photos[0].alt_sizes[0].url + '">' +
         (post.caption.length > 0 ? '<div class="caption">' + post.caption + '</div>' : '') +
         '</div><div class="two columns hide-s"></div></div>' +
-        '<div class="container row"><div class="two columns"></div><div class="eight columns"><a class="caption" href="">&larr; Back to works in progress</a></div><div class="two columns"></div></div>';
+        '<div class="container row"><div class="two columns"></div><div class="eight columns"><a class="caption" href="/in-progress">&larr; Back to works in progress</a></div><div class="two columns"></div></div>';
+
     progress.append(layout);
+    utils.lazyLoad();
 }
 
 function showPosts(data) {
