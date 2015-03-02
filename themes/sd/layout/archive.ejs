@@ -13,14 +13,14 @@
         <div class="section container">
             <div class="two two-s columns normalize">
                 <% lastYear = year; %>
-                <p class="bold caption"><%= year %></p>
+                <h3 class="secondary"><%= year %></h3>
             </div>
             <div class="ten nine-s columns normalize no-underline">
     <% } %>
-    <p class="row">
-        <a href="<%- '/' + post.path %>"><%- post.title %></a><br>
+    <div class="row">
+        <h3 class="tight"><a href="<%- '/' + post.path %>"><%- post.title %></a></h3>
         <span class="caption" data-date="<%- post.date %>"></span>
-    </p>
+    </div>
 
 <% }) %>
 
