@@ -28,8 +28,7 @@
             <div class="row same-height">
                 <h3><a href="http://martinjs.org" class="ext" target="_blank">Martin.js</a></h3>
                 <p class="no-underline">
-                    <a href="http://martinjs.org" target="_blank">Martin.js Docs</a><br>
-                    <a href="https://github.com/scottdonaldson/martinjs" target="_blank">GitHub Repo</a>
+                    <p class="caption">&lt;canvas&gt; library for photo editing and drawing in browser.</p><p class="caption">Personal Work, 2014-15</p>
                 </p>
             </div>
         </div>
@@ -38,14 +37,36 @@
 
         <div class="three six-s columns normalize">
             <div class="row same-height">
-                <h3><a href="http://designforequality.org/submit-invisibles/" class="ext" target="_blank">Invisibilities</a></h3>
-                <p class="no-underline">
+                <h3><a href="http://app.designguggenheimhelsinki.org/" class="ext" target="_blank">Guggenheim Helsinki Now</a></h3>
+                <p class="caption">Visualization and quiz interface for an architectural taste-matching game.</p><p class="caption">Freelance for Guggenheim Helsinki, 2015</p>
+            </div>
+        </div>
+    </div>
 
-                    <a href="https://github.com/scottdonaldson/dfe" target="_blank">GitHub Repo</a><br>
+    <div class="container full-width row">
+
+        <div class="five columns hide-s"></div>
+
+        <div class="three six-s columns normalize">
+            <div class="row same-height">
+                <h3><a href="http://www.booksatwork.org/" class="ext" target="_blank">Books@Work</a></h3>
+                <p class="caption">Website redesign for a nonprofit focused on literature in the workplace.</p><p class="caption">Parsley &amp; Sprouts, 2013</p>
+            </div>
+
+        </div>
+
+        <div class="one column hide-s"></div>
+
+        <div class="three six-s columns normalize">
+            <div class="row same-height">
+                <h3><a href="http://designforequality.org/submit-invisibles/" class="ext" target="_blank">Invisibilities</a></h3>
+                <p class="caption">Data visualization tracking Wikipedia edits over time.</p><p class="caption">Pro Bono for Design for Equality, 2014</p>
+                <p class="no-underline">
                     <a href="/data-viz-wikipedia">Post: Data Viz with the Wikipedia API and Snap.svg</a>
                 </p>
             </div>
         </div>
+
     </div>
 
     <div class="container full-width">
@@ -54,10 +75,8 @@
 
         <div class="three six-s columns normalize">
             <div class="row same-height">
-                <h3><a href="http://www.booksatwork.org/" class="ext" target="_blank">Books@Work</a></h3>
-                <p class="no-underline">
-                    <a href="https://github.com/scottdonaldson/booksatwork" target="_blank">GitHub Repo</a>
-                </p>
+                <h3><a href="http://points.scottland.cc/" class="ext" target="_blank">Points in Flux</a></h3>
+                <p class="caption">&lt;canvas&gt;-based web game.</p><p class="caption">GSAPP Architectural Drawing + Representation, 2015</p>
             </div>
 
         </div>
@@ -67,6 +86,7 @@
         <div class="three six-s columns normalize">
             <div class="row same-height">
                 <h3><a href="https://iwillvote.com" class="ext" target="_blank">I Will Vote</a></h3>
+                <p class="caption">Rails app to encourage voter registration for the 2014 election cycle.</p><p class="caption">Democratic National Committee Engineering, 2014</p>
             </div>
         </div>
 
@@ -141,20 +161,20 @@
             <div class="two columns hide-s"></div>
 
             <div class="two columns normalize row">
-                <p class="alignright bold caps italic lead">Recent Writing</p>
+                <p class="alignright alignleft-s bold caps italic lead">Recent Writing</p>
             </div>
 
             <div class="one column hide-s"></div>
 
-            <div class="seven columns alignright-s">
+            <div class="seven columns">
                 <%
                 var numPosts = 0;
                 page.posts.each(function(post){
                     if ( numPosts < 3 ) {
                     %>
                     <div class="row">
-                        <a href="<%- post.path %>" class="no-underline hover-white"><%- post.title %></a><br>
-                        <small class="bold white" data-date="<%- post.date %>"></small>
+                        <h3 class="tight"><a href="<%- post.path %>" class="no-underline hover-white"><%- post.title %></a></h3>
+                        <small class="italic secondary" data-date="<%- post.date %>"></small>
                     </div>
                     <%
                     }
