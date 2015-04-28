@@ -1,4 +1,4 @@
-title: "@ColHeightsMetro, or 'My First Twitterbot'"
+title: Building the "@ColHeightsMetro" Twitterbot
 date: 2014/03/24
 ---
 
