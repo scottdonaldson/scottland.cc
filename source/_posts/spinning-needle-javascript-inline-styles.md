@@ -1,10 +1,7 @@
 title: Spinning the Needle with JavaScript and Inline Styles
 date: 2013/02/21
+banner: '## assets ##/2013/08/abide-banner.jpg'
 ---
-
-<div class="row padded bg-white">
-    <img class="anim-fade lazy-load" src="## assets ##/2013/08/abide-banner.jpg">
-</div>
 
 <div class="container">
 

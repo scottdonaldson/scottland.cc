@@ -1,10 +1,7 @@
 title: St. Paul Skyways
 date: 2013/03/01
+banner: '## assets ##/2013/03/banner.jpg'
 ---
-
-<div class="row padded bg-white">
-    <img class="anim-fade lazy-load" src="## assets ##/2013/03/banner.jpg">
-</div>
 
 <div class="row container">
     <div class="two columns"></div>

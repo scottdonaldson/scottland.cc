@@ -1,10 +1,7 @@
 title: Public Toilet in Straus Park
 date: 2014/10/03
+banner: '## assets ##/2014/10/banner.jpg'
 ---
-
-<div class="row padded bg-white">
-    <img class="anim-fade lazy-load" src="## assets ##/2014/10/banner.jpg">
-</div>
 
 <div class="row container">
     <div class="two columns spacer"></div>

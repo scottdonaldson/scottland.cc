@@ -1,10 +1,7 @@
 title: Sketching in DC
 date: 2014/02/11
+banner: '## assets ##/2014/02/banner.jpg'
 ---
-
-<div class="row padded bg-white">
-    <img class="anim-fade lazy-load" src="## assets ##/2014/02/banner.jpg">
-</div>
 
 <div class="row container">
 
