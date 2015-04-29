@@ -25,7 +25,7 @@ function showPost(data) {
         '<img class="anim-fade lazy-load" src="' + post.photos[0].alt_sizes[0].url + '">' +
         (post.caption.length > 0 ? '<div class="caption">' + post.caption + '</div>' : '') +
         '</div><div class="two columns hide-s"></div></div>' +
-        '<div class="container row"><div class="two columns"></div><div class="eight columns"><a class="caption" href="/in-progress">&larr; Back to works in progress</a></div><div class="two columns"></div></div>';
+        '<div class="container row"><div class="two columns"></div><div class="eight columns"><a class="caption" href="/visuals">&larr; Back to Assorted Visuals</a></div><div class="two columns"></div></div>';
 
     progress.append(layout);
     utils.lazyLoad();
@@ -152,10 +152,11 @@ function makeLayout(images, layout) {
         }
 
         progressTemplate += openDiv +
-            '<a href="/in-progress#' + image.postID + '">' +
+            '<a href="/visuals#' + image.postID + '">' +
             '<div class="image anim-fade lazy-load" style="background-image:url(' + image.url + ');"></div>' +
             '<img src="' + image.url + '">' +
-            '<div class="cover abs t0 l0"><div class="vcenter"><p class="bold lead">#' + image.id + '</p><p>Works in Progress</p></div></div></a>' + closeDiv;
+            '<div class="cover abs t0 l0"><div class="vcenter"><p class="bold lead">#' + image.id + '</p>' +
+            '</div></div></a>' + closeDiv;
 
     });
 

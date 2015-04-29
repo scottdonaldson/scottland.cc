@@ -97,6 +97,10 @@ $full_width: 1400px;
     &.maintain {
         flex-wrap: nowrap;
     }
+
+    &.flex-end {
+        align-items: flex-end;
+    }
 }
     .same-height {
         align-self: stretch;
