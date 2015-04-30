@@ -1,13 +1,12 @@
 title: Public Toilet in Straus Park
 date: 2014/10/03
 banner: '## assets ##/2014/10/banner.jpg'
+width: 'full'
 ---
 
 <div class="row container">
     <div class="two columns spacer"></div>
     <div class="eight columns">
-        <h1 class="bold">{{ title }}</h1>
-        <p data-date="{{ date }}" class="caption"></p>
         <p>Straus Park is a small, triangle-shaped plot on Broadway in the Upper West Side of Manhattan. This proposal for a public toilet replaces a small set of stairs, creating an accessible space with a waiting area.</p>
         <p>Situated at the intersection of Broadway and West End Avenue, pedestrians walking north on the west side of Broadway <em>must</em> pass through Straus Park. The toilet's site takes advantage of this pattern.</p>
     </div>

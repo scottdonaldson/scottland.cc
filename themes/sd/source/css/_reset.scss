@@ -6,3 +6,8 @@ img { height: auto; max-width: 100%; }
 @function grayscale($value) {
     @return #{ "grayscale(" + $value + ")" };
 }
+
+// silly hexo puts these in
+p:empty {
+    display: none;
+}

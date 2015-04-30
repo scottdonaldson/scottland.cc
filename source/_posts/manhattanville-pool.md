@@ -1,17 +1,14 @@
 title: Manhattanville Pool & Community Center
 date: 2014/12/02
 banner: '## assets ##/2014/12/banner.jpg'
+width: 'full'
 ---
 
 <div class="row container">
-
     <div class="two columns spacer"></div>
     <div class="eight columns">
-        <h1 class="bold">{{ title }}</h1>
-        <p data-date="{{ date }}" data-show-year="1" class="caption"></p>
         <p class="lead">On the border between the Manhattanville Housing Projects and an expansion of Columbia University's campus, this project aims to preserve and enhance the entire site surface as usable, public space, with interior spaces that take advantage of the unique formal characteristics that arise as a result of the urban strategy.</p>
     </div>
-
 </div>
 
 <div class="row container">

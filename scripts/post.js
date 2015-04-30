@@ -1,22 +1,75 @@
-hexo.extend.filter.register('after_post_render', function(data, callback){
+hexo.extend.filter.register('before_post_render', function(data, callback) {
 
-	var banner;
+	var content = data.content,
+		title = data.title,
+		date = data.date;
 
-    if ( data.banner ) {
-        banner = data.banner;
+	// Title and date
+	content =
+		(title && date ?
+			'<h1 class="bold">' + title + '</h1>' +
+			'<p data-date="' + date + '" class="caption"></p>' :
+			''
+		) +
+		content;
 
-        data.content = '<div class="padded bg-white row"><img class="anim-fade lazy-load" src="' + banner + '"></div>' + data.content;
-    }
+	data.content = content;
+
+	callback(null, data);
+
+});
+
+hexo.extend.filter.register('after_post_render', function(data, callback) {
+
+	var content = data.content,
+		banner = data.banner,
+		width = data.width;
+
+	// Banner
+	function makeBanner() {
+
+		var output = '';
+
+		if ( banner ) {
+
+	        output += '<div class="padded bg-white row"><img class="anim-fade lazy-load" src="' + banner + '"></div>';
+	    }
+		return output;
+	}
+
+	// Layout container
+	if ( !width ) {
+
+		content =
+			'<div class="row container">' +
+				'<div class="two columns spacer"></div>' +
+				'<div class="eight columns">' + content + '</div>' +
+			'</div>';
+	} else if ( data.width === 'full' ) {
+
+		var titleRegex = /(<h1.*class="caption"><\/p>)/;
+
+		content = content.replace(titleRegex, '<div class="container">' +
+			'<div class="two columns spacer"></div>' +
+			'<div class="eight columns">$1</div>' +
+		'</div>');
+	}
+
+	// Banner goes at the top (before layout container)
+	content = makeBanner() + content;
 
     // replace ## assets ## with the config assets URL
-	data.content = data.content.replace(/## assets ##/g, hexo.config.assets);
+	content = content.replace(/## assets ##/g, hexo.config.assets);
 
 	// replace <br> tags with nothing
-	data.content = data.content.replace(/<br>/g, '');
+	content = content.replace(/<br>/g, '');
 	// replace empty <p> tags
-	data.content = data.content.replace(/<p><\/p>/g, '');
+	content = content.replace(/<p><\/p>/g, '');
 	// replace $$ with single quote '
-	data.content = data.content.replace(/\$\$/g, "'");
+	content = content.replace(/\$\$/g, "'");
+
+	// set content again
+	data.content = content;
 
     callback(null, data);
 
