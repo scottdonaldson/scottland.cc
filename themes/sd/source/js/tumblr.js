@@ -264,9 +264,6 @@ function getPosts(limit) {
 
 function tryToGetMorePosts() {
 
-    console.log('trying to get more');
-    console.log('conditions are', showAll, document.body.clientHeight, document.body.scrollTop - 100, window.innerHeight)
-
     // only try if we're going to show all
     if ( showAll && document.body.clientHeight - document.body.scrollTop - 100 < window.innerHeight ) {
         getPosts(20);
