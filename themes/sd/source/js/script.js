@@ -1,51 +1,94 @@
-var win = $(window),
-    doc = $(document);
+(function() {
 
-var utils = {
-    numberToLetter: function(num) {
-        return ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve'][num];
+function init() {
+    // lazy load images
+    utils.lazyLoad();
+
+    // parse dates
+    var dates = document.querySelectorAll('[data-date]');
+    forEach(dates, parseDate);
+
+    var show = document.querySelectorAll('[data-show]');
+    forEach(show, function() {
+        // remove leading # to get id and query, then add event listener
+        this.addEventListener('mouseover', utils.show, false);
+        this.addEventListener('mouseout', utils.hide, false);
+    });
+}
+
+function fade(el, target, orig) {
+
+    if ( el.style.display === 'none' ) el.style.display = 'block';
+
+    var last = +new Date();
+    (function tick() {
+        var next = +new Date();
+        el.style.opacity = +el.style.opacity + (target > orig ? (next - last) : (last - next)) / 250;
+        last = next;
+
+        if ( (target > orig && +el.style.opacity < target) || (target < orig && +el.style.opacity > target) ) {
+            requestAnimationFrame(tick);
+        }
+
+        // if done fading out, hide it all the way
+        if ( target === 0 && +el.style.opacity <= 0 ) el.style.display = 'none';
+    })();
+}
+
+function fadeIn(el) {
+    return fade(el, 1, 0);
+}
+
+function fadeOut(el) {
+    return fade(el, 0, 1);
+}
+
+function forEach(array, callback, scope) {
+    for (var i = 0; i < array.length; i++) {
+        callback.call(array[i], i);
+    }
+};
+
+window.utils = {
+    numberToWord: function(num) {
+        return ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen'][num];
     },
     show: function() {
-        var el = $(this.getAttribute('data-show'));
-        el.stop().fadeIn();
-
-        // add an event listener in case
-        el.mouseover(function(){
-            $(this).stop().fadeIn();
-        }).on('mouseout click', function() {
-            $(this).stop().fadeOut().off('mouseover mouseout click');
-        });
+        var target = document.getElementById(this.getAttribute('data-show').slice(1));
+        fadeIn(target);
     },
     hide: function() {
-        $(this.getAttribute('data-show')).stop().fadeOut();
+        var target = document.getElementById(this.getAttribute('data-show').slice(1));
+        fadeOut(target);
     },
     lazyLoad: function() {
-        $('.lazy-load').each(function(){
-            var $this = $(this);
-            if ( $this.is('img') ) {
-                imagesLoaded($this).on('done', function() {
-                    $this.removeClass('lazy-load');
+        var lazyLoaders = document.getElementsByClassName('lazy-load');
+        forEach(lazyLoaders, function(){
+
+            if ( this.tagName === 'IMG' ) {
+                imagesLoaded(this, function(instance) {
+                    forEach(instance.elements, function() {
+                        this.classList.remove('lazy-load');
+                    });
                 });
-            } else if ( $this.css('background-image').slice(0, 3) === 'url' ) {
-                var url = $this.css('background-image').replace('url(', '').replace(')', ''),
-                    img = $('<img src="' + url + '">');
+            } else if ( getComputedStyle(this).backgroundImage.slice(0, 3) === 'url' ) {
+                var _this = this,
+                    url = getComputedStyle(this).backgroundImage.replace('url(', '').replace(')', ''),
+                    img = document.createElement('img');
+                img.src = url;
                 imagesLoaded(img).on('done', function() {
-                    $this.removeClass('lazy-load');
+                    _this.classList.remove('lazy-load');
                 });
             }
         });
     }
 };
 
-doc.ready(utils.lazyLoad);
-
-$('[data-show]').mouseover(utils.show).mouseout(utils.hide);
-
 var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 function compareDates(a, b) {
     // return the number of days different between a and b
-    return ( (a.getTime() - b.getTime()) / (24*60*60*1000) );
+    return ( (a.getTime() - b.getTime()) / (24 * 60 * 60 * 1000) );
 }
 
 function parseDate() {
@@ -85,4 +128,7 @@ function parseDate() {
 
     this.innerHTML = text;
 }
-$('[data-date]').each(parseDate);
+
+document.addEventListener('DOMContentLoaded', init);
+
+})();

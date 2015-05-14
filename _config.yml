@@ -4,8 +4,6 @@
 
 # Site
 title: Scottland Donaldson
-subtitle:
-description: "Scottland Donaldson is an M.Arch. candidate at Columbia University Graduate School of Architecture, Planning and Preservation in New York City."
 author: Scottland Donaldson
 email: scott.p.donaldson@gmail.com
 language: en-US
@@ -83,5 +81,3 @@ disqus_shortname:
 ## Plugins: https://github.com/tommy351/hexo/wiki/Plugins
 ## Themes: https://github.com/tommy351/hexo/wiki/Themes
 theme: sd
-plugins:
-exclude_generator:

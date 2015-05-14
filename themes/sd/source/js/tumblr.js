@@ -1,7 +1,22 @@
+(function(){
+
+function init() {
+    window.addEventListener('scroll', tryToGetMorePosts, false);
+
+    if ( progress ) {
+        if ( postID ) {
+            getPost(postID);
+        } else {
+            if ( !!+progress.getAttribute('data-show-all') ) showAll = true;
+            getPosts(showAll ? 20 : 4);
+        }
+    }
+}
+
 // Tumblr
-var progress = $('#in-progress-images'),
+var progress = document.getElementById('in-progress-images'),
     postID = false, // by default, assume we're not looking at just 1 post
-    url = 'http://api.tumblr.com/v2/blog/scottlandinprogress.tumblr.com/posts',
+    url = 'https://api.tumblr.com/v2/blog/scottlandinprogress.tumblr.com/posts',
     api_key = 'og7kklRhXgkAdQFT8S0fQpRVYIUAXmUyhCG8DIXBKMrMajGwky',
     showAll = false, // by default, assume we are not showing all (rather just 4)
     max = 20, // the most posts we can get at one time
@@ -14,20 +29,52 @@ if ( location.hash.length > 0 ) {
     postID = location.hash.slice(1);
 }
 
+// mini-library for JSONP
+var AJAX = (function() {
+    var that = {};
+
+    that.get = function(url, callback) {
+
+        url += '&callback=dummy';
+
+        var timeout_trigger = window.setTimeout(function(){
+            window.dummy = function(){};
+            on_timeout();
+        }, 1000);
+
+        window.dummy = function(data) {
+            window.clearTimeout(timeout_trigger);
+            callback(data);
+            delete window.dummy;
+        };
+
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.async = true;
+        script.src = url;
+
+        document.getElementsByTagName('head')[0].appendChild(script);
+    }
+
+    return that;
+})();
+
 // Easy peasy - show 1 post
 function showPost(data) {
 
     gottenPosts++;
 
     var post = data.response.posts[0];
-    var layout = '<div class="container row"><div class="two columns hide-s"></div>' +
+    var layout = document.createElement('div');
+    layout.classList.add('container', 'row');
+    layout.innerHTML = '<div class="two columns hide-s"></div>' +
         '<div class="eight columns aligncenter">' +
         '<img class="anim-fade lazy-load" src="' + post.photos[0].alt_sizes[0].url + '">' +
         (post.caption.length > 0 ? '<div class="caption">' + post.caption + '</div>' : '') +
         '</div><div class="two columns hide-s"></div></div>' +
-        '<div class="container row"><div class="two columns"></div><div class="eight columns"><a class="caption" href="/visuals">&larr; Back to Assorted Visuals</a></div><div class="two columns"></div></div>';
+        '<div class="container row"><div class="two columns"></div><div class="eight columns"><a class="caption" href="/visuals">&larr; Back to Assorted Visuals</a></div><div class="two columns"></div>';
 
-    progress.append(layout);
+    progress.appendChild(layout);
     utils.lazyLoad();
 }
 
@@ -117,12 +164,12 @@ function makeLayout(images, layout) {
     sortedImages.forEach(function(image, i) {
 
         if ( i === 0 ) {
-            progressTemplate += '<div class="container maintain row">';
+            progressTemplate = '<div class="container maintain row">';
         }
 
         var numColumns = layout[i].cols,
-            columns = utils.numberToLetter(layout[i].cols),
-            nextImageColumns = sortedImages[i + 1] ? utils.numberToLetter(layout[i + 1].cols) : false;
+            columns = utils.numberToWord(layout[i].cols),
+            nextImageColumns = sortedImages[i + 1] ? utils.numberToWord(layout[i + 1].cols) : false;
 
         var style = '';
 
@@ -160,7 +207,9 @@ function makeLayout(images, layout) {
 
     });
 
-    progress.append(progressTemplate);
+    var dummy = document.createElement('div');
+    dummy.innerHTML = progressTemplate;
+    progress.appendChild(dummy);
 
     utils.lazyLoad();
 }
@@ -197,12 +246,8 @@ function testLayouts(images) {
 };
 
 function getPost(id) {
-
-    $.ajax({
-        url: url + '?api_key=' + api_key + '&id=' + postID,
-        dataType: 'jsonp',
-        success: showPost
-    });
+    var theUrl = url + '?api_key=' + api_key + '&id=' + postID
+    AJAX.get(theUrl, showPost);
 }
 
 function getPosts(limit) {
@@ -210,11 +255,8 @@ function getPosts(limit) {
     var toTry = url + '?api_key=' + api_key + '&limit=' + limit + '&offset=' + gottenPosts;
 
     if ( haveTried.indexOf(toTry) === -1 ) {
-        $.ajax({
-            url: url + '?api_key=' + api_key + '&limit=' + limit + '&offset=' + gottenPosts,
-            dataType: 'jsonp',
-            success: showPosts
-        });
+
+        AJAX.get(toTry, showPosts);
 
         haveTried.push(toTry);
     }
@@ -222,27 +264,15 @@ function getPosts(limit) {
 
 function tryToGetMorePosts() {
 
+    console.log('trying to get more');
+    console.log('conditions are', showAll, document.body.clientHeight, document.body.scrollTop - 100, window.innerHeight)
+
     // only try if we're going to show all
-    if ( showAll ) {
-        if ( doc.height() - win.scrollTop() - 100 < win.height() ) {
-            getPosts(20);
-        }
-    } else {
-        win.off('scroll');
+    if ( showAll && document.body.clientHeight - document.body.scrollTop - 100 < window.innerHeight ) {
+        getPosts(20);
     }
 }
 
-win.scroll(tryToGetMorePosts);
+document.addEventListener('DOMContentLoaded', init);
 
-if ( progress ) {
-    if ( postID ) {
-        getPost(postID);
-    } else {
-        if ( !!+progress.attr('data-show-all') ) showAll = true;
-        if ( showAll ) {
-            getPosts(20);
-        } else {
-            getPosts(4);
-        }
-    }
-}
+})();
