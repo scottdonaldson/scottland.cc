@@ -65,16 +65,19 @@ function showPost(data) {
     gottenPosts++;
 
     var post = data.response.posts[0];
-    var layout = document.createElement('div');
+    var layout = document.createElement('div'),
+        back = document.createElement('div');
     layout.classList.add('container', 'row');
+    back.classList.add('container', 'row');
     layout.innerHTML = '<div class="two columns hide-s"></div>' +
         '<div class="eight columns aligncenter">' +
         '<img class="anim-fade lazy-load" src="' + post.photos[0].alt_sizes[0].url + '">' +
         (post.caption.length > 0 ? '<div class="caption">' + post.caption + '</div>' : '') +
-        '</div><div class="two columns hide-s"></div></div>' +
-        '<div class="container row"><div class="two columns"></div><div class="eight columns"><a class="caption" href="/visuals">&larr; Back to Assorted Visuals</a></div><div class="two columns"></div>';
+        '</div><div class="two columns hide-s"></div></div>';
+    back.innerHTML = '<div class="two columns"></div><div class="eight columns"><a class="caption" href="/visuals">&larr; Back to Assorted Visuals</a></div><div class="two columns"></div>';
 
     progress.appendChild(layout);
+    progress.appendChild(back);
     utils.lazyLoad();
 }
 
