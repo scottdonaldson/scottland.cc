@@ -16,12 +16,13 @@ function init() {
     });
 }
 
+var tick;
 function fade(el, target, orig) {
 
     if ( el.style.display === 'none' ) el.style.display = 'block';
 
     var last = +new Date();
-    (function tick() {
+    tick = function() {
         var next = +new Date();
         el.style.opacity = +el.style.opacity + (target > orig ? (next - last) : (last - next)) / 250;
         last = next;
@@ -32,7 +33,8 @@ function fade(el, target, orig) {
 
         // if done fading out, hide it all the way
         if ( target === 0 && +el.style.opacity <= 0 ) el.style.display = 'none';
-    })();
+    }
+    tick();
 }
 
 function fadeIn(el) {
