@@ -11,6 +11,7 @@ function init() {
     var show = document.querySelectorAll('[data-show]');
     forEach(show, function() {
         // remove leading # to get id and query, then add event listener
+        this.addEventListener('click', utils.toggle, false);
         this.addEventListener('mouseover', utils.show, false);
         this.addEventListener('mouseout', utils.hide, false);
     });
@@ -45,6 +46,10 @@ function fadeOut(el) {
     return fade(el, 0, 1);
 }
 
+function fadeToggle(el) {
+    return +el.style.opacity === 0 ? fadeIn(el) : fadeOut(el);
+}
+
 function forEach(array, callback, scope) {
     for (var i = 0; i < array.length; i++) {
         callback.call(array[i], i);
@@ -62,6 +67,10 @@ window.utils = {
     hide: function() {
         var target = document.getElementById(this.getAttribute('data-show').slice(1));
         fadeOut(target);
+    },
+    toggle: function() {
+        var target = document.getElementById(this.getAttribute('data-show').slice(1));
+        fadeToggle(target);
     },
     lazyLoad: function() {
         var lazyLoaders = document.getElementsByClassName('lazy-load');
