@@ -210,6 +210,11 @@ $home_header_title_font_size: 5vw;
 		margin-bottom: 2em !important;
 	}
 
+	@media screen and (max-width: $break_tiny) {
+		height: 68px !important;
+		min-height: 68px !important;
+	}
+
 	.home & {
 		height: 2 * $header_height;
 	}
@@ -239,6 +244,10 @@ $home_header_title_font_size: 5vw;
 
 			ul { @include tight; text-align: center; }
 			li { font-size: 1em; padding-top: 1em; }
+		}
+
+		@media screen and (max-width: $break_tiny) {
+			li { font-size: 0.8em; }
 		}
 
 		a, a:visited {
@@ -301,6 +310,10 @@ $home_header_title_font_size: 5vw;
 		margin-top: 0;
 		text-align: center;
 		top: 0 !important;
+	}
+
+	@media screen and (max-width: $break_tiny) {
+		font-size: 1.3em !important;
 	}
 }
 

@@ -1230,6 +1230,10 @@ a {
       height: 80px !important;
       min-height: 80px !important;
       margin-bottom: 2em !important; } }
+  @media screen and (max-width: 480px) {
+    #header {
+      height: 68px !important;
+      min-height: 68px !important; } }
   .home #header {
     height: 22vw; }
   .arch #header, .post #header {
@@ -1254,6 +1258,9 @@ a {
         #header nav li {
           font-size: 1em;
           padding-top: 1em; } }
+    @media screen and (max-width: 480px) {
+      #header nav li {
+        font-size: 0.8em; } }
     #header nav a, #header nav a:visited {
       color: #fff;
       padding: 1em;
@@ -1304,6 +1311,9 @@ a {
       margin-top: 0;
       text-align: center;
       top: 0 !important; } }
+  @media screen and (max-width: 480px) {
+    #header-title {
+      font-size: 1.3em !important; } }
 
 #intro {
   margin-top: 5em;

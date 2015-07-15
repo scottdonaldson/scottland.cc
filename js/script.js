@@ -73,23 +73,29 @@ window.utils = {
         fadeToggle(target);
     },
     lazyLoad: function() {
+
         var lazyLoaders = document.getElementsByClassName('lazy-load');
-        forEach(lazyLoaders, function(){
+
+        function loadIt() {
+            this.classList.remove('lazy-load');
+        }
+
+        forEach(lazyLoaders, function() {
+
+            var styles = getComputedStyle(this);
 
             if ( this.tagName === 'IMG' ) {
                 imagesLoaded(this, function(instance) {
-                    forEach(instance.elements, function() {
-                        this.classList.remove('lazy-load');
-                    });
+                    forEach(instance.elements, loadIt);
                 });
-            } else if ( getComputedStyle(this).backgroundImage.slice(0, 3) === 'url' ) {
-                var _this = this,
-                    url = getComputedStyle(this).backgroundImage.replace('url(', '').replace(')', ''),
+            } else if ( styles && styles.backgroundImage && styles.backgroundImage.slice(0, 3) === 'url' ) {
+
+                var url = styles.backgroundImage.replace('url(', '').replace(')', ''),
                     img = document.createElement('img');
                 img.src = url;
-                imagesLoaded(img).on('done', function() {
-                    _this.classList.remove('lazy-load');
-                });
+                imagesLoaded(img)
+                    .on('done', loadIt.bind(this))
+                    .on('always', loadIt.bind(this));
             }
         });
     }
@@ -103,10 +109,23 @@ function compareDates(a, b) {
 }
 
 function parseDate() {
+
     var date = this.getAttribute('data-date'),
+        year, month, day,
         now = new Date(),
         text,
         relative = false;
+
+    // get month from date format
+    month = date.split(' ')[0].split('-')[1];
+    month = +month - 1;
+    month = months[month];
+    month = month.slice(0, 3);
+
+    date = date.replace(/(\d{4})-\d{2}-(\d{2})/, month + ' $2, $1');
+
+    // include GMT
+    date = date.replace(/(-\d{4})/, 'GMT$1');
     date = new Date(date);
 
     var daysPassed = compareDates(now, date);
