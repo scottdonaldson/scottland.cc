@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="Scottland is a front-end web developer whose clients have included nonprofits, progressive political organizations, and higher education.">
+
+    <title>Spinning the Needle with JavaScript and Inline Transforms | Scottland Donaldson</title>
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/images/favi/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/images/favi/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/images/favi/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/images/favi/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/images/favi/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/images/favi/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/images/favi/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/images/favi/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favi/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/images/favi/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favi/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/images/favi/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favi/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="stylesheet" href="/css/main.css">
+
+    <script src="/js/lib/modernizr-2.8.3.js"></script>
+</head>
+
+
+<body class=" post">
+
+<div id="page">
+
+    <header id="header" class="bg-primary">
+
+        <div id="header-img" class="abs l0 t0 anim-fade lazy-load"></div>
+
+        <div class="full-width">
+            <nav class="no-underline">
+                <ul>
+                    <li class="nav-writing"><a href="/archives"><span>Articles</span></a></li>
+                    <li class="nav-in-progress"><a href="/visuals"><span>Assorted Visuals</span></a></li>
+                    <li>
+                        <script>document.write('<a href="mailto:' + 'scott.p.' + 'dona' + 'ldson@gmai' + 'l.com' + '"><span>Email</span></a>');</script>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="abs b0 l0 w100">
+
+            <div class="full-width">
+
+                <h1 id="header-title">
+                    <a class="bold caps no-underline" href="/" title="Scottland Donaldson" rel="home">Scottland Donaldson</a>
+                </h1>
+
+            </div>
+
+        </div>
+
+    </header>
+
+    <main>
+
+
+<div class="full-width">
+
+    
+        <div class="padded bg-white row"><img class="anim-fade lazy-load" src="http://scottdonaldson.net-assets.s3-website-us-east-1.amazonaws.com/2013/08/abide-banner.jpg"></div>
+    
+
+    <div class="row container">
+
+        <div class="two columns spacer"></div>
+
+        <div class="eight columns">
+
+            <h1 class="bold">Spinning the Needle with JavaScript and Inline Transforms</h1>
+            <p data-date="2013-02-21 00:00:00 -0500" class="caption"></p>
+
+            <p><strong>Updated August 2013: This article was originally titled “Spinning the Needle with jQuery and CSS Transforms.” While those are still in play here, the title has been updated to reflect the shift from setting data attributes with jQuery and styling with CSS, to directly using inline styles —-- cutting the size of the stylesheet in half.</strong></p>
+
+<p>Parsley &amp; Sprouts recently redesigned the website for the <a href="http://www.abide-idea.com">Abide Idea Company</a>, an idea generation/strategic development consultant. The headline for the site reads, “A trusted guide on your journey to develop new ideas,” and we pushed this metaphor with a graphic of a compass that stays fixed on the page as you scroll down.</p>
+
+<p>One interactive element that I was really happy with was making the needle of the compass spin so that it’s always pointing at your cursor as you browse the site.</p>
+
+<p><img src="http://scottdonaldson.net-assets.s3-website-us-east-1.amazonaws.com/2013/02/abide1.png" class="aligncenter" /></p>
+
+<h2>HTML</h2>
+
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="lineno"> 1</span> <span class="nt">&lt;section</span> <span class="na">id=</span><span class="s">&quot;masthead&quot;</span> <span class="na">class=</span><span class="s">&quot;full-width&quot;</span> <span class="na">role=</span><span class="s">&quot;masthead&quot;</span><span class="nt">&gt;</span>
+<span class="lineno"> 2</span> <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;full-content&quot;</span><span class="nt">&gt;</span>
+<span class="lineno"> 3</span> <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;content&quot;</span><span class="nt">&gt;</span>
+<span class="lineno"> 4</span>     <span class="nt">&lt;h2&gt;</span>A trusted guide on your journey to develop new ideas.<span class="nt">&lt;/h2&gt;</span>
+<span class="lineno"> 5</span>     <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;compass_container&quot;</span><span class="nt">&gt;</span>
+<span class="lineno"> 6</span>         <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;compass&quot;</span><span class="nt">&gt;</span>
+<span class="lineno"> 7</span>             <span class="nt">&lt;img</span> <span class="na">class=</span><span class="s">&quot;compass&quot;</span> <span class="na">src=</span><span class="s">&quot;compass.png&quot;</span><span class="nt">&gt;</span>
+<span class="lineno"> 8</span>             <span class="nt">&lt;img</span> <span class="na">class=</span><span class="s">&quot;needle&quot;</span> <span class="na">src=</span><span class="s">&quot;needle.png&quot;</span><span class="nt">&gt;</span>
+<span class="lineno"> 9</span>             <span class="nt">&lt;img</span> <span class="na">class=</span><span class="s">&quot;circle&quot;</span> <span class="na">src=</span><span class="s">&quot;circle.png&quot;</span><span class="nt">&gt;</span>
+<span class="lineno">10</span>         <span class="nt">&lt;/div&gt;</span>
+<span class="lineno">11</span>     <span class="nt">&lt;/div&gt;</span>
+<span class="lineno">12</span>     <span class="nt">&lt;h3&gt;</span>A friend to ideas and the people who have them.<span class="nt">&lt;/h3&gt;</span>
+<span class="lineno">13</span>     <span class="nt">&lt;/div&gt;</span>
+<span class="lineno">14</span> <span class="nt">&lt;/div&gt;</span>
+<span class="lineno">15</span> <span class="nt">&lt;/section&gt;</span></code></pre></div>
+
+<p>The compass consists of three separate image files —– one for the compass itself, one for the needle, and one small circle at the center of the needle. All are located in the masthead, so that the compass can be positioned relative when you’re at the top of the screen. Then, once you scroll down far enough that it hits the center of the screen, the JavaScript adds a class of “fixed,” which does what you’d expect — fixes it in the center. We listen for any mouse moving and, based on that, set an inline style that rotates the needle a certain number of degrees (calculated based on the mouse’s position relative to the center of the needle).</p>
+
+<h2>JS</h2>
+
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="lineno"> 1</span> <span class="kd">var</span> <span class="nx">mouseX</span><span class="p">,</span> <span class="nx">mouseY</span><span class="p">,</span> <span class="nx">needleX</span><span class="p">,</span> <span class="nx">needleY</span><span class="p">,</span> <span class="nx">angle</span><span class="p">;</span>
+<span class="lineno"> 2</span> <span class="kd">var</span> <span class="nx">needle</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.needle&#39;</span><span class="p">);</span>
+<span class="lineno"> 3</span> 
+<span class="lineno"> 4</span> <span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">mousemove</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+<span class="lineno"> 5</span>     <span class="nx">mouseX</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">pageX</span><span class="p">;</span>
+<span class="lineno"> 6</span>     <span class="nx">mouseY</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">pageY</span> <span class="o">-</span> <span class="nx">$</span><span class="p">(</span><span class="nb">window</span><span class="p">).</span><span class="nx">scrollTop</span><span class="p">();</span>
+<span class="lineno"> 7</span>     <span class="nx">needleX</span> <span class="o">=</span> <span class="nx">needle</span><span class="p">.</span><span class="nx">offset</span><span class="p">().</span><span class="nx">left</span> <span class="o">+</span> <span class="nx">needle</span><span class="p">.</span><span class="nx">width</span><span class="p">()</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span>
+<span class="lineno"> 8</span>     <span class="nx">needleY</span> <span class="o">=</span> <span class="nx">needle</span><span class="p">.</span><span class="nx">offset</span><span class="p">().</span><span class="nx">top</span> <span class="o">-</span> <span class="nx">$</span><span class="p">(</span><span class="nb">window</span><span class="p">).</span><span class="nx">scrollTop</span><span class="p">()</span> <span class="o">+</span> <span class="nx">needle</span><span class="p">.</span><span class="nx">height</span><span class="p">()</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span>
+<span class="lineno"> 9</span>     <span class="k">if</span> <span class="p">(</span><span class="nx">mouseX</span> <span class="o">&amp;</span><span class="nx">gt</span><span class="p">;</span> <span class="nx">needleX</span><span class="p">)</span> <span class="p">{</span>
+<span class="lineno">10</span>         <span class="nx">angle</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">atan</span><span class="p">((</span><span class="nx">mouseY</span> <span class="o">-</span> <span class="nx">needleY</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="nx">mouseX</span> <span class="o">-</span> <span class="nx">needleX</span><span class="p">));</span>
+<span class="lineno">11</span>         <span class="nx">angle</span> <span class="o">=</span> <span class="mi">180</span> <span class="o">*</span> <span class="nx">angle</span><span class="o">/</span><span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span> <span class="o">+</span> <span class="mi">90</span><span class="p">;</span>
+<span class="lineno">12</span>     <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+<span class="lineno">13</span>         <span class="nx">angle</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">atan</span><span class="p">((</span><span class="nx">mouseY</span> <span class="o">-</span> <span class="nx">needleY</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="nx">mouseX</span> <span class="o">-</span> <span class="nx">needleX</span><span class="p">));</span>
+<span class="lineno">14</span>         <span class="nx">angle</span> <span class="o">=</span> <span class="mi">180</span> <span class="o">*</span> <span class="nx">angle</span><span class="o">/</span><span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span> <span class="o">+</span> <span class="mi">270</span><span class="p">;</span>
+<span class="lineno">15</span>     <span class="p">}</span>
+<span class="lineno">16</span>     <span class="c1">// Don&#39;t set the angle if the mouse is hovering over it</span>
+<span class="lineno">17</span>     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">abs</span><span class="p">(</span><span class="nx">mouseX</span> <span class="o">-</span> <span class="nx">needleX</span><span class="p">)</span> <span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span> <span class="mi">80</span> <span class="o">&amp;&amp;</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">abs</span><span class="p">(</span><span class="nx">mouseY</span> <span class="o">-</span> <span class="nx">needleY</span><span class="p">)</span> <span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span> <span class="mi">80</span><span class="p">))</span> <span class="p">{</span>
+<span class="lineno">18</span>         <span class="nx">needle</span><span class="p">.</span><span class="nx">css</span><span class="p">({</span>
+<span class="lineno">19</span>             <span class="s1">&#39;transform&#39;</span><span class="o">:</span> <span class="s1">&#39;rotate(&#39;</span> <span class="o">+</span> <span class="nx">angle</span> <span class="o">+</span> <span class="s1">&#39;deg)&#39;</span><span class="p">,</span>
+<span class="lineno">20</span>             <span class="s1">&#39;-ms-transform&#39;</span><span class="o">:</span> <span class="s1">&#39;rotate(&#39;</span> <span class="o">+</span> <span class="nx">angle</span> <span class="o">+</span> <span class="s1">&#39;deg)&#39;</span><span class="p">,</span>
+<span class="lineno">21</span>             <span class="s1">&#39;-webkit-transform&#39;</span><span class="o">:</span> <span class="s1">&#39;rotate(&#39;</span> <span class="o">+</span> <span class="nx">angle</span> <span class="o">+</span> <span class="s1">&#39;deg)&#39;</span>
+<span class="lineno">22</span>         <span class="p">});</span>
+<span class="lineno">23</span>     <span class="p">}</span>
+<span class="lineno">24</span> <span class="p">});</span></code></pre></div>
+
+<p>First I set some variables — the x and y positions of both the cursor and the needle, and the angle between them. The <code>needle</code> variable is, of course, the needle. Whenever the mouse is moved, these variables are recalculated. For the y position of both the cursor and the needle, the amount the window has scrolled from the absolute top of the page also needs to be recalculated — otherwise the jQuery .offset() method gives us the position relative to the page, <em>not</em> the window. For the needle, both the x and y values have got 1/2 of the width and height (respectively) of the image added, so that the position is calculated from the center of it, not the top left corner.</p>
+
+<p>Once we’ve got those four variables, we can calculate the angle formed between the center of the needle and the cursor. <del>Thinking back to high school trigonometry</del> Googling brought me to the <a href="http://en.wikipedia.org/wiki/Inverse_trigonometric_functions#Application:_finding_the_angle_of_a_right_triangle">arctangent function</a>. Imagine a right triangle drawn with two points at the center of the needle and the cursor, and the third formed where orthogonal lines from those points intersect:</p>
+
+<p><img src="http://scottdonaldson.net-assets.s3-website-us-east-1.amazonaws.com/2013/02/abide2.png" class="aligncenter" /></p>
+
+<p>Subtracting the needle’s y position from the mouse’s y position (and needle x from mouse x) gives us the lengths of the triangle’s two legs, which is what we need for our arctan function. One thing to note is that the output of arctan changes depending on if the horizontal component is positive or negative (if the cursor is to the left or the right of the needle). Obviously we don’t want this to happen, so I separated the angle output into two different cases to compensate for this. Then we calculate the angle in each by taking the arctangent, converting to degrees (arctan outputs radians by default — degrees are just easier on the eyes), and adding either 90 or 270, depending on if we’re to the right or left. This value comes from the fact that 0 degrees is actually straight out to the right, and we want the needle’s resting state to be straight up.</p>
+
+<p>The last <code>if</code> statement checks to make sure the user is not hovering over the needle. Without it in place, as you get closer to the needle, the needle will start acting really volatile, spinning all over the place wildly depending on where exactly the cursor is. This statement locks it in its current place (where it was when the cursor entered its space) until the cursor moves out again. If the mouse is anywhere else on the page, we set an inline CSS style (with vendor prefixes for IE9 and Webkit browsers) that transform rotates the needle to that angle. Voilà!</p>
+
+<p>And all of this is re-done every time you move the mouse.</p>
+
+<p>Transforms actually have <a href="http://caniuse.com/#search=transform">pretty decent browser support</a>, which the exception of IE8 and below. This is really a prime example of progressive enhancement — users on older version of Internet Explorer will see a fixed compass and needle (pointing straight up), which still furthers the <em>guide</em> metaphor without the interactivity. As an added bonus, although touch screens don’t have cursors, they do call <code>.mousemove()</code> whenever the user taps on the screen, so the needle <em>will</em> change its position to point where you tap. Most probably won’t notice it, but it’s a nice feature for those who do.</p>
+
+<p>So, put this all together, and you’ve got yourself one heck of a nice spinning needle. Don’t get too dizzy.</p>
+
+        </div>
+    </div>
+</div>
+
+
+</main>
+
+<footer id="footer">
+
+    <div class="section">
+
+        <div class="full-width">
+            <p><script>document.write('<a class="no-underline" href="mailto:' + 'scott.p.' + 'dona' + 'ldson@gmai' + 'l.com' + '"><span>Email</span></a>');</script><br>
+            <a class="no-underline" href="https://github.com/scottdonaldson" target="_blank">GitHub</a><br>
+            <a class="no-underline" href="https://twitter.com/scottpdonaldson" target="_blank">Twitter</a><br>
+            <a class="no-underline" href="http://www.linkedin.com/in/scottpdonaldson" target="_blank">LinkedIn</a><br>
+            <a class="no-underline" href="https://instagram.com/scottpdonaldson" target="_blank">Instagram</a></p>
+            <p class="secondary">&copy; Scottland Donaldson 2008 to <script>document.write(new Date().getFullYear());</script></p>
+        </div>
+
+    </div>
+
+</footer>
+
+<script src="/js/lib/imagesloaded-3.1.8.js"></script>
+<script src="/js/script.js"></script>
+<script src="/js/conditions.js"></script>
+<script src="/js/tumblr.js"></script>
+
+<img src="/images/18.png" class="abs b0 r0 anim-fade lazy-load" id="footer-img">
+
+</body>
+</html>
+

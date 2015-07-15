@@ -1,0 +1,24 @@
+---
+layout: default
+type: post
+---
+
+<div class="full-width">
+
+    {% if page.banner %}
+        <div class="padded bg-white row"><img class="anim-fade lazy-load" src="{{ site.assets }}/{{ page.banner }}"></div>
+    {% endif %}
+
+    <div class="row container">
+
+        <div class="two columns spacer"></div>
+
+        <div class="eight columns">
+
+            <h1 class="bold">{{ page.title }}</h1>
+            <p data-date="{{ page.date }}" class="caption"></p>
+
+            {{ content | markdownify }}
+        </div>
+    </div>
+</div>

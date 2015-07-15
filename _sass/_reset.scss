@@ -1,0 +1,13 @@
+h1, h2, h3, h4, h5, h6 { font-weight: normal; }
+img { height: auto; max-width: 100%; }
+
+// silly workaround for SASS having a built-in function grayscale()
+// that conflicts with CSS filter
+@function grayscale($value) {
+    @return #{ "grayscale(" + $value + ")" };
+}
+
+// silly hexo puts these in
+p:empty {
+    display: none;
+}
