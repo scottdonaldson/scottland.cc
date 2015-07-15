@@ -1,0 +1,443 @@
+// Imports
+@import "vars";
+@import "normalize";
+@import "reset";
+@import "layout";
+@import "fonts";
+@import "forms";
+
+// General styles
+* {
+	box-sizing: border-box;
+	position: relative;
+}
+
+body {
+	color: $default;
+	font-family: 'Franklin Gothic', Helvetica, Arial, sans-serif;
+	overflow-x: hidden;
+}
+
+.caps {
+	text-transform: uppercase;
+}
+
+.bold {
+	font-weight: bold;
+}
+
+.italic {
+	font-style: italic;
+}
+
+.lead {
+	font-size: 1.3em;
+}
+
+.caption {
+	color: $secondary;
+	font-size: 0.85em;
+	font-style: italic;
+}
+
+.anim-fade { transition: 0.333s opacity; }
+.faded, .lazy-load { opacity: 0; }
+
+pre, kbd, samp {
+	background: $default;
+	color: $secondary;
+	font-size: 14px;
+	overflow-x: auto;
+	overflow-y: hidden;
+	padding: 20px;
+}
+	figure.highlight {
+		background: $default;
+		max-width: 100%; overflow-x: scroll;
+		td { vertical-align: top; }
+	}
+
+	.gutter { border-right: 1px solid $secondary; }
+	// TODO: style code snippets
+	// .property { color: #f00; }
+	.type { }
+
+.noteworthy {
+	color: $primary;
+	cursor: pointer;
+	border-bottom: 2px solid;
+	font-weight: bold;
+}
+
+$tooltip_width: 120px;
+.tooltip {
+	border: 3px solid $primary;
+	border-radius: 3px;
+	bottom: 50%;
+	display: inline-block;
+	margin-left: -$tooltip_width/2;
+	left: 50%;
+	opacity: 0;
+	position: absolute;
+	margin-bottom: 20px;
+	transition: 0.5s;
+	width: $tooltip_width;
+	z-index: -1;
+
+	&:before {
+		background: $primary;
+		content: "";
+		display: block;
+		height: 40px;
+		margin-left: -20px;
+		position: absolute;
+		bottom: -5px;
+		left: 50%;
+		width: 40px;
+		transform: rotate(45deg);
+	}
+
+	.noteworthy:hover & {
+		bottom: 100%;
+		margin-top: 0;
+		opacity: 1;
+		z-index: 999;
+	}
+}
+
+.vcenter {
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+@mixin underline_animate($dir, $timing: 0.25s) {
+	&:after {
+		border-bottom: 2px solid;
+		content: "";
+		display: block;
+		@if $dir == "center" {
+			left: 50%;
+		} @else if $dir == "left" {
+			left: 0;
+		} @else {
+			left: 100%;
+		}
+		position: absolute;
+		width: 0%;
+	}
+
+	&:active, &:hover, &:focus {
+		&:after {
+			left: 0;
+			transition: #{$timing} left, #{$timing} width;
+			width: 100%;
+		}
+	}
+}
+
+// Links
+
+a {
+	border-bottom: 2px solid;
+	color: $default;
+	text-decoration: none;
+	transition: 0.1s color;
+
+	&:active, &:focus, &:hover {
+		color: $primary;
+
+		&.hover-white {
+			color: #fff;
+		}
+	}
+
+	.no-underline &,
+	&.no-underline {
+		border: 0;
+	}
+
+	.primary-underline &,
+	&.primary-underline {
+		border-color: $primary;
+	}
+
+	.animate-underline,
+	&.animate-underline {
+		border: 0;
+		@include underline_animate("left", 0.5s);
+	}
+}
+
+.ext { // arrow for external links on hover
+
+	&:after {
+		background-image: url(/images/arrow.svg);
+		background-repeat: no-repeat;
+		content: "";
+		display: block;
+		height: 2em;
+		opacity: 0;
+		position: absolute;
+		right: -2.5em;
+		top: 0.5em;
+		transition: 0.1s opacity;
+		width: 2em;
+	}
+
+	&:active, &:hover {
+		&:after {
+			opacity: 1;
+		}
+	}
+}
+
+// Header
+
+$header_height: 11vw;
+$home_header_title_font_size: 5vw;
+
+#header {
+	height: $header_height;
+	margin-bottom: 5%;
+
+	@media screen and (max-width: $break_small) {
+		min-height: 150px;
+	}
+
+	@media screen and (max-width: $break_small_very) {
+		height: 80px !important;
+		min-height: 80px !important;
+		margin-bottom: 2em !important;
+	}
+
+	@media screen and (max-width: $break_tiny) {
+		height: 68px !important;
+		min-height: 68px !important;
+	}
+
+	.home & {
+		height: 2 * $header_height;
+	}
+
+	.arch &,
+	.post & {
+		height: 1.75 * $header_height;
+		margin-bottom: -5vw;
+	}
+
+	.no-image & {
+		height: $header_height !important;
+		margin-bottom: 0 !important;
+	}
+
+	nav {
+		float: right;
+
+		li {
+			display: inline-block;
+			font-size: 1.2em;
+		}
+
+		@media screen and (max-width: $break_small) {
+			float: none;
+			width: 100%;
+
+			ul { @include tight; text-align: center; }
+			li { font-size: 1em; padding-top: 1em; }
+		}
+
+		@media screen and (max-width: $break_tiny) {
+			li { font-size: 0.8em; }
+		}
+
+		a, a:visited {
+			color: #fff;
+			padding: 1em;
+			text-decoration: none;
+
+			span {
+				@include underline_animate("center");
+			}
+		}
+	}
+}
+
+#header-img {
+	background-image: url(/images/22.png);
+	background-repeat: no-repeat;
+	background-size: 28% auto;
+	height: 180%;
+	width: 100%;
+
+	.home & {
+		background-image: url(/images/header-bg.png);
+		background-position: calc(100% - 3em) 100%;
+		background-size: 55% auto;
+
+		@media screen and (max-width: $break_small) {
+			background-position: calc(100% ( )-( )3em) -20%;
+		}
+	}
+
+	@media screen and (max-width: $break_small_very) {
+		background-image: none !important;
+	}
+}
+
+#header-title {
+	font-size: 2.5em;
+	margin-bottom: 0;
+
+	.home & {
+		font-size: $home_header_title_font_size;
+	}
+
+	a {
+		color: $default;
+	}
+
+	.arch &,
+	.post & {
+		top: -6vw;
+	}
+
+	.no-image & {
+		top: 0 !important;
+	}
+
+	@media screen and (max-width: $break_small_very) {
+		font-size: 1.6em !important;
+		margin-top: 0;
+		text-align: center;
+		top: 0 !important;
+	}
+
+	@media screen and (max-width: $break_tiny) {
+		font-size: 1.3em !important;
+	}
+}
+
+// Main
+
+#intro {
+	margin-top: 5em;
+	margin-bottom: 2em;
+
+	@media screen and (max-width: $break_small) {
+		margin-top: 4em;
+		margin-bottom: 1em;
+	}
+}
+
+#headshot {
+	left: 50%;
+	max-width: 300px;
+	top: 50%;
+	transform: translateX(-50%) translateY(-50%);
+	width: 120%;
+}
+
+#projects {
+	h3 {
+		margin-bottom: 0.25em;
+	}
+}
+
+#in-progress {
+	margin-top: 10em;
+}
+
+	#in-progress-images {
+		align-items: stretch;
+		margin-bottom: 5em;
+		margin-top: -5em;
+
+		@media screen and (max-width: $break_small) {
+			margin-bottom: 2.5em;
+			margin-top: -2.5em;
+		}
+	}
+
+.in-progress {
+	align-content: stretch;
+	align-items: stretch;
+	display: flex;
+	overflow: hidden;
+
+	a {
+		align-items: center;
+		border-bottom: 0;
+		color: #fff;
+		display: flex;
+		width: 100%;
+
+		& + a {
+			margin-top: $gutter;
+
+			@media screen and (max-width: $break_small) {
+				margin-top: 0.333 * $gutter;
+			}
+		}
+
+		.image {
+			background-size: cover;
+			background-position: center center;
+			bottom: 0;
+			left: 0;
+			position: absolute;
+			right: 0;
+			top: 0;
+		}
+
+		&:hover {
+			.image {
+				filter: grayscale(1);
+				-webkit-filter: grayscale(1);
+			}
+
+			.cover {
+				opacity: 1;
+				filter: none;
+				-webkit-filter: none;
+			}
+		}
+
+		img {
+			opacity: 0;
+		}
+	}
+
+	.cover {
+		background: transparentize($primary, 0.2);
+		height: 100%; // at 100% there's a strip of pixels at the bottom it doesn't cover?
+		opacity: 0;
+		padding: 1em;
+		text-align: center;
+		transition: 0.2s;
+		width: 100%;
+	}
+
+	p {
+		margin: 0; // <p> tags embedded from Tumblr... ignore 'em
+	}
+}
+
+#in-progress-bg {
+	bottom: -19%;
+	left: -17%;
+	width: 50%;
+}
+
+// Footer
+
+#footer {
+	margin-top: 6em;
+
+	@media screen and (max-width: $break_small) {
+		margin-top: 3em;
+	}
+}
+
+#footer-img {
+	width: 30%;
+}
