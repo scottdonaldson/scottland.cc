@@ -35,5 +35,6 @@ module.exports = function(grunt){
 
 	grunt.loadNpmTasks('grunt-s3');
 
+	grunt.registerTask('staging', ['s3:staging']);
 	grunt.registerTask('production', ['s3:production']);
 }

@@ -10,6 +10,6 @@ github_username:  scottdonaldson
 kramdown:
     auto_ids: false
 
-exclude: ['aws.json']
+exclude: ['aws.json', 'node_modules', 'package.json', 'Gruntfile.js']
 
 permalink: /:title

@@ -1,6 +1,6 @@
 ---
 title: Photo Adjustments with Martin.js
-date: 2015/07/20 00:48
+date: 2015/07/20 10:00
 layout: post
 class: no-image
 ---
@@ -29,16 +29,11 @@ With [Martin.js](http://martinjs.org) officially out of beta, I thought I'd show
         controlSaturate = document.getElementById('control-saturate');
 
     // hide
-    canvas.canvas.style.display = 'none';
-    canvas.canvas.parentNode.insertBefore(img, canvas.canvas);
-    canvas.remove();
-
-    img.src = canvas.toDataURL();
+    canvas.canvas.style.width = '100%';
 
     function update(which, makeImage) {
         which.data = Math.round(this.value);
         canvas.render();
-        img.src = canvas.toDataURL();
     }
 
     controlLighten.addEventListener('change', update.bind(controlLighten, lighten));
