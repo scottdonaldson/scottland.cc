@@ -8,7 +8,9 @@ class: no-image
 <script src="http://martinjs.org/download/martin.min.js"></script>
 <script src="http://martinjs.org/download/martin.gradientmap.js"></script>
 
-With [Martin.js](http://martinjs.org) officially out of beta, I thought I'd show off some of its niftier capabilities. Martin.js can do basic photo editing, like you would do in Photoshop, but with a few lines of code, you can also make manipulate photos interactively, and animate, all in browser.
+With [Martin.js](http://martinjs.org) officially out of beta, I thought I'd show off some of its niftier capabilities. Martin.js can do basic photo editing, like you would do in Photoshop, but with a few lines of code, you can also make manipulate photos interactively, and animate, all in browser*.
+
+<small>*Of course, for best results, view in Chrome.</small>
 
 ## Adjust the levels:
 
@@ -42,8 +44,6 @@ With [Martin.js](http://martinjs.org) officially out of beta, I thought I'd show
     controlSaturate.addEventListener('input', update.bind(controlSaturate, saturate));
 })();
 </script>
-
-The best part? The above canvas is automatically being converted to an image, so you can drag it to your desktop to save at any point.
 
 In the above example, I'm just calling two built-in methods --- `.lighten()` and `.saturate()` and adjusting the amount based on the slider. These methods create `Effects` that are applied to a canvas layer and can be stacked on top of each other. [Read more about `Effects` in Martin.js](http://martinjs.org/effects/).
 
