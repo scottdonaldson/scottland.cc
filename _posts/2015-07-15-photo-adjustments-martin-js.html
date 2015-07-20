@@ -1,0 +1,353 @@
+---
+title: Photo Adjustments with Martin.js
+date: 2015/07/20 00:48
+layout: post
+class: no-image
+---
+
+<script src="http://martinjs.org/download/martin.min.js"></script>
+<script src="http://martinjs.org/download/martin.gradientmap.js"></script>
+
+With [Martin.js](http://martinjs.org) officially out of beta, I thought I'd show off some of its niftier capabilities. Martin.js can do basic photo editing, like you would do in Photoshop, but with a few lines of code, you can also make manipulate photos interactively, and animate, all in browser.
+
+## Adjust the levels:
+
+<img id="filter" src="/images/martinjs/factory.png">
+
+<input id="control-lighten" type="range" min="-100" max="100" value="0" style="width: 100%;">
+<b class="aligncenter">&larr; Dark | Light &rarr;</b><br>
+<input id="control-saturate" type="range" min="-100" max="100" value="0" style="width: 100%;">
+<b class="aligncenter">&larr; Black &amp; White | Vibrant &rarr;</b>
+
+<script>
+(function(){
+    var canvas = Martin('filter'),
+        img = document.createElement('img'),
+        lighten = canvas.lighten(0),
+        saturate = canvas.saturate(0),
+        controlLighten = document.getElementById('control-lighten'),
+        controlSaturate = document.getElementById('control-saturate');
+
+    // hide
+    canvas.canvas.style.display = 'none';
+    canvas.canvas.parentNode.insertBefore(img, canvas.canvas);
+    canvas.remove();
+
+    img.src = canvas.toDataURL();
+
+    function update(which, makeImage) {
+        which.data = Math.round(this.value);
+        canvas.render();
+        img.src = canvas.toDataURL();
+    }
+
+    controlLighten.addEventListener('change', update.bind(controlLighten, lighten));
+    controlLighten.addEventListener('input', update.bind(controlLighten, lighten));
+    controlSaturate.addEventListener('change', update.bind(controlSaturate, saturate));
+    controlSaturate.addEventListener('input', update.bind(controlSaturate, saturate));
+})();
+</script>
+
+The best part? The above canvas is automatically being converted to an image, so you can drag it to your desktop to save at any point.
+
+In the above example, I'm just calling two built-in methods --- `.lighten()` and `.saturate()` and adjusting the amount based on the slider. These methods create `Effects` that are applied to a canvas layer and can be stacked on top of each other. [Read more about `Effects` in Martin.js](http://martinjs.org/effects/).
+
+In addition to the built-in `Effects`, it's relatively easy to create your own --- it just takes a little knowledge of how pixel data is displayed on the screen. Each pixel contains four values that describe how it's displayed: red, green, blue, and alpha (transparency).
+
+By looping through all the pixels in a photo (which sounds overwhelming, but can actually be done relatively quickly), you can not only retrieve the `rgba` values, but also manipulate them. Martin.js comes with an easy way to do this --- the `.loop()` method.
+
+{% highlight js %}
+layer.loop(function(x, y, pixel) {
+    // x and y are the pixel's x and y coordinates (from top left),
+    // pixel is an object with four keys: r, g, b, a
+
+    // IMPORTANT! Always end with `return pixel;` to save changes
+    return pixel;
+});
+{% endhighlight %}
+
+A trivial but impactful example would be to overwrite the pixel's red value to be 255 (the maximum, on a scale of 0-255). To do this, we first have to register this as a new effect, and then apply it to our canvas.
+
+<img id="redden" src="/images/martinjs/factory.png">
+
+<script>
+(function() {
+    var canvas = Martin('redden');
+    canvas.canvas.style.width = '100%';
+    Martin.registerEffect('redden', function() {
+        this.currentLayer.loop(function(x, y, pixel) {
+            pixel.r = 255;
+            return pixel;
+        });
+    });
+    canvas.redden();
+})();
+</script>
+{% highlight js %}
+Martin.registerEffect('redden', function() {
+    this.currentLayer.loop(function(x, y, pixel) {
+        pixel.r = 255;
+        return pixel;
+    });
+});
+
+canvas.redden();
+{% endhighlight %}
+
+An effect can also be applied interactively when the user mouses over the photo, creating a spotlight.
+
+<img id="spotlight" src="/images/martinjs/factory.png">
+
+<script>
+(function() {
+    var canvas = Martin('spotlight'),
+        spotlight;
+
+    canvas.canvas.style.width = '100%';
+
+    Martin.registerEffect('spotlight', function(coords) {
+
+        coords.y *= canvas.height() / canvas.canvas.clientHeight;
+
+        this.currentLayer.loop(function(x, y, pixel) {
+
+            var distance;
+
+            xDiff = coords.x - x;
+            yDiff = coords.y - y;
+            distance = Math.sqrt(xDiff * xDiff + yDiff * yDiff);
+
+            distance *= 0.3;
+
+            pixel.r -= distance;
+            pixel.g -= distance;
+            pixel.b -= distance;
+
+            return pixel;
+        });
+    });
+
+    spotlight = canvas.spotlight({
+        x: canvas.width() / 2,
+        y: canvas.height() / 2
+    });
+
+    canvas.mousemove(function(e) {
+        spotlight.remove();
+        spotlight = canvas.spotlight({
+            x: Math.round(e.offsetX * (canvas.width() / canvas.canvas.clientWidth)),
+            y: Math.round(e.offsetY * (canvas.height() / canvas.canvas.clientHeight))
+        });
+    });
+})();
+</script>
+
+{% highlight js %}
+Martin.registerEffect('spotlight', function(coords) {
+    this.currentLayer.loop(function(x, y, pixel) {
+
+        // Get the distance between the cursor
+        // and the current pixel we're looping over.
+        var distance;
+        xDiff = coords.x - x;
+        yDiff = coords.y - y;
+        distance = Math.sqrt(xDiff * xDiff + yDiff * yDiff);
+
+        // Finesse the number so it doesn't act so strongly.
+        distance *= 0.3;
+
+        // Subtract it from the pixel's r, g, and b values.
+        // We don't have to worry about it going negative ---
+        // it will automatically clamp between 0 and 255.
+        pixel.r -= distance;
+        pixel.g -= distance;
+        pixel.b -= distance;
+
+        return pixel;
+    });
+});
+{% endhighlight %}
+
+The key in the above example is to remove and re-apply the spotlight with each mousemove. Otherwise, the `Effect` will act recursively, quickly turning every pixel black. [Read more about `Events` in Martin.js](http://martinjs.org/events/).
+
+{% highlight js %}
+// Placeholder for the effect, outside the scope of the event callback.
+var spotlight;
+
+canvas.mousemove(function(e) {
+
+    // Remove the effect so it doesn't compound recursively.
+    if ( spotlight ) spotlight.remove();
+
+    // Re-apply the effect, passing in the mouse coordinates.
+    spotlight = canvas.spotlight({
+        x: e.offsetX,
+        y: e.offsetY
+    });
+});
+{% endhighlight %}
+
+A number of effects from Photoshop or other photo editing programs can easily be recreated, for example the gradient map.
+
+<img id="gmap1" src="/images/martinjs/factory.png">
+
+<script>
+(function() {
+    var canvas = Martin('gmap1');
+    canvas.canvas.style.width = '100%';
+    canvas.gradientMap({
+        start: '#00f',
+        end: '#ff0'
+    });
+})();
+</script>
+
+A gradient map will clamp outlying color values to a predetermined range. If your map is from blue to yellow, then dark values will appear blue, light values will appear yellow, and anything between will be coerced to that spectrum (that is, greenish, as in the above example).
+
+{% highlight js %}
+canvas.gradientMap({
+    start: '#00f',
+    end: '#ff0'
+});
+{% endhighlight %}
+
+<img id="gmap2" src="/images/martinjs/factory.png">
+
+<script>
+(function() {
+    var canvas = Martin('gmap2');
+    canvas.canvas.style.width = '100%';
+    canvas.gradientMap({
+        start: '#f00',
+        end: '#0ff'
+    });
+})();
+</script>
+
+<img id="gmap3" src="/images/martinjs/factory.png">
+
+<script>
+(function() {
+    var canvas = Martin('gmap3');
+    canvas.canvas.style.width = '100%';
+    canvas.gradientMap({
+        start: '#fff',
+        end: '#000'
+    });
+})();
+</script>
+
+A gradient map can also invert a photo, mapping dark to light and vice-versa. And while it can completely invert the image, as in the immediate above example, it can also invert some values but not others, as in the example above that, where red is inverted but blue and green are left untouched.
+
+{% highlight js %}
+Martin.registerEffect('gradientMap', function(data) {
+
+    var min = parseHex(data.start),
+        max = parseHex(data.end);
+
+    // Need a parseHex() function to get r/g/b values
+    // from a hex string.
+    function parseHex(hex) {
+
+        var output;
+
+        if ( hex.charAt(0) === '#' ) hex = hex.slice(1);
+
+        // Create a six-digit hex if only three are given.
+        if ( hex.length === 3 ) {
+            hex = hex.split('');
+            hex.splice(2, 0, hex[2]);
+            hex.splice(1, 0, hex[1]);
+            hex.splice(0, 0, hex[0]);
+            hex = hex.join('');
+        }
+
+        output = {
+            r: parseInt(hex[0] + hex[1], 16),
+            g: parseInt(hex[2] + hex[3], 16),
+            b: parseInt(hex[4] + hex[5], 16)
+        };
+
+        return output;
+    }
+
+    this.currentLayer.loop(function(x, y, pixel) {
+        // For red, green, and blue, add to the minimum value (from
+        // the parseHex() function) the mapped value of this pixel onto
+        // the given map range.
+        pixel.r = Math.round(min.r + (pixel.r / 256) * (max.r - min.r));
+        pixel.g = Math.round(min.g + (pixel.g / 256) * (max.g - min.g));
+        pixel.b = Math.round(min.b + (pixel.b / 256) * (max.b - min.b));
+
+        return pixel;
+    });
+});
+{% endhighlight %}
+
+`Effects` can change based on data other than user interaction and existing pixel data, such as time. By using `requestAnimationFrame()`, we can easily make animations from photos.
+
+<img id="time" src="/images/martinjs/factory.png">
+
+<script>
+(function() {
+    var canvas = Martin('time'),
+        rainbow,
+        t = 0;
+
+    canvas.canvas.style.width = '100%';
+
+    Martin.registerEffect('rainbow', function(t) {
+        this.currentLayer.loop(function(x, y, pixel) {
+            pixel.r += 100 * Math.sin((x - 4 * t) / 100);
+            pixel.g += 100 * Math.sin((x - 8 * t) / 100);
+            pixel.b += 100 * Math.sin((x - 12 * t) / 100);
+            return pixel;
+        });
+    });
+
+    (function createRainbow() {
+        if ( rainbow ) rainbow.remove();
+        rainbow = canvas.rainbow(t);
+        t++;
+        requestAnimationFrame(createRainbow);
+    })();
+})();
+</script>
+
+In the above example, a new `.rainbow()` `Effect` takes a time parameter, which is incremented with each available animation frame. It loops and increases the pixel's red, green, and blue values, lightening them. The amount it lightens each value depends on the pixel's x value (in any pixel column, they are all being lightened by the same amount) and on the time. However, red, green, and blue all act differently based on the time parameter --- the blue "wave" is faster than green, which is faster than red --- causing the rainbow-like color shifts we see.
+
+{% highlight js %}
+// Similar to the spotlight example, we need a placeholder
+// for our effect outside the scope of the function.
+var rainbow,
+    t = 0; // time starts at 0
+
+Martin.registerEffect('rainbow', function(t) {
+    this.currentLayer.loop(function(x, y, pixel) {
+
+        // Increase by a maximum of 100, and take in x value
+        // and time as parameters.
+        pixel.r += 100 * Math.sin((x - 4 * t) / 100);
+        pixel.g += 100 * Math.sin((x - 8 * t) / 100);
+        pixel.b += 100 * Math.sin((x - 12 * t) / 100);
+
+        return pixel;
+    });
+});
+
+// This function will automatically invoke, and by passing itself into
+// requestAnimationFrame, will be continuously invoked with each
+// available animation frame.
+(function createRainbow() {
+
+    if ( rainbow ) rainbow.remove();
+    rainbow = canvas.rainbow(t);
+    t++;
+
+    // requestAnimationFrame will wait until the browser is ready to
+    // repaint the canvas.
+    requestAnimationFrame(createRainbow);
+})();
+{% endhighlight %}
+
+These are just a few examples of what can be done with Martin.js. [Check out the project on GitHub](https://github.com/scottdonaldson/martinjs), and if you make anything cool, let me know on [Twitter](https://twitter.com/scottpdonaldson)!
