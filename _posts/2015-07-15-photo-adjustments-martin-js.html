@@ -9,7 +9,7 @@ class: no-image
 <script src="https://rawgit.com/scottdonaldson/martinjs/4d5c8bc9efda830af3bb5f703790df7f6e5ad1d9/js/dist/martin.min.js"></script>
 <script src="https://rawgit.com/scottdonaldson/martinjs/4d5c8bc9efda830af3bb5f703790df7f6e5ad1d9/js/dist/martin.gradientmap.min.js"></script>
 
-*This post last updated August 17, 2015, to reflect changes from Martin.js v0.3.0.*
+*This post last updated August 19, 2015, to reflect changes from Martin.js v0.3.1.*
 
 <hr>
 
@@ -138,8 +138,8 @@ An effect can also be applied interactively when the user mouses over the photo,
     canvas.mousemove(function(e) {
         spotlight.remove();
         spotlight = canvas.spotlight({
-            x: Math.round(e.offsetX * (canvas.width() / canvas.canvas.clientWidth)),
-            y: Math.round(e.offsetY * (canvas.height() / canvas.canvas.clientHeight))
+            x: Math.round(e.x * (canvas.width() / canvas.canvas.clientWidth)),
+            y: Math.round(e.y * (canvas.height() / canvas.canvas.clientHeight))
         });
     });
 })();
@@ -184,8 +184,8 @@ canvas.mousemove(function(e) {
 
     // Re-apply the effect, passing in the mouse coordinates.
     spotlight = canvas.spotlight({
-        x: e.offsetX,
-        y: e.offsetY
+        x: e.x,
+        y: e.y
     });
 });
 {% endhighlight %}
