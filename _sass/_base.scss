@@ -275,7 +275,7 @@ $home_header_title_font_size: 5vw;
 		background-size: 55% auto;
 
 		@media screen and (max-width: $break_small) {
-			background-position: calc(100% ( )-( )3em) -20%;
+			background-position: calc(100% - 3em) -20%;
 		}
 	}
 
@@ -329,7 +329,8 @@ $home_header_title_font_size: 5vw;
 	}
 }
 
-#headshot {
+[data-shown] {
+	pointer-events: none;
 	left: 50%;
 	max-width: 300px;
 	top: 50%;
