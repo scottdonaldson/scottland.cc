@@ -1,3 +1,4 @@
+---
 title: My Favorite Scene from The Wire
 class: no-image
 layout: post
