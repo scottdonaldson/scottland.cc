@@ -30,10 +30,10 @@ Finally, it's impossible to watch this scene and not be reminded of another famo
 </div>
 <div class="container">
     <div class="six columns">
-        <p class="caption">Franklin Terrace towers on implosion
+        <p class="caption">Franklin Terrace towers on implosion</p>
     </div>
     <div class="six columns">
-        <p class="caption">Pruitt-Igoe housing project's demolition (March 16, 1972)
+        <p class="caption">Pruitt-Igoe housing project's demolition (March 16, 1972)</p>
     </div>
 </div>
 
