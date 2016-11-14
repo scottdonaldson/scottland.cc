@@ -1,10 +1,10 @@
 # Site settings
-title: Scott Donaldson
+title: Scott Otto
 email: scott.p.donaldson@gmail.com
 url: http://scottland.cc # the base hostname & protocol for your site
 assets: http://scottdonaldson.net-assets.s3-website-us-east-1.amazonaws.com
-twitter_username: scottpdonaldson
-github_username:  scottdonaldson
+twitter_username: scott_pdo
+github_username:  scottpdo
 
 # Build settings
 kramdown:
