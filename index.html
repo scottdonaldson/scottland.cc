@@ -102,7 +102,13 @@ class: home
             <div class="seven columns">
                 {% for post in site.posts limit:3 %}
                 <div class="row">
-                    <h3 class="tight"><a href="{{ post.url }}" class="no-underline hover-white">{{ post.title }}</a></h3>
+                    <h3 class="tight">
+                        {% if post.layout == "link" %}
+                            <a class="no-underline hover-white" href="{{ post.link }}" target="_blank">{{ post.title }}</a>
+                        {% else %}
+                            <a class="no-underline hover-white " href="{{ post.url }}">{{ post.title }}</a>
+                        {% endif %}
+                    </h3>
                     <small class="italic secondary" data-date="{{ post.date }}"></small>
                 </div>
                 {% endfor %}
