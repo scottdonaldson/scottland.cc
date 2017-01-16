@@ -1,0 +1,252 @@
+---
+layout: post
+title: Martin.js
+permalink: /projects/martin-js/
+class: no-image
+---
+
+<!-- grab v0.4.2 release from GitHub -->
+<script src="https://cdn.rawgit.com/scottpdo/martinjs/master/js/dist/martin.min.js"></script>
+
+<div class="lead">Martin.js is a JavaScript library aimed at designers and junior front-end developers seeking a path to easier in-browser photo manipulation and visualization with HTML5 canvas.</div>
+
+Try drawing below (click to reset):
+
+<canvas id="martin-demo1"></canvas>
+
+<script>
+(function() {
+    var canvas = Martin('martin-demo1', {
+            autorender: false
+        }),
+        parent = canvas.canvas.parentNode;
+
+    canvas.height(250).width(parent.clientWidth);
+
+    canvas.background("#000");
+
+    var circles = [];
+
+    canvas.mousemove(function(e) {
+
+        var circle = canvas.circle({
+            radius: 0,
+            color: '#fff',
+            x: e.x,
+            y: e.y
+        });
+
+        circles.push(circle);
+    });
+
+    canvas.click(function() {
+        circles.forEach(function(circle) {
+            circle.remove();
+        });
+        circles = [];
+    });
+
+    canvas.blur(20);
+
+    (function render() {
+
+        circles.forEach(function(circle, i) {
+            if ( !circle.state ) circle.state = 2;
+            if ( circle.data.radius === 20 ) circle.state = 0;
+
+            circle.update({
+                radius: circle.data.radius + circle.state
+            });
+        });
+
+        canvas.render();
+
+        window.requestAnimationFrame(render);
+    })();
+
+})();
+</script>
+
+The API for Martin.js is heavily influenced by the popular jQuery library. Given a `<canvas>` or `<img>` element with the id `foo`, it can be used by calling `Martin("foo")`.
+
+{% highlight js %}
+var canvas = Martin("foo");
+{% endhighlight %}
+
+Once it's been initialized, various photo editing effects can be applied, analogous to Photoshop filters. These include saturation, brightness, opacity, blur, inverting colors, and other effects. These effects can be stacked.
+
+{% highlight js %}
+canvas.saturate(50); // amount ranges from 0-100
+{% endhighlight %}
+
+### Adjust the levels below:
+
+<img id="filter" src="/images/martinjs/factory.png">
+
+<input id="control-lighten" type="range" min="-100" max="100" value="0" style="width: 100%;">
+<b class="aligncenter">&larr; Dark | Light &rarr;</b><br>
+<input id="control-saturate" type="range" min="-100" max="100" value="0" style="width: 100%;">
+<b class="aligncenter">&larr; Black &amp; White | Vibrant &rarr;</b>
+<input id="control-blur" type="range" min="-100" max="100" value="0" style="width: 100%;">
+<b class="aligncenter">&larr; Sharpen | Blur &rarr;</b>
+
+<script>
+(function(){
+    var canvas = Martin('filter'),
+        img = document.createElement('img'),
+        lighten = canvas.lighten(0),
+        saturate = canvas.saturate(0),
+        sharpen = canvas.sharpen(0),
+        blur = canvas.blur(0),
+        controlLighten = document.getElementById('control-lighten'),
+        controlSaturate = document.getElementById('control-saturate'),
+        controlBlur = document.getElementById('control-blur');
+
+    // hide
+    canvas.canvas.style.width = '100%';
+
+    function update(which, makeImage) {
+        which.data = Math.round(this.value);
+        canvas.render();
+    }
+
+    function updateBlurSharp() {
+        sharpen.data = -1 * Math.min(0, this.value);
+        blur.data = Math.max(0, this.value);
+        canvas.render();
+    }
+
+    controlLighten.addEventListener('change', update.bind(controlLighten, lighten));
+    controlLighten.addEventListener('input', update.bind(controlLighten, lighten));
+    controlSaturate.addEventListener('change', update.bind(controlSaturate, saturate));
+    controlSaturate.addEventListener('input', update.bind(controlSaturate, saturate));
+    controlBlur.addEventListener('change', updateBlurSharp.bind(controlBlur));
+    controlBlur.addEventListener('input', updateBlurSharp.bind(controlBlur));
+})();
+</script>
+
+Martin can also be used to draw shapes to the canvas, as data-rich elements that can be updated by the developer or the end user. Elements include geometric shapes such as circles, rectangles, lines, and polygons, or text elements.
+
+{% highlight js %}
+canvas.circle({
+    radius: 50
+});
+{% endhighlight %}
+
+Martin is interactive, providing a set of event hooks such as clicking on the canvas, hovering over it, mousing over or out, or moving the mouse (as in the above drawing example).
+
+{% highlight js %}
+canvas.click(function(e) {
+    // draw a circle centered at the click target
+    canvas.circle({
+        radius: 10,
+        x: e.x,
+        y: e.y
+    });
+});
+{% endhighlight %}
+
+Finally, Martin can be extended -- the API provides developers with a means to create "plugins" to store their own effects or elements.
+
+{% highlight js %}
+Martin.registerElement('rainbow', function(data) {
+    // code to draw a rainbow goes here
+});
+canvas.rainbow();
+
+Martin.registerEffect('pixelate', function(data) {
+    // code to pixelate canvas goes here
+});
+canvas.pixelate();
+{% endhighlight %}
+
+<img id="martin-demo3" src="/images/martinjs/factory.png">
+
+Click to add rainbows, adjust pixelation with the slider below:
+
+<input id="control-pixelate" type="range" min="0" max="100" value="0" style="width: 100%;">
+<b class="aligncenter">Pixelate &rarr;</b>
+
+<script>
+(function() {
+    var canvas = Martin('martin-demo3', {
+        autorender: false
+    }).render();
+    canvas.canvas.style.width = '100%';
+
+    Martin.registerElement('rainbow', function(e) {
+
+        var context = this.context;
+
+        function rainbow(r, color) {
+            var x = e.x * canvas.width() / canvas.canvas.clientWidth,
+                y = e.y * canvas.height() / canvas.canvas.clientHeight;
+
+            context.beginPath();
+            context.arc(x, y, r, Math.PI, 0);
+            context.fillStyle = color;
+            context.fill();
+            context.closePath();
+        }
+
+        rainbow(100, '#f00');
+        rainbow(80, '#f90');
+        rainbow(60, '#ff0');
+        rainbow(40, '#0f4');
+        rainbow(20, '#55f');
+
+        context.beginPath();
+        context.closePath();
+    });
+
+    canvas.click(function(e) {
+        var rainbow = canvas.rainbow({
+            x: e.x,
+            y: e.y,
+            color: '#f00'
+        });
+        canvas.render();
+    });
+
+    // data = size of pixelation
+    Martin.registerEffect('pixelate', function(data) {
+
+        if ( data <= 1 ) return;
+
+        var imageData = this.context.getImageData(0, 0, this.base.width(), this.base.height()),
+            pixels = imageData.data;
+
+        this.context.loop(function(x, y, pixel) {
+
+            x -= x % data;
+            y -= y % data;
+
+            var target = 4 * (x + canvas.width() * y);
+
+            pixel.r = pixels[target];
+            pixel.g = pixels[target + 1];
+            pixel.b = pixels[target + 2];
+            pixel.a = pixels[target + 3];
+
+            return pixel;
+        });
+    });
+
+    var controlPixelate = document.getElementById('control-pixelate'),
+        pixEffect = canvas.pixelate(0);
+
+    function update(which, makeImage) {
+        which.data = Math.round(this.value);
+        canvas.render();
+    }
+
+    controlPixelate.addEventListener('change', update.bind(controlPixelate, pixEffect));
+    controlPixelate.addEventListener('input', update.bind(controlPixelate, pixEffect));
+
+})();
+</script>
+
+<div class="aligncenter">
+    <a class="button" href="http://martinjs.org">See Full Documentation</a>
+    <a class="button" href="https://github.com/scottpdo/martinjs">View Source Code</a>
+</div>

@@ -40,6 +40,15 @@ body {
 	font-style: italic;
 }
 
+blockquote {
+	border-left: 3px solid $primary;
+	color: $secondary;
+	font-size: 1.3em;
+	font-style: italic;
+	padding: 0.5em 1em;
+	margin-left: 1em;
+}
+
 .anim-fade { transition: 0.333s opacity; }
 .faded, .lazy-load { opacity: 0; }
 
@@ -339,7 +348,11 @@ $home_header_title_font_size: 5vw;
 }
 
 #projects {
+	a { border: none; }
+	img { width: 100%; }
 	h3 {
+		border-bottom: 2px solid $primary;
+		display: inline-block;
 		margin-bottom: 0.25em;
 	}
 }

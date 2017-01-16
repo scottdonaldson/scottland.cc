@@ -51,6 +51,7 @@ function fadeToggle(el) {
 }
 
 function forEach(array, callback, scope) {
+    if ( !array ) return;
     for (var i = 0; i < array.length; i++) {
         callback.call(array[i], i);
     }
@@ -109,6 +110,8 @@ function compareDates(a, b) {
 }
 
 function parseDate() {
+
+    if ( this.getAttribute('data-date') === "" ) return;
 
     var date = this.getAttribute('data-date'),
         year, month, day,
