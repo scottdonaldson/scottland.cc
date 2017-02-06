@@ -13,7 +13,7 @@ class: no-image
 
 <hr>
 
-With [Martin.js](http://martinjs.org) officially out of beta, I thought I'd show off some of its niftier capabilities. Martin.js can do basic photo editing, like you would do in Photoshop, but with a few lines of code, you can also manipulate photos interactively, and animate, all in browser*.
+With [Martin.js](http://martinjs.scottland.cc) officially out of beta, I thought I'd show off some of its niftier capabilities. Martin.js can do basic photo editing, like you would do in Photoshop, but with a few lines of code, you can also manipulate photos interactively, and animate, all in browser*.
 
 <small>*Of course, for best results, view in Chrome.</small>
 
@@ -50,7 +50,7 @@ With [Martin.js](http://martinjs.org) officially out of beta, I thought I'd show
 })();
 </script>
 
-In the above example, I'm just calling two built-in methods --- `.lighten()` and `.saturate()` and adjusting the amount based on the slider. These methods create `Effects` that are applied to a canvas layer and can be stacked on top of each other. [Read more about `Effects` in Martin.js](http://martinjs.org/effects/).
+In the above example, I'm just calling two built-in methods --- `.lighten()` and `.saturate()` and adjusting the amount based on the slider. These methods create `Effects` that are applied to a canvas layer and can be stacked on top of each other. [Read more about `Effects` in Martin.js](http://martinjs.scottland.cc/effects/).
 
 In addition to the built-in `Effects`, it's relatively easy to create your own --- it just takes a little knowledge of how pixel data is displayed on the screen. Each pixel contains four values that describe how it's displayed: red, green, blue, and alpha (transparency).
 
@@ -171,7 +171,7 @@ Martin.registerEffect('spotlight', function(coords) {
 });
 {% endhighlight %}
 
-The key in the above example is to remove and re-apply the spotlight with each mousemove. Otherwise, the `Effect` will act recursively, quickly turning every pixel black. [Read more about `Events` in Martin.js](http://martinjs.org/events/).
+The key in the above example is to remove and re-apply the spotlight with each mousemove. Otherwise, the `Effect` will act recursively, quickly turning every pixel black. [Read more about `Events` in Martin.js](http://martinjs.scottland.cc/events/).
 
 {% highlight js %}
 // Placeholder for the effect, outside the scope of the event callback.
