@@ -6,7 +6,7 @@ layout: post
 
 <p><strong>Updated August 2013: This article was originally titled “Spinning the Needle with jQuery and CSS Transforms.” While those are still in play here, the title has been updated to reflect the shift from setting data attributes with jQuery and styling with CSS, to directly using inline styles —-- cutting the size of the stylesheet in half.</strong></p>
 
-Parsley & Sprouts recently redesigned the website for the [Abide Idea Company](http://www.abide-idea.com), an idea generation/strategic development consultant. The headline for the site reads, “A trusted guide on your journey to develop new ideas,” and we pushed this metaphor with a graphic of a compass that stays fixed on the page as you scroll down.
+Parsley & Sprouts recently redesigned the website for the Abide Idea Company, an idea generation/strategic development consultant. The headline for the site reads, “A trusted guide on your journey to develop new ideas,” and we pushed this metaphor with a graphic of a compass that stays fixed on the page as you scroll down.
 
 One interactive element that I was really happy with was making the needle of the compass spin so that it’s always pointing at your cursor as you browse the site.
 

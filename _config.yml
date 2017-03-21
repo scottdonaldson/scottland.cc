@@ -12,4 +12,4 @@ kramdown:
 
 exclude: ['aws.json', 'node_modules', 'package.json', 'Gruntfile.js']
 
-permalink: /:title
+permalink: /:title/
