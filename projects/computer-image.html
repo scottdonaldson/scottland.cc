@@ -1,0 +1,66 @@
+---
+layout: post
+title: Architectures of the Computer Image
+permalink: /projects/computer-image/
+banner: 2017/comp-images-banner.jpg
+---
+
+<div class="row">
+    <div class="container">
+        <div class="lead eight columns">
+            As a research assistant for an upcoming exhibition, I compiled a database of file formats for 3d modeling and architectural design. I also created a series of data visualizations to elucidate their structures &mdash; digital <i>architectures</i> of geometric data types.
+        </div>
+        <small class="four columns">
+            <p>This work was conducted under the supervision of Professor <a href="http://dcardo.com">Daniel Cardoso Llach</a> of Carnegie Mellon University School of Architecture's Computational Design program.</p>
+        </small>
+    </div>
+</div>
+
+<div class="row">
+
+    <h2>Introductory Research</h2>
+
+    <p>File formats negotiate between the desires of architectural designers and the practicalities of computer programmers and the machines and software that interpret the files.</p>
+
+    <p>I started the research by reading the specifications for the DXF and IGES file formats, an interchange format and industry standard, respectively. I focused on the overall structure of an individual file, which typically have a header section that defines metadata (i.e. software used to generate it, author) and a body that houses the geometric data. Between the two formats, IGES offers more types of entities &mdash; recognized data structures that translate to a specific type of geometry. Another standard, the IFC format, has even more data types that correspond to real-world objects, such as doors and windows.</p>
+
+    <p>I graphed some these file formats so far, as well as the OBJ format, with separate axes for number of geometric entities and number of real-world entities afforded.</p>
+
+    <img src="http://scottdonaldson.net-assets.s3-website-us-east-1.amazonaws.com/2017/geo-v-real.png">
+
+    <p>To help with my understanding of file formats in general, I loosely defined three "classes" of formats:</p>
+
+    <div class="container">
+        <style>.column_ul { margin: 0; padding-left: 25px; }</style>
+        <div class="four columns">
+            <h3 class="aligncenter">1. Granular Representation</h3>
+            <ul class="column_ul">
+                <li>ex. OBJ, STL</li>
+                <li>small set of geometric primitives</li>
+                <li>form develops from accumulation of "grains" of data</li>
+                <li>high interoperability (easy to process/render)</li>
+            </ul>
+        </div>
+        <div class="four columns">
+            <h3 class="aligncenter">2. Parametric Representation</h3>
+            <ul class="column_ul">
+                <li>ex. DXF, 3DM, 3DS</li>
+                <li>large set of geometric primitives (abstract) and/or ability to describe arbitrary, complex, irregular forms succinctly/parametrically</li>
+                <li>can describe same form in multiple ways</li>
+                <li>medium interoperability</li>
+            </ul>
+        </div>
+        <div class="four columns">
+            <h3 class="aligncenter">3. Contextual Representation</h3>
+            <ul class="column_ul">
+                <li>ex. IGES, IFC, RVT</li>
+                <li>situates parametric representation in a particular context (site, materials, energy, etc.)</li>
+                <li>may blend parametric and granular representations (form secondary to context)</li>
+                <li>low interoperability, may be software-specific</li>
+            </ul>
+        </div>
+    </div>
+
+    
+
+</div>
