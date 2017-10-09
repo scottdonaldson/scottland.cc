@@ -1,0 +1,78 @@
+---
+layout: post
+title: Coons Patch Reconstruction
+permalink: /projects/coons-patch/
+class: no-image
+---
+
+<style>
+body { 
+  background-image: url(/images/projects/coonspatch/bg.png);
+  background-position: 0 10vw;
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+}
+
+main {
+  padding-top: 20vw;
+}
+</style>
+
+<div class="row">
+  <div class="container">
+      <div class="lead eight columns">
+        This interactive piece visualizes a ‘60s-era mathematical formula for constructing ‘free-form’ surfaces from four boundary curves and pays homage to its early application in the automotive and aerospace industries. 
+      </div>
+      <small class="four columns">
+          <p>This work was conducted under the supervision of Professor <a href="http://dcardo.com">Daniel Cardoso Llach</a> of Carnegie Mellon University School of Architecture's Computational Design program.</p>
+      </small>
+  </div>
+</div>
+
+<div class="row">
+
+<h2>Overview</h2>
+
+<p>Serving as research assistant for the exhibition Designing the Computational Image / Imagining Computational Design, I developed an interactive software reconstruction of the Coons patch. Steven A. Coons, a self-taught mathematician and professor at MIT, devised this formula to create a smooth surface between any four parametrically defined curves, connected at the&nbsp;endpoints:</p>
+
+<img src="/images/projects/coonspatch/formula.png" />
+
+<p>The math requires a data representation of 3-dimensional geometries, curves that can be parameterized and interpolated, and higher-order polynomial multiplication &mdash; but it’s not so complex that it can’t be distilled into a single function. In the code, this function can then be encapsulated and reused. After building a visual representation in-browser using three.js, this offers a variety of entry points for manipulating patched&nbsp;surfaces.</p>
+
+</div>
+
+<div class="row">
+
+<img src="{{ site.assets }}/2017/morph.gif" />
+
+<p>One of the simplest ways to interact with the surface is to morph it. This action chooses a random position for each of the control points (within a bounding sphere) and interpolates between the current surface and the new surface.</p>
+
+</div>
+
+<div class="row">
+
+[MORPHING w/ CONTROL PTS GIF]
+
+<p>Toggling on the control points reveals how these 12 points are necessary and sufficient to describe the surface, like the 3d analog of using the ‘Pen’ tool in Adobe Illustrator to create free-form Beziér curves (in fact, the surface’s boundary curves are defined as Bézier curves).</p>
+
+</div>
+
+<div class="row">
+
+[ADJUST CONTROL PT]
+
+<p>Morphing is a dynamic but unpredictable means of manipulating the surface. Adjusting individual control points provides a more direct method of interaction, and allows one to observe the cause-and-effect relationship between the coordinates of a single control point and the resulting form of the surface.</p>
+
+</div>
+
+<div class="row">
+
+[KEYPAD + CONTROL KNOB]
+
+<p>In the gallery, all interactions are performed with a customized keypad and control knob. The advent of the mouse and cursor came years after the Coons patch and concurrent computer visualizations, such as Ivan Sutherland’s Sketchpad. This seemingly clunky interface offers a qualitatively different embodied experience (as well as standing at a podium instead of a personal computer screen), emphasizing the materiality of digital artifacts like the patched surfaces.</p>
+
+<p>While the gallery installation is the ideal setting for this project, I’ve also created a web app that can be explored on a computer running any modern browser:</p>
+
+[PROJECT LINK]
+
+</div>
