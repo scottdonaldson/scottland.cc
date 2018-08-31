@@ -118,6 +118,8 @@ $full_width: 1400px;
     }
 }
 
+.mb0 { margin-bottom: 0 !important; }
+
 .section {
     @include clearfix;
     padding-top: 2em;
