@@ -118,6 +118,8 @@ $full_width: 1400px;
     }
 }
 
+.mb0 { margin-bottom: 0 !important; }
+
 .section {
     @include clearfix;
     padding-top: 2em;
@@ -196,6 +198,16 @@ $gutter: 30px;
         display: none;
     }
 }
+
+.show-s {
+    @media screen and (min-width: $break_small) {
+        display: none;
+    }
+    @media screen and (max-width: $break_small) {
+        display: block;
+    }
+}
+
 .one-s { @include column-small(1); }
 .two-s { @include column-small(2); }
 .three-s { @include column-small(3); }
