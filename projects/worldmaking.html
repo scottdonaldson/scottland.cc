@@ -6,49 +6,52 @@ banner: 2017/voxcel-banner.jpg
 ---
 
 <div class="row">
-    <p class="lead"><b>Worldmaking</b> (formerly Voxcel) is an exploration of the possibilities of 3d modeling that takes advantage of the affordances of the web as a collaborative platform.</p>
-
-    <iframe src="http://voxcel.scottland.cc/#/sandbox" width="100%" height="420" frameborder="0"></iframe>
-</div>
-
-<div class="row">
-
-    <h2>Overview</h2>
-
-    <p>Voxcel is a modeler that restricts geometric forms to those that can be represented by voxels (the 3-dimensional equivalent of pixels). This emphasizes that it is an exploratory tool, not intended for architectural modeling. Rather, Voxcel asks how the real-time, cooperative aspects of the web can impact the process of designing physical forms.</p>
-
-    <p>Each model that is created in Voxcel sets up a globally unique URL that can be shared with others. When you are working on a model, anyone who opens that URL can watch the process as it unfolds.</p>
-
     <div class="container">
-        <div class="six columns">
-            <img src="http://scottdonaldson.net-assets.s3-website-us-east-1.amazonaws.com/2017/voxcel-live1.gif">
-            <div class="aligncenter">
-                <small>A demo model, being worked on by a designer</small>
-            </div>
+        <div class="lead eight columns">
+            <em>Worldmaking</em> (formerly Voxcel) is a software prototype exploring of the possibilities of web-based 3d modeling, coupled with two design 'games' to demonstrate the software's affordances.
         </div>
-        <div class="six columns">
-            <img src="http://scottdonaldson.net-assets.s3-website-us-east-1.amazonaws.com/2017/voxcel-live2.gif">
-            <div class="aligncenter">
-                <small>The same model as seen by an outside viewer</small>
-            </div>
+        <small class="four columns">
+            <p class="tight">This work was conducted toward my master's thesis and as a research assistant in Carnegie Mellon University School of Architecture's Computational Design program.</p>
+        </small>
+    </div>
+    <div class="container">
+        <div class="aligncenter" style="margin-top: 20px;">
+            <a class="button" href="https://worldmaking.scottland.cc" target="_blank">Visit the site</a>
         </div>
     </div>
 </div>
 
-The authentication system allows logged-in users to chat and offer feedback on models in-progress.
+<h2>Overview</h2>
 
-<img src="http://scottdonaldson.net-assets.s3-website-us-east-1.amazonaws.com/2017/voxcel-chat.png">
+<p><em>Worldmaking</em> is a 3d modeling software with a limited vocabulary of geometric shapes: Voxels (3-dimensional pixels, or cubes), spheres, and beams (lines) to be placed on and around a 2-dimensional plane at the center of the environment. A designer-user can add these shapes, in a color of their choosing, and can also delete them. No other design actions (such as moving, rotating, scaling) are implemented. However, through a generative approach, the three shapes inscribe an infinite possibility space, a world for the designer to create and explore.</p>
 
-## Technology
+<img src="{{ site.assets }}/2018/worldmaking.png" />
+<p class="caption aligncenter">An example <i>world</i> built in the software</p>
 
-Voxcel uses [three.js](https://threejs.org/), a WebGL-based JavaScript library for rendering; [React](https://facebook.github.io/react/) for DOM management; [Firebase](https://firebase.google.com/) for data storage and real-time updating.
+<h2>Design Games</h2>
 
-## Future
+<p>Along with <em>Worldmaking</em>, I conducted a pair of design 'games,' each with two participants (students and recent graduates of design and architecture programs). The games each represent possible communication paradigms: Implicit and explicit. The games themselves are adaptations and further explorations of N. John Habraken and Mark Gross' "Silent Game" and "Reference Game." In their original research, the games are played with physical pieces (such as LEGO bricks); in <i>Worldmaking</i> the rules are identical but take place in digital space.</p>
 
-The issues that Voxcel raises are certainly worthy of further exploration. With multiple viewers looking at the same model from different perspectives (literally and figuratively), how can collaborative tools such as live chatting be pushed to allow deeper communication and feedback? What modeling tools and sources of data can be implemented to further solicit and encourage non-expert participation in the design process?
+<h3>1. The Silent Game</h3>
 
-These questions don't have single answers, but they are issues that I'm interested in exploring in my master's thesis at Carnegie Mellon University. More to come.
+<p>In the Silent Game, written communication between participants through the chat interface is discouraged (except for saying, "I'm done," or asking clarifying questions). Player A establishes a design intent by placing up to 5 shapes in one corner. Player B places up to 5 shapes in the opposite corner, in order to demonstrate that they un- derstand Player A’s intent. They then repeat this process with free range over the environment, further elaborating and exploring the design intent. There are no goals such as filling the available space or making a specific pattern; the game is open-ended and simply ends after 30 minutes, leaving time for discussion with the participants.</p>
 
-<div class="aligncenter">
-    <a class="button" href="http://voxcel.scottland.cc">Visit Site</a>
-</div>
+<h3>2. The Reference Game</h3>
+
+<p>In the Reference Game, Player A becomes the 'doer' and Player B becomes the 'talker.' This means that Player B can no longer add or delete shapes in the environment, and instead gives written instructions to Player A via the chat interface, who attempts to follow Player B's instructions and interpret their design intent. Player B may then clarify or provide further instructions to Player A, who continues drawing in the environment.</p>
+
+<img src="{{ site.assets }}/2018/world1-history.gif" alt="" />
+<p class="caption aligncenter">Replaying the history of a world built by a group of graduate students in computational design</p>
+
+<h2>Discussion</h2>
+
+<p>While the 'talkers' in the Reference Game appear to have more agency than the 'doers,' who follow their instructions, in both games the instruction-givers engage in a negotiation with their partner, clarifying and furthering certain points. However, it is necessary to clearly define the relationship between the players. In one game I conducted, after finishing both activities, Player B described mixed feelings on the roles of the Reference Game, saying, "I feel a bit bad about that I kind of order[ed Player A around]. I wanted to accept their imagination. I think that is what collaboration is."</p>
+
+<p>There are trade-offs in following rules literally or interpretively, and in specifying narrowly-defined or loosely-defined rules. In one run of the Silent Game, Player B copied Player A's forms exactly. In some contexts understanding rules is synonymous with following those rules precisely. But when the roles were reversed, Player A took significant creative liberties in interpreting Player B's intent. At first it was unclear why Player A was adding certain shapes, but their later explanation demonstrated an abstracted interpretation of B's intent. As a result, the game entered a new, more dynamic phase, with both players creating novel patterns in response to each other's forms. In a context of cooperative designing, divergent interpretations can be used generatively.</p>
+
+<img src="{{ site.assets }}/2018/world2-history.gif" alt="" />
+<p class="caption aligncenter">Replaying the history of a world built by a group of graduate students in computational design</p>
+
+<h2>Conclusion</h2>
+
+<p><i>Worldmaking</i>, as a case study of collaborative design software, shows how the design process becomes even richer when multiple human designers work together in a dialectic conversation, generating new possibilities through productive (mis)communication. Computational design is not a simple, cause-and-effect method with rulesets deterministically leading to a collection of outputs. Instead, it is a complex feedback loop and negotiation between a designer and other human (and non-human) agencies.</p>
