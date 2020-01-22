@@ -28,6 +28,7 @@ permalink: /archives/
         {% endif %}
         </h3>
         <span class="caption" data-date="{{ post.date }}"></span>
+        {% if post.description %}<p style="max-width: 700px;">{{post.description}}</p>{% endif %}
     </div>
 
     {% if forloop.last %}
@@ -49,6 +50,7 @@ permalink: /archives/
 
         {% endif %}
     {% endif %}
+
 {% endfor %}
 
 </div>
